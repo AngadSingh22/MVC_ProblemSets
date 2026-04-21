@@ -1,0 +1,983 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\setlist[enumerate,1]{label=(\roman*), leftmargin=*}
+\setlist[itemize]{leftmargin=*}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\grad}{\nabla}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pdd}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\pdm}[3]{\frac{\partial^2 #1}{\partial #2\,\partial #3}}
+
+\title{Multivariable Calculus\\Problem Set 7: Solutions}
+\author{Angad Singh Ahuja}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1 (Positive definite matrix)}
+
+\begin{enumerate}
+  \item Let $A$ be a $2\times 2$ symmetric matrix. Show that $A$ is positive definite if and only if all its diagonal entries and determinant are positive.
+
+  \medskip
+  \textbf{Solution.}
+  Write
+  \[
+    A=\begin{pmatrix} a & b \\ b & c \end{pmatrix}, \qquad a,c\in\R,\ b\in\R.
+  \]
+  $A$ is positive definite iff the quadratic form
+  \[
+    Q(x,y)=\begin{pmatrix}x&y\end{pmatrix}A\begin{pmatrix}x\\y\end{pmatrix}
+    =ax^2+2bxy+cy^2
+  \]
+  satisfies $Q(x,y)>0$ for all $(x,y)\neq (0,0)$.
+
+  \smallskip
+  ($\Rightarrow$) If $A$ is positive definite then
+  \[
+    a = Q(1,0)>0,\qquad c = Q(0,1)>0.
+  \]
+  Also, for each $t\in\R$ we have $0<Q(1,t)=a+2bt+ct^2$.
+  This quadratic in $t$ is positive for all $t$, hence its discriminant is negative:
+  \[
+    (2b)^2-4ac <0 \quad\Longrightarrow\quad ac-b^2>0 \quad\Longrightarrow\quad \det(A)>0.
+  \]
+
+  \smallskip
+  ($\Leftarrow$) Assume $a>0$, $c>0$ and $\det(A)=ac-b^2>0$. Then
+  \[
+    Q(x,y)=a\Bigl(x+\frac{b}{a}y\Bigr)^2+\Bigl(c-\frac{b^2}{a}\Bigr)y^2.
+  \]
+  Since $a>0$ and $c-\frac{b^2}{a}=\frac{ac-b^2}{a}=\frac{\det(A)}{a}>0$, both terms on the right are nonnegative and they cannot simultaneously vanish unless $(x,y)=(0,0)$. Hence $Q(x,y)>0$ for $(x,y)\neq(0,0)$, so $A$ is positive definite.
+
+  \item Let $A$ be a $2\times 2$ symmetric matrix. Show that $A$ is negative definite if and only if all its diagonal entries are negative and the determinant is positive.
+
+  \medskip
+  \textbf{Solution.}
+  $A$ is negative definite iff $-A$ is positive definite. Writing
+  \[
+    A=\begin{pmatrix} a & b \\ b & c \end{pmatrix},
+  \]
+  $-A$ is positive definite iff $-a>0$ and $\det(-A)>0$. But $\det(-A)=\det(A)$ for $2\times2$ matrices, so we need $a<0$ and $\det(A)>0$.
+  Moreover, if $a<0$ and $\det(A)=ac-b^2>0$, then $ac>b^2\ge 0$ forces $ac>0$, and since $a<0$ we get $c<0$. Thus the conditions are equivalent to ``both diagonal entries negative and $\det(A)>0$''.
+
+  \item Let $A$ be an $n\times n$ positive definite matrix. Show that all its diagonal entries are positive.
+
+  \medskip
+  \textbf{Solution.}
+  Let $e_i\in\R^n$ be the $i$th standard basis vector. Positive definiteness means $v^\top A v>0$ for all $v\neq 0$. Taking $v=e_i\neq 0$ gives
+  \[
+    e_i^\top A e_i = a_{ii} > 0.
+  \]
+  Hence every diagonal entry $a_{ii}$ is positive.
+\end{enumerate}
+
+\section*{Problem 2}
+Find the local maximum and minimum values and saddle point(s) of the following functions.
+
+\begin{enumerate}
+  \item $f(x,y)=x^2+xy+y^2+y$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    f_x=2x+y,\qquad f_y=x+2y+1.
+  \]
+  Solving $f_x=f_y=0$ gives $y=-2x$ and $x-4x+1=0$, hence
+  \[
+    (x,y)=\Bigl(\frac13,-\frac23\Bigr).
+  \]
+  The Hessian is
+  \[
+    H=\begin{pmatrix} 2 & 1\\ 1 & 2\end{pmatrix},
+  \]
+  which is positive definite ($\det(H)=3>0$ and $2>0$). Therefore the critical point is a strict local minimum (in fact global minimum since $f$ is a strictly convex quadratic).
+  The minimum value is
+  \[
+    f\Bigl(\frac13,-\frac23\Bigr)=\frac19-\frac29+\frac49-\frac23=-\frac13.
+  \]
+
+  \item $f(x,y)=x^3+y^2-3x$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    f_x=3x^2-3,\qquad f_y=2y.
+  \]
+  Hence critical points satisfy $y=0$ and $x=\pm 1$: the points are $(1,0)$ and $(-1,0)$.
+  The Hessian is diagonal:
+  \[
+    f_{xx}=6x,\qquad f_{yy}=2,\qquad f_{xy}=0.
+  \]
+  At $(1,0)$ we have $f_{xx}=6>0$ and $f_{yy}=2>0$, so $H$ is positive definite and $(1,0)$ is a strict local minimum. Its value is $f(1,0)=1-3=-2$.
+
+  At $(-1,0)$ we have $f_{xx}=-6<0$ and $f_{yy}=2>0$, so the Hessian is indefinite and $(-1,0)$ is a saddle point. Its value is $f(-1,0)=-1+3=2$.
+
+  \item $f(x,y)=(x-y)(1-xy)$.
+
+  \medskip
+  \textbf{Solution.}
+  Expand $f=x-y-x^2y+xy^2$. Then
+  \[
+    f_x=1-2xy+y^2,\qquad f_y=-1-x^2+2xy.
+  \]
+  Setting $f_x=f_y=0$ gives
+  \[
+    y^2-2xy+1=0,\qquad 2xy-x^2-1=0.
+  \]
+  Using $2xy=x^2+1$ in the first equation yields $y^2-x^2=0$, so $y=\pm x$.
+  If $y=x$, then $2x^2-x^2-1=0$ gives $x^2=1$, so $(x,y)=(1,1),(-1,-1)$.
+  If $y=-x$, then $2x(-x)-x^2-1=-3x^2-1=0$ has no real solution. Hence the only critical points are $(1,1)$ and $(-1,-1)$.
+
+  The second derivatives are
+  \[
+    f_{xx}=-2y,\qquad f_{yy}=2x,\qquad f_{xy}=-2x+2y.
+  \]
+  At $(1,1)$, $f_{xx}=-2$, $f_{yy}=2$, $f_{xy}=0$, so $\det(H)=-4<0$ and $(1,1)$ is a saddle point.
+  Similarly at $(-1,-1)$, $f_{xx}=2$, $f_{yy}=-2$, $f_{xy}=0$, so $\det(H)=-4<0$ and $(-1,-1)$ is a saddle point.
+  (Both have value $f=0$ since $x-y=0$.)
+
+  \item $f(x,y)=y^3+3x^2y-6x^2-6y^2+2$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    f_x=6xy-12x=6x(y-2),\qquad f_y=3y^2+3x^2-12y=3(x^2+y^2-4y).
+  \]
+  So $f_x=0$ gives $x=0$ or $y=2$.
+  Also $f_y=0$ gives $x^2+y^2-4y=0$, i.e.
+  \[
+    x^2+(y-2)^2=4.
+  \]
+  Intersections yield the critical points
+  \[
+    (0,0),\ (0,4),\ (2,2),\ (-2,2).
+  \]
+  The Hessian is
+  \[
+    f_{xx}=6y-12,\quad f_{yy}=6y-12,\quad f_{xy}=6x.
+  \]
+  At $(0,0)$: $H=\mathrm{diag}(-12,-12)$ is negative definite, so $(0,0)$ is a strict local maximum with value $f(0,0)=2$.
+
+  At $(0,4)$: $H=\mathrm{diag}(12,12)$ is positive definite, so $(0,4)$ is a strict local minimum with value $f(0,4)=64-96+2=-30$.
+
+  At $(2,2)$: $H=\begin{psmallmatrix}0&12\\12&0\end{psmallmatrix}$ is indefinite, so $(2,2)$ is a saddle; $f(2,2)=8+24-24-24+2=-14$.
+  At $(-2,2)$: $H=\begin{psmallmatrix}0&-12\\-12&0\end{psmallmatrix}$ is indefinite, so $(-2,2)$ is also a saddle, with the same value $-14$.
+
+  \item $f(x,y)=xy(1-x-y)$.
+
+  \medskip
+  \textbf{Solution.}
+  Expand $f=xy-x^2y-xy^2$. Then
+  \[
+    f_x=y-2xy-y^2 = y(1-2x-y),\qquad
+    f_y=x-x^2-2xy = x(1-x-2y).
+  \]
+  Critical points satisfy $f_x=f_y=0$.
+  From the factorizations:
+  \[
+    y=0\ \text{or}\ y=1-2x,\qquad x=0\ \text{or}\ x=1-2y.
+  \]
+  This gives the points
+  \[
+    (0,0),\ (1,0),\ (0,1),\ \Bigl(\frac13,\frac13\Bigr).
+  \]
+  Second derivatives:
+  \[
+    f_{xx}=-2y,\qquad f_{yy}=-2x,\qquad f_{xy}=1-2x-2y.
+  \]
+  At $(\frac13,\frac13)$ we have $f_{xx}=f_{yy}=-\frac23$ and $f_{xy}=-\frac13$, hence
+  \[
+    \det(H)=\frac{4}{9}-\frac{1}{9}=\frac13>0,\quad f_{xx}<0,
+  \]
+  so $(\frac13,\frac13)$ is a strict local maximum with value $f=\frac{1}{27}$.
+  At $(0,0)$, $(1,0)$, $(0,1)$ one finds $\det(H)<0$, so these are saddle points (in $\R^2$).
+
+  \item $f(x,y)=e^x\cos y$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    f_x=e^x\cos y,\qquad f_y=-e^x\sin y.
+  \]
+  Since $e^x\neq 0$, any critical point would need $\cos y=0$ and $\sin y=0$ simultaneously, which is impossible. Hence there are \emph{no} critical points, and thus no local maxima/minima/saddles in $\R^2$.
+
+  \item $f(x,y)=(x^2+y^2)e^{\,y^2-x^2}$.
+
+  \medskip
+  \textbf{Solution.}
+  Let $r^2=x^2+y^2$ and $E=e^{y^2-x^2}$. Then
+  \[
+    f=r^2E,\qquad f_x = 2xE + r^2(-2xE)=2xE(1-r^2),
+  \]
+  \[
+    f_y = 2yE + r^2(2yE)=2yE(1+r^2).
+  \]
+  Since $E>0$ and $1+r^2>0$, the equation $f_y=0$ forces $y=0$.
+  Then $f_x=0$ becomes $2x e^{-x^2}(1-x^2)=0$, so $x=0$ or $x=\pm 1$.
+  Thus the critical points are $(0,0)$, $(1,0)$, $(-1,0)$.
+
+  For classification, compute
+  \[
+    f_{xx}=E\bigl(2-10x^2-2y^2+4x^4+4x^2y^2\bigr),\quad
+    f_{yy}=E\bigl(2+2x^2+10y^2+4x^2y^2+4y^4\bigr),
+  \]
+  \[
+    f_{xy}=-4xyr^2E.
+  \]
+  At $(0,0)$: $H=\mathrm{diag}(2,2)$ is positive definite, so $(0,0)$ is a strict local minimum with value $f(0,0)=0$.
+
+  At $(\pm 1,0)$: $f_{xy}=0$, $f_{xx}=-4e^{-1}<0$, $f_{yy}=4e^{-1}>0$, so $\det(H)<0$ and $(1,0),(-1,0)$ are saddle points.
+
+  \item $f(x,y)=e^y(y^2-x^2)$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    f_x=-2xe^y,\qquad f_y=e^y(y^2-x^2+2y).
+  \]
+  Critical points satisfy $x=0$ and $y^2+2y=0$, so $y=0$ or $y=-2$.
+  Hence the critical points are $(0,0)$ and $(0,-2)$.
+
+  Second derivatives:
+  \[
+    f_{xx}=-2e^y,\qquad f_{xy}=-2xe^y,\qquad
+    f_{yy}=e^y(y^2-x^2+4y+2).
+  \]
+  At $(0,0)$: $f_{xx}=-2$, $f_{yy}=2$, $f_{xy}=0$, so $\det(H)=-4<0$ and $(0,0)$ is a saddle point.
+  At $(0,-2)$: $f_{xx}=-2e^{-2}<0$, $f_{yy}=-2e^{-2}<0$, $\det(H)=4e^{-4}>0$, so $(0,-2)$ is a strict local maximum with value $f(0,-2)=4e^{-2}$.
+
+  \item $f(x,y)=y^2-2y\cos x,\quad 1\le x\le 7$.
+
+  \medskip
+  \textbf{Solution.}
+  First note the useful rewriting
+  \[
+    f(x,y)=(y-\cos x)^2-\cos^2 x,
+  \]
+  so for each fixed $x$ the function is a parabola in $y$ with minimum at $y=\cos x$.
+
+  In the interior $1<x<7$, critical points satisfy
+  \[
+    f_x=2y\sin x=0,\qquad f_y=2y-2\cos x=0.
+  \]
+  Hence $y=\cos x$, and then $f_x=2\cos x\sin x=\sin(2x)=0$.
+  Therefore interior critical points occur at
+  \[
+    x\in\Bigl\{\frac{\pi}{2},\pi,\frac{3\pi}{2},2\pi\Bigr\}\cap(1,7),
+    \quad y=\cos x,
+  \]
+  i.e.
+  \[
+    \Bigl(\frac{\pi}{2},0\Bigr),\ (\pi,-1),\ \Bigl(\frac{3\pi}{2},0\Bigr),\ (2\pi,1).
+  \]
+  The Hessian is
+  \[
+    f_{xx}=2y\cos x,\qquad f_{yy}=2,\qquad f_{xy}=2\sin x.
+  \]
+  At $x=\pi$ and $x=2\pi$ we have $\cos x=\pm 1$, $\sin x=0$, and $y=\cos x$, so
+  \[
+    f_{xx}=2\cos^2 x =2>0,\quad f_{xy}=0,\quad f_{yy}=2,
+  \]
+  hence these are strict local minima (relative to the strip) at $(\pi,-1)$ and $(2\pi,1)$.
+  At $x=\frac{\pi}{2}$ or $x=\frac{3\pi}{2}$ we have $\cos x=0$, $y=0$, and $\sin x=\pm 1$, so $\det(H)<0$ and these are saddle points.
+
+  On the boundary $x=1$ or $x=7$, $f$ as a function of $y$ still has a (one-dimensional) minimum at $y=\cos x$, giving boundary minima in the strip at $(1,\cos 1)$ and $(7,\cos 7)$.
+
+  \item $f(x,y)=\sin x\,\sin y,\quad -\pi\le x\le \pi,\ -\pi\le y\le \pi$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    f_x=\cos x\,\sin y,\qquad f_y=\sin x\,\cos y.
+  \]
+  Thus critical points satisfy $\cos x\,\sin y=0$ and $\sin x\,\cos y=0$.
+  There are two families of solutions:
+  \begin{itemize}
+    \item $\sin x=0$ and $\sin y=0$, i.e. $x\in\{-\pi,0,\pi\}$ and $y\in\{-\pi,0,\pi\}$ (9 points), where $f=0$.
+    \item $\cos x=0$ and $\cos y=0$, i.e. $x\in\{-\frac{\pi}{2},\frac{\pi}{2}\}$ and $y\in\{-\frac{\pi}{2},\frac{\pi}{2}\}$ (4 points), where $f=\pm 1$.
+  \end{itemize}
+
+  The Hessian entries are
+  \[
+    f_{xx}=-\sin x\,\sin y=-f,\qquad
+    f_{yy}=-\sin x\,\sin y=-f,\qquad
+    f_{xy}=\cos x\,\cos y.
+  \]
+  At points with $x=\pm\frac{\pi}{2}$ and $y=\pm\frac{\pi}{2}$, we have $f_{xy}=0$ and $f=\pm 1$.
+  Hence when $f=1$ (same signs), $H=-I$ is negative definite, giving strict local maxima with value $1$ at
+  \[
+    \Bigl(\frac{\pi}{2},\frac{\pi}{2}\Bigr),\quad \Bigl(-\frac{\pi}{2},-\frac{\pi}{2}\Bigr).
+  \]
+  When $f=-1$ (opposite signs), $H=I$ is positive definite, giving strict local minima with value $-1$ at
+  \[
+    \Bigl(\frac{\pi}{2},-\frac{\pi}{2}\Bigr),\quad \Bigl(-\frac{\pi}{2},\frac{\pi}{2}\Bigr).
+  \]
+  At the 9 points where $\sin x=\sin y=0$, we have $f=0$ and $f_{xx}=f_{yy}=0$ while $f_{xy}=\cos x\cos y=\pm 1$, so $\det(H)<0$ and these are saddle points (relative to $\R^2$, and also relative to the square except for edge effects at the boundary).
+\end{enumerate}
+
+\section*{Problem 3}
+
+\begin{enumerate}
+  \item Find all local and global extreme values for $f(x,y)=xy(1-x^2-y^2)$ on $(x,y)\in[0,1]^2$.
+
+  \medskip
+  \textbf{Solution.}
+  On $\R^2$,
+  \[
+    f(x,y)=xy-x^3y-xy^3.
+  \]
+  Compute
+  \[
+    f_x = y-3x^2y-y^3 = y(1-3x^2-y^2),\qquad
+    f_y = x-x^3-3xy^2 = x(1-x^2-3y^2).
+  \]
+  \textbf{Interior critical points.} In $(0,1)^2$ we have $x>0,y>0$, so we solve
+  \[
+    1-3x^2-y^2=0,\qquad 1-x^2-3y^2=0.
+  \]
+  Subtracting gives $-2x^2+2y^2=0$, hence $x^2=y^2$ and with $x,y>0$ we get $x=y$.
+  Plugging into $1-3x^2-x^2=0$ yields $x^2=\frac14$, so $(x,y)=(\frac12,\frac12)$.
+
+  The Hessian components are
+  \[
+    f_{xx}=-6xy,\qquad f_{yy}=-6xy,\qquad f_{xy}=1-3x^2-3y^2.
+  \]
+  At $(\frac12,\frac12)$:
+  \[
+    f_{xx}=f_{yy}=-\frac{3}{2},\quad f_{xy}=-\frac12,\quad
+    \det(H)=\frac{9}{4}-\frac14=2>0,
+  \]
+  and $f_{xx}<0$, so $(\frac12,\frac12)$ is a strict local maximum. Its value is
+  \[
+    f\Bigl(\frac12,\frac12\Bigr)=\frac14\Bigl(1-\frac14-\frac14\Bigr)=\frac18.
+  \]
+
+  \textbf{Boundary analysis.}
+  On $x=0$ or $y=0$, we have $f=0$.
+  On $x=1$, $f(1,y)=y(1-1-y^2)=-y^3$, whose minimum on $[0,1]$ is $-1$ at $y=1$ and maximum is $0$ at $y=0$.
+  On $y=1$, $f(x,1)=-x^3$, whose minimum on $[0,1]$ is $-1$ at $x=1$ and maximum is $0$ at $x=0$.
+
+  \textbf{Global extrema on $[0,1]^2$.}
+  Comparing interior and boundary candidates:
+  \begin{itemize}
+    \item Global maximum: $\displaystyle \max_{[0,1]^2} f = \frac18$, attained at $(\frac12,\frac12)$.
+    \item Global minimum: $\displaystyle \min_{[0,1]^2} f = -1$, attained at $(1,1)$.
+  \end{itemize}
+  Also, $f=0$ occurs on the axes and along the quarter-circle $x^2+y^2=1$ inside the square.
+
+  \item Let $f(x,y)=3x^4-4x^2y+y^2$.
+  Show that on every line $y=mx$, the function has a minimum at $(0,0)$, but $(0,0)$ is not a local minimum.
+
+  \medskip
+  \textbf{Solution.}
+  Restrict to the line $y=mx$:
+  \[
+    f(x,mx)=3x^4-4x^2(mx)+(mx)^2=3x^4-4mx^3+m^2x^2
+    =x^2(3x^2-4mx+m^2).
+  \]
+  Since $x^2\ge 0$ and $3x^2-4mx+m^2$ is continuous with value $m^2\ge 0$ at $x=0$, we have $f(x,mx)\ge 0$ for all $x$ sufficiently close to $0$, and $f(0,0)=0$.
+  In particular, along each fixed line $y=mx$, the restricted one-variable function $x\mapsto f(x,mx)$ has a \emph{local} minimum at $x=0$ (with local minimum value $0$). (This minimum need not be global along the entire line.)
+
+  However, $(0,0)$ is \emph{not} a local minimum in $\R^2$. Indeed, along the curve $y=2x^2$ we get
+  \[
+    f(x,2x^2)=3x^4-4x^2(2x^2)+(2x^2)^2=3x^4-8x^4+4x^4=-x^4<0
+  \]
+  for all $x\neq 0$.
+  So in every neighborhood of $(0,0)$ there are points with $f(x,y)<f(0,0)=0$, proving $(0,0)$ is not a local minimum.
+
+  \item Given $n$ distinct numbers $a_1,\dots,a_n\in\R$ and real numbers $b_1,\dots,b_n\in\R$, find the straight line $y=ax+b$ which minimizes
+  \[
+    \sum_{i=1}^n\bigl(ax_i+b-b_i\bigr)^2
+  \]
+  in the special case where the ``$x$-coordinates'' are $x_i=a_i$ (as encoded in the problem set), i.e. minimize
+  \[
+    F(b,a)=\sum_{i=1}^n\bigl(b+a\,a_i-b_i\bigr)^2.
+  \]
+
+  \medskip
+  \textbf{Solution.}
+  Define
+  \[
+    F(b,a)=\sum_{i=1}^n(b+a a_i-b_i)^2,\qquad (b,a)\in\R^2.
+  \]
+  This is a strictly convex quadratic in $(b,a)$ as long as not all $a_i$ are equal; since the $a_i$ are distinct, it has a unique global minimizer given by the normal equations $\grad F=0$.
+
+  Compute partial derivatives:
+  \[
+    \pd{F}{b}=2\sum_{i=1}^n(b+a a_i-b_i),\qquad
+    \pd{F}{a}=2\sum_{i=1}^n a_i(b+a a_i-b_i).
+  \]
+  Setting them to zero gives the linear system
+  \[
+    nb+a\sum_{i=1}^n a_i=\sum_{i=1}^n b_i,\qquad
+    b\sum_{i=1}^n a_i+a\sum_{i=1}^n a_i^2=\sum_{i=1}^n a_i b_i.
+  \]
+  Let
+  \[
+    S_a=\sum_{i=1}^n a_i,\quad S_{aa}=\sum_{i=1}^n a_i^2,\quad
+    S_b=\sum_{i=1}^n b_i,\quad S_{ab}=\sum_{i=1}^n a_i b_i.
+  \]
+  The determinant is
+  \[
+    D=nS_{aa}-S_a^2.
+  \]
+  Since the $a_i$ are not all equal, $D>0$ (it equals $n^2$ times the variance of the $a_i$).
+  Solving,
+  \[
+    a^\star=\frac{nS_{ab}-S_a S_b}{D},\qquad
+    b^\star=\frac{S_bS_{aa}-S_a S_{ab}}{D}.
+  \]
+  Therefore the minimizing line is $y=a^\star x+b^\star$.
+\end{enumerate}
+
+\section*{Problem 4}
+Consider $f(x,y)=xy(1-x^2-y^2)$ on $[0,1]^2$.
+
+\begin{enumerate}
+  \item Find all the critical points on the square $[0,1]^2$.
+
+  \medskip
+  \textbf{Solution.}
+  As in Problem 3(i),
+  \[
+    f_x=y(1-3x^2-y^2),\qquad f_y=x(1-x^2-3y^2).
+  \]
+  By the standard definition, critical points are interior points where $\grad f=0$. Thus we work on $(0,1)^2$.
+  Since $x>0$ and $y>0$ in $(0,1)^2$, the equations $f_x=0$ and $f_y=0$ reduce to
+  \[
+    1-3x^2-y^2=0,\qquad 1-x^2-3y^2=0.
+  \]
+  Subtracting the second equation from the first gives
+  \[
+    -2x^2+2y^2=0 \quad\Longrightarrow\quad x^2=y^2.
+  \]
+  Because $x,y>0$ in the interior of the square, this implies $x=y$.
+  Substituting $y=x$ into $1-3x^2-y^2=0$, we get
+  \[
+    1-3x^2-x^2=0 \quad\Longrightarrow\quad 1-4x^2=0
+    \quad\Longrightarrow\quad x^2=\frac14.
+  \]
+  Again using $x>0$, we obtain $x=\frac12$, and hence $y=\frac12$.
+  Therefore the unique critical point in $(0,1)^2$ is
+  \[
+    \Bigl(\frac12,\frac12\Bigr).
+  \]
+  Boundary points are handled separately when finding extrema on $[0,1]^2$ (see parts (iii)--(iv)).
+
+  \item Find all saddle points, points of local minima and points of local maxima on $(0,1)^2$.
+
+  \medskip
+  \textbf{Solution.}
+  From part (i), the only critical point in $(0,1)^2$ is $(\frac12,\frac12)$.
+  To classify it, we compute the second derivatives:
+  \[
+    f_{xx}=-6xy,\qquad f_{yy}=-6xy,\qquad f_{xy}=1-3x^2-3y^2.
+  \]
+  At $\bigl(\frac12,\frac12\bigr)$ these become
+  \[
+    f_{xx}\Bigl(\frac12,\frac12\Bigr)=-6\cdot \frac12\cdot \frac12=-\frac32,
+  \]
+  \[
+    f_{yy}\Bigl(\frac12,\frac12\Bigr)=-\frac32,
+  \]
+  \[
+    f_{xy}\Bigl(\frac12,\frac12\Bigr)=1-3\cdot \frac14-3\cdot \frac14
+    =1-\frac32=-\frac12.
+  \]
+  Hence the Hessian determinant is
+  \[
+    D=f_{xx}f_{yy}-(f_{xy})^2
+    =\Bigl(-\frac32\Bigr)\Bigl(-\frac32\Bigr)-\Bigl(-\frac12\Bigr)^2
+    =\frac94-\frac14=2>0.
+  \]
+  Since $D>0$ and $f_{xx}\bigl(\frac12,\frac12\bigr)=-\frac32<0$, the second derivative test shows that $\bigl(\frac12,\frac12\bigr)$ is a strict local maximum.
+  There are no interior local minima or saddle points.
+
+  \item Find all saddle points, points of local minima and points of local maxima on $[0,1]^2$.
+
+  \medskip
+  \textbf{Solution (relative to the square).}
+  We now classify points \emph{relative to the square} $[0,1]^2$.
+
+  First, from part (ii), the only interior critical point is $\bigl(\frac12,\frac12\bigr)$, and it is a strict local maximum.
+
+  Next consider boundary points. Since
+  \[
+    f(x,y)=xy(1-x^2-y^2),
+  \]
+  we have
+  \[
+    f(x,0)=0,\qquad f(0,y)=0
+  \]
+  for all $x,y\in[0,1]$.
+  If $(x_0,0)$ is a point on the bottom edge with $0<x_0<1$, then for nearby points $(x,y)\in[0,1]^2$ we have $x\ge 0$, $y\ge 0$, and if $x_0<1$ then for sufficiently small perturbations we also have $x^2+y^2<1$. Hence
+  \[
+    1-x^2-y^2>0
+  \]
+  near $(x_0,0)$, so
+  \[
+    f(x,y)=xy(1-x^2-y^2)\ge 0=f(x_0,0).
+  \]
+  Therefore every point $(x_0,0)$ with $0\le x_0<1$ is a local minimum relative to the square. The same argument shows that every point $(0,y_0)$ with $0\le y_0<1$ is also a local minimum relative to the square.
+
+  In particular, $(0,0)$ is a local minimum.
+
+  At the corner $(1,1)$ we have
+  \[
+    f(1,1)=1\cdot 1\cdot (1-1-1)=-1.
+  \]
+  For points $(x,y)$ near $(1,1)$ inside the square, we have $x>0$, $y>0$, and
+  \[
+    1-x^2-y^2<0,
+  \]
+  so $f(x,y)<0$. Since the global minimum will turn out to be $-1$, this shows $(1,1)$ is a boundary local minimum, in fact the global minimum.
+
+  There are no boundary local maxima: on the axes the value is $0$, but moving slightly into the interior near points with $x^2+y^2<1$ makes $f>0$, so such points cannot be local maxima. Also near $(1,1)$ the nearby values are larger than $-1$, so $(1,1)$ is a minimum, not a maximum.
+
+  Thus, relative to $[0,1]^2$:
+  \begin{itemize}
+    \item the only local maximum is $\bigl(\frac12,\frac12\bigr)$;
+    \item the local minima are all points on the two edges $y=0$ and $x=0$ with $x^2+y^2<1$, together with the corner $(1,1)$;
+    \item there are no saddle points in the interior, and the only interior stationary point is the local maximum already found.
+  \end{itemize}
+
+  \item Find maxima and minima (point of attainment as well as value) on $[0,1]^2$.
+
+  \medskip
+  \textbf{Solution.}
+  Since $[0,1]^2$ is compact and $f$ is continuous, absolute maxima and minima exist.
+  From Problem 3(i), the only interior critical point is $\bigl(\frac12,\frac12\bigr)$, where
+  \[
+    f\Bigl(\frac12,\frac12\Bigr)=\frac12\cdot \frac12\cdot \left(1-\frac14-\frac14\right)
+    =\frac14\cdot \frac12=\frac18.
+  \]
+  Now examine the boundary:
+
+  On $x=0$ or $y=0$,
+  \[
+    f=0.
+  \]
+  On $x=1$,
+  \[
+    f(1,y)=y(1-1-y^2)=-y^3,\qquad 0\le y\le 1.
+  \]
+  This is decreasing on $[0,1]$, so along this edge its maximum is $0$ at $y=0$ and its minimum is $-1$ at $y=1$.
+  Similarly, on $y=1$,
+  \[
+    f(x,1)=x(1-x^2-1)=-x^3,\qquad 0\le x\le 1,
+  \]
+  whose maximum is $0$ at $x=0$ and minimum is $-1$ at $x=1$.
+
+  Comparing the interior value $\frac18$ with all boundary values,
+  \[
+    \max_{[0,1]^2} f=\frac18\ \text{at}\ \Bigl(\frac12,\frac12\Bigr),
+    \qquad
+    \min_{[0,1]^2} f=-1\ \text{at}\ (1,1).
+  \]
+\end{enumerate}
+
+\section*{Problem 5}
+Find extreme values for the following function subject to the given constraint.
+
+\begin{enumerate}
+  \item $f(x,y)=xy$ subject to $x+y=1$.
+
+  \medskip
+  \textbf{Solution.}
+  Use the constraint
+  \[
+    g(x,y)=x+y-1=0.
+  \]
+  Then
+  \[
+    \grad f=(y,x),\qquad \grad g=(1,1).
+  \]
+  The Lagrange multiplier equation $\grad f=\lambda \grad g$ gives
+  \[
+    (y,x)=\lambda(1,1),
+  \]
+  so
+  \[
+    y=\lambda,\qquad x=\lambda.
+  \]
+  Hence $x=y$. Using the constraint $x+y=1$, we get
+  \[
+    2x=1 \quad\Longrightarrow\quad x=\frac12,
+  \]
+  and therefore
+  \[
+    y=\frac12.
+  \]
+  So the only critical point on the constraint is $\bigl(\frac12,\frac12\bigr)$, and
+  \[
+    f\Bigl(\frac12,\frac12\Bigr)=\frac14.
+  \]
+
+  To show that this is the maximum, we may now use the one-variable form of the constraint:
+  \[
+    y=1-x \quad\Longrightarrow\quad f(x,1-x)=x(1-x)
+    =-\Bigl(x-\frac12\Bigr)^2+\frac14 \le \frac14.
+  \]
+  Thus the maximum value is $\frac14$, attained at $\bigl(\frac12,\frac12\bigr)$.
+
+  To see that there is no minimum, let $x\to +\infty$ along the line $x+y=1$. Then $y=1-x\to -\infty$ and
+  \[
+    f(x,1-x)=x(1-x)=x-x^2\to -\infty.
+  \]
+  There is no minimum (the function is unbounded below along the line $x+y=1$).
+
+  \item $f(x,y)=x^2+y^2$ subject to $\frac{x}{a}+\frac{y}{b}=1$.
+
+  \medskip
+  \textbf{Solution.}
+  Assume $a,b\neq 0$. Use Lagrange multipliers with $g(x,y)=\frac{x}{a}+\frac{y}{b}-1=0$.
+  Then
+  \[
+    \grad f=(2x,2y),\qquad \grad g=\Bigl(\frac1a,\frac1b\Bigr),
+  \]
+  so $(2x,2y)=\lambda(\frac1a,\frac1b)$, giving
+  \[
+    x=\frac{\lambda}{2a},\qquad y=\frac{\lambda}{2b}.
+  \]
+  Plug into the constraint:
+  \[
+    \frac{1}{a}\cdot\frac{\lambda}{2a}+\frac{1}{b}\cdot\frac{\lambda}{2b}=1
+    \quad\Longrightarrow\quad
+    \lambda\Bigl(\frac{1}{2a^2}+\frac{1}{2b^2}\Bigr)=1
+    \quad\Longrightarrow\quad
+    \lambda=\frac{2a^2b^2}{a^2+b^2}.
+  \]
+  Hence
+  \[
+    x^\star=\frac{ab^2}{a^2+b^2},\qquad y^\star=\frac{a^2b}{a^2+b^2}.
+  \]
+  The minimum value is
+  \[
+    (x^\star)^2+(y^\star)^2
+    =\frac{a^2b^4+a^4b^2}{(a^2+b^2)^2}
+    =\frac{a^2b^2}{a^2+b^2}.
+  \]
+  To see there is no maximum, parametrize the constraint line by
+  \[
+    y=b-\frac{b}{a}x.
+  \]
+  Then
+  \[
+    x^2+y^2=x^2+\left(b-\frac{b}{a}x\right)^2.
+  \]
+  As $|x|\to \infty$, the right-hand side tends to $+\infty$, so the function is unbounded above on the constraint line. Hence no maximum exists.
+
+  \item $f(x,y)=x+y$ subject to $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$.
+
+  \medskip
+  \textbf{Solution.}
+  Use Lagrange multipliers with $g(x,y)=\frac{x^2}{a^2}+\frac{y^2}{b^2}-1=0$.
+  Then
+  \[
+    (1,1)=\lambda\Bigl(\frac{2x}{a^2},\frac{2y}{b^2}\Bigr),
+  \]
+  so
+  \[
+    x=\frac{a^2}{2\lambda},\qquad y=\frac{b^2}{2\lambda}.
+  \]
+  Plugging into the constraint:
+  \[
+    \frac{1}{a^2}\cdot\frac{a^4}{4\lambda^2}+\frac{1}{b^2}\cdot\frac{b^4}{4\lambda^2}=1
+    \quad\Longrightarrow\quad
+    \frac{a^2+b^2}{4\lambda^2}=1
+    \quad\Longrightarrow\quad
+    \lambda=\pm\frac12\sqrt{a^2+b^2}.
+  \]
+  Therefore
+  \[
+    (x,y)=\pm\Bigl(\frac{a^2}{\sqrt{a^2+b^2}},\frac{b^2}{\sqrt{a^2+b^2}}\Bigr).
+  \]
+  The corresponding values are
+  \[
+    f_{\max}=\sqrt{a^2+b^2},\qquad f_{\min}=-\sqrt{a^2+b^2}.
+  \]
+  Concretely,
+  \[
+    f\left(\frac{a^2}{\sqrt{a^2+b^2}},\frac{b^2}{\sqrt{a^2+b^2}}\right)
+    =\frac{a^2+b^2}{\sqrt{a^2+b^2}}=\sqrt{a^2+b^2},
+  \]
+  while choosing the negative point gives the negative of this value.
+  \end{enumerate}
+
+\section*{Problem 6 (Lagrange multipliers)}
+Use Lagrange multipliers to find the maximum and minimum of the given function subject to the given constraint.
+
+\begin{enumerate}
+  \item $f(x,y)=x^2+y^2$, \quad $g(x,y)=xy-1=0$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    (2x,2y)=\lambda(y,x).
+  \]
+  Thus
+  \[
+    2x=\lambda y,\qquad 2y=\lambda x.
+  \]
+  Multiplying these two equations gives
+  \[
+    4xy=\lambda^2xy.
+  \]
+  Since $xy=1\neq 0$, $\lambda^2=4$, so $\lambda=\pm 2$.
+  If $\lambda=2$, then $x=y$; with $xy=1$ this yields $(1,1)$ and $(-1,-1)$.
+  If $\lambda=-2$, then $x=-y$, which contradicts $xy=1$.
+  Therefore the only candidates are $(1,1)$ and $(-1,-1)$, and both give $f=2$.
+  Moreover, on the constraint $y=1/x$,
+  \[
+    f(x,1/x)=x^2+\frac{1}{x^2}\ge 2
+  \]
+  by AM--GM, so $f_{\min}=2$ at $(1,1)$ and $(-1,-1)$. There is no maximum (unbounded above).
+
+  \item $f(x,y)=x^2+2y^2-4y$, \quad $g(x,y)=x^2+y^2-9=0$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    (2x,4y-4)=\lambda(2x,2y).
+  \]
+  So
+  \[
+    2x=2\lambda x,\qquad 4y-4=2\lambda y.
+  \]
+  From the first equation,
+  \[
+    2x(1-\lambda)=0,
+  \]
+  hence either $x=0$ or $\lambda=1$.
+  If $\lambda=1$, then $4y-4=2y$, so $y=2$, and $x^2=9-4=5$, so $(x,y)=(\pm\sqrt5,2)$ with $f=5$.
+  If $x=0$, then $y=\pm 3$. Values:
+  \[
+    f(0,3)=18-12=6,\qquad f(0,-3)=18+12=30.
+  \]
+  Hence on the circle $x^2+y^2=9$, the global minimum is $5$ at $(\pm\sqrt5,2)$ and the global maximum is $30$ at $(0,-3)$.
+
+  \item $f(x,y)=y^2-x^2$, \quad $g(x,y)=\frac{1}{x^2}+y^2-1=0$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    (-2x,2y)=\lambda\Bigl(-\frac{2}{x^3},2y\Bigr).
+  \]
+  Thus
+  \[
+    -2x=-\frac{2\lambda}{x^3},\qquad 2y=2\lambda y.
+  \]
+  From the second component,
+  \[
+    2y(1-\lambda)=0,
+  \]
+  so either $y=0$ or $\lambda=1$.
+  If $\lambda=1$, then $-2x=-2/x^3$, so $x^4=1$ and $x=\pm 1$. The constraint then gives $y=0$.
+  If $y=0$, the constraint is $1/x^2=1$, again giving $x=\pm 1$.
+  Thus the only candidates are $(1,0)$ and $(-1,0)$, at which $f=-1$.
+  On the constraint, $y^2=1-\frac{1}{x^2}$ and
+  \[
+    f=1-\frac{1}{x^2}-x^2 = 1-\Bigl(x^2+\frac{1}{x^2}\Bigr)\le -1
+  \]
+  with equality exactly at $|x|=1$. Hence the global maximum is $-1$ at $(\pm 1,0)$; there is no minimum (unbounded below as $|x|\to\infty$).
+
+  \item $f(x,y)=xy$, \quad $g(x,y)=x^2+2y^2-6=0$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    (y,x)=\lambda(2x,4y).
+  \]
+  So
+  \[
+    y=2\lambda x,\qquad x=4\lambda y.
+  \]
+  Substitute the first equation into the second:
+  \[
+    x=4\lambda(2\lambda x)=8\lambda^2x.
+  \]
+  If $x=0$, then from the constraint $2y^2=6$, so $y=\pm\sqrt3$, and then $f=xy=0$. These are not extrema once compared with the nonzero values found below.
+  If $x\neq 0$, we may divide by $x$ and get
+  \[
+    8\lambda^2=1\quad\Longrightarrow\quad \lambda=\pm\frac{1}{2\sqrt2}.
+  \]
+  Then $y=\pm \frac{x}{\sqrt2}$ (sign matches $\lambda$).
+  Plug into the constraint:
+  \[
+    x^2+2\cdot\frac{x^2}{2}=2x^2=6 \quad\Longrightarrow\quad x=\pm\sqrt3,
+  \]
+  hence $y=\pm\sqrt{\frac32}$ with either same sign (for $\lambda>0$) or opposite sign (for $\lambda<0$).
+  Values:
+  \[
+    f_{\max}=\frac{3}{\sqrt2}\ \text{at}\ (\sqrt3,\sqrt{3/2}),\ (-\sqrt3,-\sqrt{3/2}),
+  \]
+  \[
+    f_{\min}=-\frac{3}{\sqrt2}\ \text{at}\ (\sqrt3,-\sqrt{3/2}),\ (-\sqrt3,\sqrt{3/2}).
+  \]
+
+  \item $f(x,y)=x^2y^2$, \quad $g(x,y)=x^2+y^2-1=0$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    (2xy^2,2yx^2)=\lambda(2x,2y).
+  \]
+  Thus
+  \[
+    2xy^2=2\lambda x,\qquad 2yx^2=2\lambda y.
+  \]
+  If $x=0$ or $y=0$, the constraint gives $(\pm 1,0)$ or $(0,\pm 1)$ and then
+  \[
+    f=x^2y^2=0.
+  \]
+  If $x\neq 0$ and $y\neq 0$, divide by $2x$ and $2y$ respectively to get
+  \[
+    y^2=\lambda,\qquad x^2=\lambda \quad\Longrightarrow\quad x^2=y^2.
+  \]
+  With $x^2+y^2=1$, this gives $x^2=y^2=\frac12$, so $|x|=|y|=\frac{1}{\sqrt2}$.
+  Then $f=\bigl(\frac12\bigr)\bigl(\frac12\bigr)=\frac14$.
+  Thus $f_{\min}=0$ at $(\pm1,0),(0,\pm1)$ and $f_{\max}=\frac14$ at the four points $(\pm\frac1{\sqrt2},\pm\frac1{\sqrt2})$.
+
+  \item $f(x,y)=\sqrt{xy}$, \quad $g(x,y)=x+y-c=0$.
+
+  \medskip
+  \textbf{Solution.}
+  We consider the natural domain $xy\ge 0$; in typical applications one also assumes $x,y\ge 0$ and $c>0$.
+  On $x,y>0$,
+  \[
+    f_x=\frac12\sqrt{\frac{y}{x}},\qquad f_y=\frac12\sqrt{\frac{x}{y}},\qquad \grad g=(1,1).
+  \]
+  The Lagrange conditions say
+  \[
+    \frac12\sqrt{\frac{y}{x}}=\lambda,\qquad \frac12\sqrt{\frac{x}{y}}=\lambda.
+  \]
+  Equating these gives
+  \[
+    \sqrt{\frac{y}{x}}=\sqrt{\frac{x}{y}}.
+  \]
+  Squaring both sides,
+  \[
+    \frac{y}{x}=\frac{x}{y}\quad\Longrightarrow\quad y^2=x^2.
+  \]
+  Since we are considering $x,y>0$, this yields $x=y$.
+  With $x+y=c$, we obtain $x=y=\frac{c}{2}$.
+  The corresponding value is
+  \[
+    f_{\max}=\sqrt{\frac{c}{2}\cdot\frac{c}{2}}=\frac{c}{2}.
+  \]
+  If one restricts to $x,y\ge 0$, the minimum is $0$, attained at the endpoints $(0,c)$ and $(c,0)$.
+
+  \item $f(x,y)=x^2+y^2$, \quad $g(x,y)=x^4+y^4-1=0$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    (2x,2y)=\lambda(4x^3,4y^3).
+  \]
+  If $x=0$, then $y^4=1$ so $y=\pm 1$ and $f=1$.
+  Similarly if $y=0$, then $x=\pm 1$ and $f=1$.
+  If $x\neq 0$ and $y\neq 0$, then
+  \[
+    2x=4\lambda x^3\Rightarrow 1=2\lambda x^2,\qquad
+    2y=4\lambda y^3\Rightarrow 1=2\lambda y^2,
+  \]
+  so $x^2=y^2$. With $x^4+y^4=1$ this gives $2x^4=1$, hence $x^2=\frac{1}{\sqrt2}$.
+  Thus $f=x^2+y^2=2\cdot\frac{1}{\sqrt2}=\sqrt2$ at the four points $(\pm 2^{-1/4},\pm 2^{-1/4})$.
+
+  Since $|x|,|y|\le 1$ on the constraint, $x^4\le x^2$ and $y^4\le y^2$, so
+  \[
+    1=x^4+y^4\le x^2+y^2=f,
+  \]
+  giving $f\ge 1$ and showing $f_{\min}=1$ at $(\pm1,0),(0,\pm1)$.
+  Also by Cauchy--Schwarz, $(x^2+y^2)^2\le 2(x^4+y^4)=2$, so $f\le \sqrt2$ and the above points attain the maximum.
+
+  \item $f(x,y)=x^4+y^4$, \quad $g(x,y)=x^2+y^2-1=0$.
+
+  \medskip
+  \textbf{Solution.}
+  \[
+    (4x^3,4y^3)=\lambda(2x,2y).
+  \]
+  If $x=0$ then the constraint gives $y=\pm 1$, so
+  \[
+    f=x^4+y^4=1.
+  \]
+  Similarly if $y=0$ then $x=\pm1$ and $f=1$.
+  If $x\neq 0$ and $y\neq 0$, then
+  \[
+    4x^3=2\lambda x,\qquad 4y^3=2\lambda y.
+  \]
+  Dividing by $2x$ and $2y$ gives
+  \[
+    2x^2=\lambda,\qquad 2y^2=\lambda,
+  \]
+  so $x^2=y^2$. Using $x^2+y^2=1$, we get $x^2=y^2=\frac12$, and therefore
+  \[
+    f=x^4+y^4=\frac14+\frac14=\frac12.
+  \]
+  Hence $f_{\min}=\frac12$ at $(\pm\frac1{\sqrt2},\pm\frac1{\sqrt2})$, and $f_{\max}=1$ at $(\pm1,0),(0,\pm1)$.
+
+  \item $f(x_1,\dots,x_n)=x_1+\cdots+x_n$, \quad $g(x_1,\dots,x_n)=x_1^2+\cdots+x_n^2-1=0$.
+
+  \medskip
+  \textbf{Solution.}
+  Using Lagrange multipliers:
+  \[
+    (1,\dots,1)=\lambda(2x_1,\dots,2x_n),
+  \]
+  so for each $i$,
+  \[
+    1=2\lambda x_i \quad\Longrightarrow\quad x_i=\frac{1}{2\lambda}.
+  \]
+  Thus all coordinates are equal. Let $x_1=\cdots=x_n=t$. Then the constraint becomes
+  \[
+    nt^2=1 \quad\Longrightarrow\quad t=\pm \frac{1}{\sqrt n}.
+  \]
+  Therefore
+  \[
+    f_{\max}=\sqrt n \quad\text{at}\quad x_i=\frac{1}{\sqrt n},\qquad
+    f_{\min}=-\sqrt n \quad\text{at}\quad x_i=-\frac{1}{\sqrt n}.
+  \]
+
+  \item $H(p_1,\dots,p_n)=-\sum_{i=1}^n p_i\log_2 p_i$ with $p_i\ge 0$, subject to $p_1+\cdots+p_n=1$.
+
+  \medskip
+  \textbf{Solution.}
+  For $p_i>0$, set up the Lagrangian
+  \[
+    \mathcal{L}(p,\lambda)=-\sum_{i=1}^n p_i\log_2 p_i+\lambda\Bigl(\sum_{i=1}^n p_i-1\Bigr).
+  \]
+  For each $i$,
+  \[
+    \pd{\mathcal{L}}{p_i}=-(\log_2 p_i + 1/\ln 2)+\lambda=0
+    \quad\Longrightarrow\quad
+    \log_2 p_i = \text{constant}.
+  \]
+  Hence all $p_i$ are equal: $p_i=\frac{1}{n}$. This gives the maximum entropy
+  \[
+    H_{\max}=-\sum_{i=1}^n \frac{1}{n}\log_2\Bigl(\frac{1}{n}\Bigr)=\log_2 n.
+  \]
+  For the minimum, note that each term $-p_i\log_2 p_i$ is nonnegative for $0\le p_i\le 1$, so
+  \[
+    H(p_1,\dots,p_n)\ge 0.
+  \]
+  Equality holds at an extreme point of the simplex, for example
+  \[
+    (p_1,\dots,p_n)=(1,0,\dots,0),
+  \]
+  where
+  \[
+    H=-(1)\log_2 1=0.
+  \]
+  Thus $H_{\min}=0$ and $H_{\max}=\log_2 n$.
+\end{enumerate}
+
+\end{document}

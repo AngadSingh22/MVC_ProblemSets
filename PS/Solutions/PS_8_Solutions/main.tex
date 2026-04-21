@@ -1,0 +1,1014 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\setlist[enumerate,1]{label=(\roman*), leftmargin=*}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Ti}{\operatorname{Ti}_2}
+
+\title{Multivariable Calculus\\Problem Set 8: Solutions}
+\author{Angad Singh Ahuja}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\noindent
+\textbf{Note.} In Problem 3(i), the PDF appears to have a missing minus sign; the region is interpreted as $-2\le x\le 2$, $1\le y\le 6$.
+
+\section*{Problem 1}
+Find the extreme values of $f$ subject to both constraints.
+
+\begin{enumerate}
+\item $f(x,y,z)=x+2y$ subject to $x+y+z=1$ and $y^2+z^2=4$.
+
+\textbf{Solution.}
+From the linear constraint,
+\[
+x=1-y-z.
+\]
+Hence
+\[
+f=x+2y=(1-y-z)+2y=1+y-z.
+\]
+So we need to maximize/minimize $y-z$ on the circle $y^2+z^2=4$.
+Write
+\[
+y-z=\langle (y,z),(1,-1)\rangle.
+\]
+By Cauchy-Schwarz,
+\[
+|y-z|\le \sqrt{y^2+z^2}\,\sqrt{1^2+(-1)^2}=2\sqrt2.
+\]
+Therefore
+\[
+f_{\max}=1+2\sqrt2,\qquad f_{\min}=1-2\sqrt2.
+\]
+Equality holds when $(y,z)$ is parallel to $(1,-1)$ or $(-1,1)$:
+\[
+(y,z)=(\sqrt2,-\sqrt2)\quad\text{or}\quad (-\sqrt2,\sqrt2).
+\]
+Since $x=1-y-z$, in both cases $x=1$. Hence
+\[
+f_{\max}=1+2\sqrt2 \text{ at } (1,\sqrt2,-\sqrt2),
+\]
+\[
+f_{\min}=1-2\sqrt2 \text{ at } (1,-\sqrt2,\sqrt2).
+\]
+
+\item $f(x,y,z)=3x-y-3z$ subject to $x+y-z=0$ and $x^2+2z^2=1$.
+
+\textbf{Solution.}
+From $x+y-z=0$ we get
+\[
+y=z-x.
+\]
+Then
+\[
+f=3x-(z-x)-3z=4x-4z=4(x-z).
+\]
+Thus we maximize/minimize the linear function $x-z$ on the ellipse
+\[
+x^2+2z^2=1.
+\]
+Introduce $u=x$ and $v=\sqrt2\,z$. Then $u^2+v^2=1$ and
+\[
+f=4u-2\sqrt2\,v.
+\]
+Its maximum and minimum on the unit circle are
+\[
+\pm\sqrt{4^2+(2\sqrt2)^2}=\pm 2\sqrt6.
+\]
+So
+\[
+f_{\max}=2\sqrt6,\qquad f_{\min}=-2\sqrt6.
+\]
+The maximizing point on the $(u,v)$-circle is
+\[
+(u,v)=\frac{(4,-2\sqrt2)}{2\sqrt6}=\left(\frac{\sqrt6}{3},-\frac1{\sqrt3}\right).
+\]
+Hence
+\[
+x=\frac{\sqrt6}{3},\qquad z=\frac{v}{\sqrt2}=-\frac1{\sqrt6},\qquad y=z-x=-\frac{\sqrt6}{2}.
+\]
+Thus
+\[
+f_{\max}=2\sqrt6 \text{ at } \left(\frac{\sqrt6}{3},-\frac{\sqrt6}{2},-\frac1{\sqrt6}\right).
+\]
+By symmetry,
+\[
+f_{\min}=-2\sqrt6 \text{ at } \left(-\frac{\sqrt6}{3},\frac{\sqrt6}{2},\frac1{\sqrt6}\right).
+\]
+
+\item $f(x,y,z)=yz+xy$ subject to $xy=1$ and $y^2+z^2=1$.
+
+\textbf{Solution.}
+From $xy=1$ we have $x=1/y$ (so $y\neq 0$). Then
+\[
+f=yz+xy=yz+1.
+\]
+Thus we only need to maximize/minimize $yz$ subject to
+\[
+y^2+z^2=1.
+\]
+Since
+\[
+2|yz|\le y^2+z^2=1,
+\]
+we get
+\[
+-\frac12\le yz\le \frac12.
+\]
+Therefore
+\[
+f_{\max}=1+\frac12=\frac32,\qquad f_{\min}=1-\frac12=\frac12.
+\]
+The maximum $yz=\frac12$ occurs at
+\[
+(y,z)=\left(\frac1{\sqrt2},\frac1{\sqrt2}\right),\quad
+\left(-\frac1{\sqrt2},-\frac1{\sqrt2}\right),
+\]
+and then $x=1/y=\pm\sqrt2$. Hence
+\[
+f_{\max}=\frac32 \text{ at } \left(\sqrt2,\frac1{\sqrt2},\frac1{\sqrt2}\right),\ 
+\left(-\sqrt2,-\frac1{\sqrt2},-\frac1{\sqrt2}\right).
+\]
+The minimum $yz=-\frac12$ occurs at
+\[
+(y,z)=\left(\frac1{\sqrt2},-\frac1{\sqrt2}\right),\quad
+\left(-\frac1{\sqrt2},\frac1{\sqrt2}\right),
+\]
+so
+\[
+f_{\min}=\frac12 \text{ at } \left(\sqrt2,\frac1{\sqrt2},-\frac1{\sqrt2}\right),\ 
+\left(-\sqrt2,-\frac1{\sqrt2},\frac1{\sqrt2}\right).
+\]
+
+\item $f(x,y,z)=x^2+y^2+z^2$ subject to $x-y=1$ and $y^2-z^2=1$.
+
+\textbf{Solution.}
+From the constraints,
+\[
+x=y+1,\qquad z^2=y^2-1.
+\]
+Hence
+\[
+f=(y+1)^2+y^2+(y^2-1)=3y^2+2y.
+\]
+The constraint $z^2=y^2-1\ge 0$ implies $|y|\ge 1$.
+So we minimize $3y^2+2y$ on the set $(-\infty,-1]\cup[1,\infty)$.
+
+Since $3y^2+2y$ is an upward-opening parabola, and its vertex $y=-1/3$ is not feasible, the minimum occurs at the nearest feasible endpoint $y=-1$.
+Then
+\[
+x=0,\qquad z=0,\qquad f=1.
+\]
+As $|y|\to\infty$, we have $f=3y^2+2y\to\infty$, so there is no maximum.
+
+Therefore
+\[
+f_{\min}=1 \text{ at } (0,-1,0),
+\]
+and there is no maximum.
+\end{enumerate}
+
+\section*{Problem 2}
+Find the absolute maximum and minimum values of the following function in the specified region.
+
+\begin{enumerate}
+\item $f(x,y)=4xy^2-x^2y^2-xy^3$ on the closed triangle with vertices $(0,0)$, $(0,6)$, $(6,0)$.
+
+\textbf{Solution.}
+The region is
+\[
+R=\{(x,y):x\ge 0,\ y\ge 0,\ x+y\le 6\}.
+\]
+Write
+\[
+f(x,y)=xy^2(4-x-y).
+\]
+Since $R$ is compact and $f$ is continuous, absolute extrema exist.
+
+\textbf{Interior critical points.}
+\[
+f_x=y^2(4-2x-y),\qquad f_y=xy(8-2x-3y).
+\]
+In the interior, $x>0$ and $y>0$, so
+\[
+4-2x-y=0,\qquad 8-2x-3y=0.
+\]
+Subtracting gives $2y=4$, so $y=2$, and then $x=1$.
+Thus the only interior critical point is $(1,2)$, where
+\[
+f(1,2)=4.
+\]
+
+\textbf{Boundary.}
+On $x=0$ or $y=0$, we have $f=0$.
+
+On the slanted edge $x+y=6$, put $y=6-x$:
+\[
+f(x,6-x)=x(6-x)^2(4-6)=-2x(6-x)^2,\qquad 0\le x\le 6.
+\]
+Let
+\[
+g(x)=-2x(6-x)^2.
+\]
+Then
+\[
+g'(x)=-2(6-x)(6-3x).
+\]
+So critical points are $x=2$ and $x=6$. Evaluating,
+\[
+g(0)=0,\qquad g(2)=-64,\qquad g(6)=0.
+\]
+Hence the boundary minimum is $-64$ at $(2,4)$.
+
+Comparing all candidates:
+\[
+f_{\max}=4 \text{ at } (1,2),\qquad f_{\min}=-64 \text{ at } (2,4).
+\]
+
+\item $f(x,y)=e^{-x^2-y^2}(x^2+2y^2)$ on the disk $x^2+y^2\le 1$.
+
+\textbf{Solution.}
+Write $x=r\cos\theta$, $y=r\sin\theta$. Then
+\[
+f(r,\theta)=e^{-r^2}r^2(\cos^2\theta+2\sin^2\theta).
+\]
+For fixed $\theta$, the angular factor is positive and
+\[
+g(r)=r^2e^{-r^2},\qquad 0\le r\le 1.
+\]
+Now
+\[
+g'(r)=2re^{-r^2}(1-r^2)\ge 0 \quad\text{for } 0\le r\le 1.
+\]
+So for each $\theta$, the maximum occurs at $r=1$ and the minimum at $r=0$.
+
+At $r=0$,
+\[
+f(0,0)=0.
+\]
+At $r=1$,
+\[
+f=e^{-1}(\cos^2\theta+2\sin^2\theta)=e^{-1}(1+\sin^2\theta).
+\]
+This is largest when $\sin^2\theta=1$, i.e. at $(0,\pm 1)$, and smallest on the boundary when $\sin^2\theta=0$, i.e. at $(\pm 1,0)$.
+
+Therefore
+\[
+f_{\min}=0 \text{ at } (0,0),
+\]
+\[
+f_{\max}=\frac{2}{e} \text{ at } (0,1)\text{ and }(0,-1).
+\]
+\end{enumerate}
+
+\section*{Problem 3}
+Evaluate the double integral by first identifying it as the volume of a solid.
+
+\begin{enumerate}
+\item $\displaystyle \iint_R 3\,dA$, where $R=\{(x,y):-2\le x\le 2,\ 1\le y\le 6\}$.
+
+\textbf{Solution.}
+This is the volume of the solid of constant height $3$ over the rectangle $R$.
+The area of the base is
+\[
+\text{Area}(R)=(2-(-2))(6-1)=4\cdot 5=20.
+\]
+Hence
+\[
+\iint_R 3\,dA = 3\cdot 20=60.
+\]
+
+\item $\displaystyle \iint_R 5x\,dA$, where $R=\{(x,y):0\le x\le 5,\ 0\le y\le 3\}$.
+
+\textbf{Solution.}
+This is the volume under the plane $z=5x$ over the given rectangle:
+\[
+\iint_R 5x\,dA
+=\int_0^5\int_0^3 5x\,dy\,dx
+=\int_0^5 15x\,dx
+=15\cdot \frac{25}{2}
+=\frac{375}{2}.
+\]
+\end{enumerate}
+
+\section*{Problem 4}
+Evaluate the following iterated integrals.
+
+\begin{enumerate}
+\item $\displaystyle \int_0^2\int_0^4 y^2e^{2x}\,dy\,dx$.
+
+\[
+\int_0^2 e^{2x}\left(\int_0^4 y^2\,dy\right)dx
+=\int_0^2 e^{2x}\cdot \frac{64}{3}\,dx
+=\frac{64}{3}\cdot \frac{e^4-1}{2}
+=\frac{32}{3}(e^4-1).
+\]
+
+\item $\displaystyle \int_{-3}^3\int_0^{\pi/2}(y+y^2\cos x)\,dx\,dy$.
+
+\[
+\int_{-3}^3 \left(\frac{\pi}{2}y+y^2\int_0^{\pi/2}\cos x\,dx\right)dy
+=\int_{-3}^3\left(\frac{\pi}{2}y+y^2\right)dy.
+\]
+The first term is odd and integrates to $0$:
+\[
+\int_{-3}^3 \frac{\pi}{2}y\,dy=0.
+\]
+Thus
+\[
+\int_{-3}^3 y^2\,dy=2\int_0^3 y^2\,dy=2\cdot 9=18.
+\]
+So the value is
+\[
+18.
+\]
+
+\item $\displaystyle \int_1^3\int_1^5 (\ln y)\,xy\,dy\,dx$.
+
+\[
+\left(\int_1^3 x\,dx\right)\left(\int_1^5 y\ln y\,dy\right)
+=4\left[\frac{y^2}{2}\ln y-\frac{y^2}{4}\right]_1^5.
+\]
+Hence
+\[
+4\left(\frac{25}{2}\ln 5-\frac{25}{4}+\frac14\right)
+=50\ln 5-24.
+\]
+
+\item $\displaystyle \int_0^1\int_0^1 v(u+v^2)^4\,du\,dv$.
+
+\[
+\int_0^1 v\left[\frac{(u+v^2)^5}{5}\right]_{u=0}^{u=1}dv
+=\frac15\int_0^1 v\left((1+v^2)^5-v^{10}\right)dv.
+\]
+Now
+\[
+\int_0^1 v(1+v^2)^5\,dv
+=\frac12\int_1^2 t^5\,dt
+=\frac{1}{12}(64-1)=\frac{63}{12},
+\]
+and
+\[
+\int_0^1 v^{11}\,dv=\frac1{12}.
+\]
+Therefore
+\[
+\frac15\left(\frac{63}{12}-\frac1{12}\right)=\frac15\cdot \frac{62}{12}=\frac{21}{20}.
+\]
+
+\item $\displaystyle \int_0^1\int_0^1 xy\sqrt{x^2+y^2}\,dy\,dx$.
+
+Integrate with respect to $y$ first:
+\[
+\int_0^1 x\left(\int_0^1 y\sqrt{x^2+y^2}\,dy\right)dx.
+\]
+Let $t=x^2+y^2$, so $dt=2y\,dy$:
+\[
+\int y\sqrt{x^2+y^2}\,dy
+=\frac12\int t^{1/2}\,dt
+=\frac13 t^{3/2}.
+\]
+Hence
+\[
+\int_0^1 x\cdot \frac13\left[(x^2+y^2)^{3/2}\right]_{y=0}^{y=1}dx
+=\frac13\int_0^1 x\Big((x^2+1)^{3/2}-x^3\Big)\,dx.
+\]
+Now
+\[
+\int_0^1 x(x^2+1)^{3/2}\,dx
+=\frac12\int_1^2 t^{3/2}\,dt
+=\frac15\bigl(2^{5/2}-1\bigr)=\frac{4\sqrt2-1}{5},
+\]
+and
+\[
+\int_0^1 x^4\,dx=\frac15.
+\]
+Therefore
+\[
+\frac13\left(\frac{4\sqrt2-1}{5}-\frac15\right)
+=\frac{2(2\sqrt2-1)}{15}.
+\]
+
+\item $\displaystyle \int_0^2\int_0^\pi r\sin^2\theta\,d\theta\,dr$.
+
+\[
+\left(\int_0^2 r\,dr\right)\left(\int_0^\pi \sin^2\theta\,d\theta\right)
+=2\cdot \frac{\pi}{2}=\pi.
+\]
+
+\item $\displaystyle \int_0^1\int_0^1 \sqrt{s+t}\,ds\,dt$.
+
+Integrating in $s$ first,
+\[
+\int_0^1 \left[\frac23(s+t)^{3/2}\right]_{s=0}^{s=1}dt
+=\frac23\int_0^1 \bigl((1+t)^{3/2}-t^{3/2}\bigr)\,dt.
+\]
+So
+\[
+\frac23\left(\frac25(2^{5/2}-1)-\frac25\right)
+=\frac{8(2\sqrt2-1)}{15}.
+\]
+
+\item $\displaystyle \int_1^2\int_0^{2z}\int_0^{\ln x} xe^y\,dy\,dx\,dz$.
+
+First integrate in $y$:
+\[
+\int_0^{\ln x} xe^y\,dy=x(e^{\ln x}-1)=x(x-1)=x^2-x.
+\]
+So
+\[
+\int_1^2\int_0^{2z}(x^2-x)\,dx\,dz
+=\int_1^2\left[\frac{x^3}{3}-\frac{x^2}{2}\right]_0^{2z}dz
+=\int_1^2\left(\frac{8z^3}{3}-2z^2\right)dz.
+\]
+This gives
+\[
+\left[\frac{2z^4}{3}-\frac{2z^3}{3}\right]_1^2=\frac{16}{3}.
+\]
+
+\item $\displaystyle \int_0^{\pi/2}\int_0^y\int_0^x \cos(x+y+z)\,dz\,dx\,dy$.
+
+First,
+\[
+\int_0^x \cos(x+y+z)\,dz
+=\sin(x+y+z)\Big|_0^x
+=\sin(2x+y)-\sin(x+y).
+\]
+So the integral becomes
+\[
+\int_0^{\pi/2}\int_0^y \bigl(\sin(2x+y)-\sin(x+y)\bigr)\,dx\,dy.
+\]
+Integrating in $x$,
+\[
+\int_0^y \sin(2x+y)\,dx=-\frac12\cos(2x+y)\Big|_0^y
+=-\frac12\cos 3y+\frac12\cos y,
+\]
+\[
+\int_0^y \sin(x+y)\,dx=-\cos(x+y)\Big|_0^y
+=-\cos 2y+\cos y.
+\]
+Hence the inner integral is
+\[
+-\frac12\cos 3y+\cos 2y-\frac12\cos y.
+\]
+Now integrate from $0$ to $\pi/2$:
+\[
+\left[-\frac16\sin 3y+\frac12\sin 2y-\frac12\sin y\right]_0^{\pi/2}
+=\frac16-\frac12=-\frac13.
+\]
+Therefore the value is
+\[
+-\frac13.
+\]
+
+\item $\displaystyle \int_0^{\sqrt\pi}\int_0^x\int_0^{xz} x^2\sin y\,dy\,dz\,dx$.
+
+First,
+\[
+\int_0^{xz} x^2\sin y\,dy
+=x^2(1-\cos(xz)).
+\]
+Then
+\[
+\int_0^x x^2(1-\cos(xz))\,dz
+=x^2\left[z-\frac{\sin(xz)}{x}\right]_0^x
+=x^3-x\sin(x^2).
+\]
+Therefore
+\[
+\int_0^{\sqrt\pi} \bigl(x^3-x\sin(x^2)\bigr)\,dx
+=\left[\frac{x^4}{4}\right]_0^{\sqrt\pi}
+-\int_0^{\sqrt\pi}x\sin(x^2)\,dx.
+\]
+For the second term, let $u=x^2$, $du=2x\,dx$:
+\[
+\int_0^{\sqrt\pi}x\sin(x^2)\,dx
+=\frac12\int_0^\pi \sin u\,du=1.
+\]
+Hence the value is
+\[
+\frac{\pi^2}{4}-1.
+\]
+\end{enumerate}
+
+\section*{Problem 5}
+Calculate the double integral of the following functions in the specified regions.
+
+\begin{enumerate}
+\item $f(x,y)=\sin(x-y)$ on $R=\{(x,y):0\le x\le \pi/2,\ 0\le y\le \pi/2\}$.
+
+\textbf{Solution.}
+Since the square is symmetric under $(x,y)\leftrightarrow(y,x)$ and
+\[
+\sin(y-x)=-\sin(x-y),
+\]
+the integral is zero:
+\[
+\iint_R \sin(x-y)\,dA=0.
+\]
+
+\item $f(x,y)=y+xy^{-2}$ on $R=\{(x,y):0\le x\le 2,\ 1\le y\le 2\}$.
+
+\textbf{Solution.}
+\[
+\int_0^2\int_1^2 \left(y+\frac{x}{y^2}\right)dy\,dx
+=\int_0^2 \left[\frac{y^2}{2}-\frac{x}{y}\right]_{1}^{2}dx
+=\int_0^2\left(\frac32+\frac{x}{2}\right)dx=4.
+\]
+
+\item $f(x,y)=x^2+2y$, where $R$ is bounded by $y=0$, $y=x^2$, $x=1$.
+
+\textbf{Solution.}
+The region is
+\[
+0\le x\le 1,\qquad 0\le y\le x^2.
+\]
+Thus
+\[
+\iint_R (x^2+2y)\,dA
+=\int_0^1\int_0^{x^2}(x^2+2y)\,dy\,dx
+=\int_0^1 \bigl(x^4+x^4\bigr)\,dx
+=2\int_0^1 x^4\,dx=\frac25.
+\]
+
+\item $f(x,y)=y^2$, where $R$ is the triangle with vertices $(0,1)$, $(1,2)$, $(4,1)$.
+
+\textbf{Solution.}
+The two nonhorizontal sides are
+\[
+y=x+1 \quad (0\le x\le 1),\qquad y=\frac{7-x}{3}\quad (1\le x\le 4).
+\]
+Hence
+\[
+\iint_R y^2\,dA
+=\int_0^1\int_1^{x+1} y^2\,dy\,dx
++\int_1^4\int_1^{(7-x)/3} y^2\,dy\,dx.
+\]
+Compute:
+\[
+\int_0^1\int_1^{x+1} y^2\,dy\,dx
+=\frac13\int_0^1\bigl((x+1)^3-1\bigr)\,dx
+=\frac{11}{12},
+\]
+\[
+\int_1^4\int_1^{(7-x)/3} y^2\,dy\,dx
+=\frac13\int_1^4\left(\left(\frac{7-x}{3}\right)^3-1\right)dx
+=\frac{11}{4}.
+\]
+Therefore
+\[
+\iint_R y^2\,dA=\frac{11}{12}+\frac{11}{4}=\frac{11}{3}.
+\]
+
+\item $f(x,y)=xy^2$, where $R$ is enclosed by $x=0$ and $x=\sqrt{1-y^2}$.
+
+\textbf{Solution.}
+This is the right half of the unit disk:
+\[
+-1\le y\le 1,\qquad 0\le x\le \sqrt{1-y^2}.
+\]
+Thus
+\[
+\iint_R xy^2\,dA
+=\int_{-1}^1\int_0^{\sqrt{1-y^2}}xy^2\,dx\,dy
+=\int_{-1}^1 y^2\left[\frac{x^2}{2}\right]_0^{\sqrt{1-y^2}}dy.
+\]
+Hence
+\[
+=\frac12\int_{-1}^1(y^2-y^4)\,dy
+=\int_0^1 (y^2-y^4)\,dy
+=\frac13-\frac15=\frac{2}{15}.
+\]
+
+\item $f(x,y)=\sin(x^2+y^2)$, where $R$ is the region in the first quadrant between the circles $x^2+y^2=a^2$ and $x^2+y^2=b^2$, with $0<a<b$.
+
+\textbf{Solution.}
+Use polar coordinates:
+\[
+0\le \theta\le \frac{\pi}{2},\qquad a\le r\le b.
+\]
+Then
+\[
+\iint_R \sin(x^2+y^2)\,dA
+=\int_0^{\pi/2}\int_a^b \sin(r^2)\,r\,dr\,d\theta.
+\]
+Let $u=r^2$, $du=2r\,dr$:
+\[
+\int_a^b \sin(r^2)\,r\,dr
+=\frac12\int_{a^2}^{b^2}\sin u\,du
+=\frac12\bigl(\cos a^2-\cos b^2\bigr).
+\]
+Therefore
+\[
+\iint_R \sin(x^2+y^2)\,dA
+=\frac{\pi}{4}\bigl(\cos a^2-\cos b^2\bigr).
+\]
+
+\item $f(x,y)=e^{-x^2-y^2}$, where $R$ is bounded by the semicircle $x=\sqrt{4-y^2}$ and the $y$-axis.
+
+\textbf{Solution.}
+This is the right semicircle of radius $2$:
+\[
+0\le r\le 2,\qquad -\frac{\pi}{2}\le \theta\le \frac{\pi}{2}.
+\]
+Thus
+\[
+\iint_R e^{-x^2-y^2}\,dA
+=\int_{-\pi/2}^{\pi/2}\int_0^2 e^{-r^2}r\,dr\,d\theta.
+\]
+Now
+\[
+\int_0^2 e^{-r^2}r\,dr
+=\frac12\int_0^4 e^{-u}\,du
+=\frac12(1-e^{-4}).
+\]
+Multiplying by the angular length $\pi$ gives
+\[
+\iint_R e^{-x^2-y^2}\,dA
+=\frac{\pi}{2}(1-e^{-4}).
+\]
+
+\item $f(x,y)=\arctan\!\left(\frac{y}{x}\right)$ on $R=\{(x,y):1\le x^2+y^2\le 4,\ 0\le y\le x\}$.
+
+\textbf{Solution.}
+In polar coordinates, the region is
+\[
+1\le r\le 2,\qquad 0\le \theta\le \frac{\pi}{4},
+\]
+and
+\[
+\arctan\!\left(\frac{y}{x}\right)=\theta.
+\]
+Therefore
+\[
+\iint_R \arctan\!\left(\frac{y}{x}\right)\,dA
+=\int_0^{\pi/4}\int_1^2 \theta r\,dr\,d\theta
+=\left(\int_1^2 r\,dr\right)\left(\int_0^{\pi/4}\theta\,d\theta\right).
+\]
+Hence
+\[
+=\frac32\cdot \frac{\pi^2}{32}
+=\frac{3\pi^2}{64}.
+\]
+\end{enumerate}
+
+\section*{Problem 6}
+Solve the following volume problems.
+
+\begin{enumerate}
+\item Volume bounded by the circular paraboloid $z=1-x^2-y^2$ and the $xy$-plane.
+
+\textbf{Solution.}
+The paraboloid meets the plane $z=0$ when
+\[
+x^2+y^2=1.
+\]
+So in polar coordinates,
+\[
+0\le r\le 1,\qquad 0\le \theta\le 2\pi.
+\]
+The volume is
+\[
+V=\int_0^{2\pi}\int_0^1 (1-r^2)r\,dr\,d\theta
+=2\pi\left[\frac{r^2}{2}-\frac{r^4}{4}\right]_0^1
+=2\pi\left(\frac14\right)=\frac{\pi}{2}.
+\]
+
+\item Volume under the cone $z=\sqrt{x^2+y^2}$ and above the disk $x^2+y^2\le 4$.
+
+\textbf{Solution.}
+In polar coordinates, $z=r$ and $0\le r\le 2$:
+\[
+V=\int_0^{2\pi}\int_0^2 r\cdot r\,dr\,d\theta
+=2\pi\int_0^2 r^2\,dr
+=2\pi\cdot \frac{8}{3}
+=\frac{16\pi}{3}.
+\]
+
+\item Volume below the paraboloid $z=18-2x^2-2y^2$ and above the $xy$-plane.
+
+\textbf{Solution.}
+The paraboloid meets $z=0$ when
+\[
+18-2r^2=0 \quad\Longrightarrow\quad r=3.
+\]
+Hence
+\[
+V=\int_0^{2\pi}\int_0^3 (18-2r^2)r\,dr\,d\theta
+=2\pi\left[9r^2-\frac{r^4}{2}\right]_0^3
+=2\pi\left(81-\frac{81}{2}\right)=81\pi.
+\]
+
+\item Volume enclosed by the hyperboloid $-x^2-y^2+z^2=1$ and the plane $z=2$.
+
+\textbf{Solution.}
+Rewrite the surface as
+\[
+z^2-r^2=1 \quad\Longrightarrow\quad r^2=z^2-1.
+\]
+For $1\le z\le 2$, the cross-section at height $z$ is a disk of area
+\[
+\pi(z^2-1).
+\]
+Thus
+\[
+V=\int_1^2 \pi(z^2-1)\,dz
+=\pi\left[\frac{z^3}{3}-z\right]_1^2
+=\frac{4\pi}{3}.
+\]
+
+\item Volume inside the sphere $x^2+y^2+z^2=16$ and outside the cylinder $x^2+y^2=4$.
+
+\textbf{Solution.}
+In cylindrical coordinates, the region is
+\[
+2\le r\le 4,\qquad 0\le \theta\le 2\pi,\qquad -\sqrt{16-r^2}\le z\le \sqrt{16-r^2}.
+\]
+Hence
+\[
+V=\int_0^{2\pi}\int_2^4\int_{-\sqrt{16-r^2}}^{\sqrt{16-r^2}} r\,dz\,dr\,d\theta
+=4\pi\int_2^4 r\sqrt{16-r^2}\,dr.
+\]
+Let $u=16-r^2$, so $du=-2r\,dr$:
+\[
+V=4\pi\cdot \frac12\int_0^{12} u^{1/2}\,du
+=2\pi\cdot \frac{2}{3}u^{3/2}\Big|_0^{12}
+=\frac{4\pi}{3}\cdot 12^{3/2}.
+\]
+Since $12^{3/2}=24\sqrt3$,
+\[
+V=32\pi\sqrt3.
+\]
+\end{enumerate}
+
+\section*{Problem 7}
+Evaluate the triple integral of the following functions in the specified solids.
+
+\begin{enumerate}
+\item $f(x,y,z)=y$, \quad $V=\{(x,y,z):0\le x\le 3,\ 0\le y\le x,\ x-y\le z\le x+y\}$.
+
+\textbf{Solution.}
+\[
+\iiint_V y\,dV
+=\int_0^3\int_0^x\int_{x-y}^{x+y} y\,dz\,dy\,dx.
+\]
+Since the $z$-length is
+\[
+(x+y)-(x-y)=2y,
+\]
+we get
+\[
+\iiint_V y\,dV
+=\int_0^3\int_0^x 2y^2\,dy\,dx
+=2\int_0^3 \frac{x^3}{3}\,dx
+=\frac{2}{3}\cdot \frac{81}{4}
+=\frac{27}{2}.
+\]
+
+\item $f(x,y,z)=\dfrac{z}{x^2+y^2}$, \quad $V=\{1\le y\le 4,\ y\le z\le 4,\ 0\le x\le z\}$.
+
+\textbf{Solution.}
+We write
+\[
+I=\int_1^4\int_y^4\int_0^z \frac{z}{x^2+y^2}\,dx\,dz\,dy.
+\]
+Integrating in $x$ first gives
+\[
+\int_0^z \frac{z}{x^2+y^2}\,dx
+=\frac{z}{y}\arctan\!\left(\frac{z}{y}\right).
+\]
+Hence
+\[
+I=\int_1^4\int_y^4 \frac{z}{y}\arctan\!\left(\frac{z}{y}\right)\,dz\,dy.
+\]
+Now set $t=z/y$. Then $z=yt$, $dz=y\,dt$, and for fixed $y$, $t$ runs from $1$ to $4/y$. So
+\[
+I=\int_1^4 y\left(\int_1^{4/y} t\arctan t\,dt\right)dy.
+\]
+Swapping the order in the $(y,t)$-plane gives
+\[
+I=\frac12\int_1^4 \left(\frac{16}{t}-t\right)\arctan t\,dt.
+\]
+The term $\int t\arctan t\,dt$ is elementary, while $\int \frac{\arctan t}{t}\,dt$ is the inverse tangent integral $\Ti(t)=\int_0^t \frac{\arctan u}{u}\,du$. Therefore
+\[
+I
+=8\bigl(\Ti(4)-\Ti(1)\bigr)-\frac14\left(17\arctan 4-\frac{\pi}{2}-3\right).
+\]
+Numerically,
+\[
+I\approx 7.58735.
+\]
+
+\item $f(x,y,z)=\sin y$, where $V$ is the solid below the plane $z=x$ and above the triangular region with vertices $(0,0,0)$, $(\pi,0,0)$, $(0,\pi,0)$.
+
+\textbf{Solution.}
+The base in the $xy$-plane is
+\[
+D=\{(x,y):x\ge 0,\ y\ge 0,\ x+y\le \pi\},
+\]
+and $z$ runs from $0$ to $x$. Hence
+\[
+\iiint_V \sin y\,dV
+=\int_0^\pi\int_0^{\pi-y}\int_0^x \sin y\,dz\,dx\,dy
+=\int_0^\pi\int_0^{\pi-y} x\sin y\,dx\,dy.
+\]
+Thus
+\[
+=\frac12\int_0^\pi (\pi-y)^2\sin y\,dy.
+\]
+Expanding,
+\[
+\frac12\int_0^\pi (\pi^2-2\pi y+y^2)\sin y\,dy.
+\]
+Using
+\[
+\int_0^\pi \sin y\,dy=2,\qquad \int_0^\pi y\sin y\,dy=\pi,\qquad \int_0^\pi y^2\sin y\,dy=\pi^2-4,
+\]
+we get
+\[
+\iiint_V \sin y\,dV=\frac12(\pi^2-4).
+\]
+
+\item $f(x,y,z)=xy$, where $V$ is bounded by the parabolic cylinders $y=x^2$ and $x=y^2$, and the planes $z=0$ and $z=x+y$.
+
+\textbf{Solution.}
+In the first quadrant, the curves $y=x^2$ and $x=y^2$ meet at $(0,0)$ and $(1,1)$.
+For $0\le x\le 1$, we have
+\[
+x^2\le y\le \sqrt{x}.
+\]
+Since $0\le z\le x+y$, the integral is
+\[
+\iiint_V xy\,dV
+=\int_0^1\int_{x^2}^{\sqrt{x}}\int_0^{x+y} xy\,dz\,dy\,dx
+=\int_0^1\int_{x^2}^{\sqrt{x}} xy(x+y)\,dy\,dx.
+\]
+That is,
+\[
+\int_0^1\int_{x^2}^{\sqrt{x}} (x^2y+xy^2)\,dy\,dx.
+\]
+Integrating in $y$:
+\[
+\int_0^1 \left[\frac{x^2y^2}{2}+\frac{xy^3}{3}\right]_{y=x^2}^{y=\sqrt{x}} dx
+=\int_0^1\left(\frac{x^3}{2}+\frac{x^{5/2}}{3}-\frac{x^6}{2}-\frac{x^7}{3}\right)dx.
+\]
+So
+\[
+\iiint_V xy\,dV
+=\frac18+\frac{2}{21}-\frac{1}{14}-\frac{1}{24}
+=\frac{3}{28}.
+\]
+
+\item $f(x,y,z)=x^2$, where $V$ is the tetrahedron with vertices $(0,0,0)$, $(1,0,0)$, $(0,1,0)$, $(0,0,1)$.
+
+\textbf{Solution.}
+The tetrahedron is
+\[
+V=\{(x,y,z):x\ge 0,\ y\ge 0,\ z\ge 0,\ x+y+z\le 1\}.
+\]
+For fixed $x$, the $(y,z)$-section is a right triangle of area
+\[
+\frac{(1-x)^2}{2}.
+\]
+Therefore
+\[
+\iiint_V x^2\,dV
+=\int_0^1 x^2\cdot \frac{(1-x)^2}{2}\,dx
+=\frac12\int_0^1 (x^2-2x^3+x^4)\,dx.
+\]
+Hence
+\[
+\iiint_V x^2\,dV
+=\frac12\left(\frac13-\frac12+\frac15\right)=\frac{1}{60}.
+\]
+\end{enumerate}
+
+\section*{Problem 8}
+For each repeated integral, describe the region and change the order of integration.
+
+\begin{enumerate}
+\item $\displaystyle \int_0^1\left[\int_0^y f(x,y)\,dx\right]dy$.
+
+\textbf{Region.}
+\[
+R=\{(x,y):0\le x\le y\le 1\}.
+\]
+Reversing the order, for fixed $x$, $y$ runs from $x$ to $1$. Therefore
+\[
+\int_0^1\int_x^1 f(x,y)\,dy\,dx.
+\]
+
+\item $\displaystyle \int_0^2\left[\int_{2y}^{y^2} f(x,y)\,dx\right]dy$.
+
+\textbf{Region.}
+The geometric region is bounded by
+\[
+x=2y,\qquad x=y^2,\qquad 0\le y\le 2.
+\]
+Since $y^2\le 2y$ on $[0,2]$, the original integral has reversed $x$-limits. The corresponding geometric region is
+\[
+R=\{(x,y):0\le x\le 4,\ x/2\le y\le \sqrt{x}\}.
+\]
+Hence the same signed integral can be written as
+\[
+\int_0^4\int_{\sqrt{x}}^{x/2} f(x,y)\,dy\,dx,
+\]
+or equivalently
+\[
+-\int_0^4\int_{x/2}^{\sqrt{x}} f(x,y)\,dy\,dx.
+\]
+
+\item Interpreting the third integral consistently as
+\[
+\int_1^e\left[\int_0^{\ln x} f(x,y)\,dy\right]dx.
+\]
+
+\textbf{Region.}
+\[
+R=\{(x,y):1\le x\le e,\ 0\le y\le \ln x\}.
+\]
+For fixed $y$, this becomes
+\[
+e^y\le x\le e,\qquad 0\le y\le 1.
+\]
+So the reversed order is
+\[
+\int_0^1\int_{e^y}^{e} f(x,y)\,dx\,dy.
+\]
+\end{enumerate}
+
+\section*{Problem 9}
+Write three other iterated integrals equal to the given one.
+
+\begin{enumerate}
+\item Given
+\[
+\int_0^1\int_y^1\int_0^y f(x,y,z)\,dx\,dz\,dy.
+\]
+
+\textbf{Region.}
+\[
+0\le x\le y\le z\le 1.
+\]
+Three other equivalent iterated integrals are:
+\[
+\int_0^1\int_0^z\int_x^z f(x,y,z)\,dy\,dx\,dz,
+\]
+\[
+\int_0^1\int_x^1\int_x^z f(x,y,z)\,dy\,dz\,dx,
+\]
+\[
+\int_0^1\int_x^1\int_y^1 f(x,y,z)\,dz\,dy\,dx.
+\]
+
+\item Given
+\[
+\int_0^1\int_0^{1-x^2}\int_0^{1-x} f(x,y,z)\,dy\,dz\,dx.
+\]
+
+\textbf{Region.}
+\[
+0\le x\le 1,\qquad 0\le y\le 1-x,\qquad 0\le z\le 1-x^2.
+\]
+Three other equivalent iterated integrals are:
+\[
+\int_0^1\int_0^{1-x}\int_0^{1-x^2} f(x,y,z)\,dz\,dy\,dx,
+\]
+\[
+\int_0^1\int_0^{1-y}\int_0^{1-x^2} f(x,y,z)\,dz\,dx\,dy,
+\]
+\[
+\int_0^1\int_0^{\sqrt{1-z}}\int_0^{1-x} f(x,y,z)\,dy\,dx\,dz.
+\]
+
+\item Given
+\[
+\int_0^1\int_{\sqrt{x}}^1\int_0^{1-y} f(x,y,z)\,dz\,dy\,dx.
+\]
+
+\textbf{Region.}
+Since $\sqrt{x}\le y$ is equivalent to $x\le y^2$, the region is
+\[
+0\le y\le 1,\qquad 0\le x\le y^2,\qquad 0\le z\le 1-y.
+\]
+Three other equivalent iterated integrals are:
+\[
+\int_0^1\int_0^{1-y}\int_0^{y^2} f(x,y,z)\,dx\,dz\,dy,
+\]
+\[
+\int_0^1\int_0^{1-z}\int_0^{y^2} f(x,y,z)\,dx\,dy\,dz,
+\]
+\[
+\int_0^1\int_0^{(1-z)^2}\int_{\sqrt{x}}^{1-z} f(x,y,z)\,dy\,dx\,dz.
+\]
+\end{enumerate}
+
+\end{document}

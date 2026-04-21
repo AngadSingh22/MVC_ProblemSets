@@ -1,0 +1,296 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\setlist[enumerate,1]{label=(\roman*), leftmargin=*}
+\newcommand{\R}{\mathbb{R}}
+
+\title{Multivariable Calculus\\Problem Set 10: Solutions}
+\author{Angad Singh Ahuja}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+Show that the line integral is independent of path and evaluate the integral.
+
+\begin{enumerate}
+\item $\displaystyle \int_C 2xe^{-y}\,dx + (2y-x^2e^{-y})\,dy$, where $C$ is any path from $(1,0)$ to $(2,1)$.
+
+\textbf{Solution.}
+Let
+\[
+P(x,y)=2xe^{-y},\qquad Q(x,y)=2y-x^2e^{-y}.
+\]
+Then
+\[
+P_y=-2xe^{-y},\qquad Q_x=-2xe^{-y}.
+\]
+Since $P_y=Q_x$ on all of $\R^2$, the differential form is exact, so the line integral is path-independent.
+
+Now find a potential $\phi$ with $\nabla\phi=(P,Q)$.
+Integrating $P$ with respect to $x$,
+\[
+\phi(x,y)=\int 2xe^{-y}\,dx=x^2e^{-y}+g(y).
+\]
+Differentiate with respect to $y$:
+\[
+\phi_y=-x^2e^{-y}+g'(y).
+\]
+This must equal $Q=2y-x^2e^{-y}$, so
+\[
+g'(y)=2y \quad\Longrightarrow\quad g(y)=y^2.
+\]
+Hence
+\[
+\phi(x,y)=x^2e^{-y}+y^2.
+\]
+Therefore
+\[
+\int_C P\,dx+Q\,dy=\phi(2,1)-\phi(1,0)
+=\left(4e^{-1}+1\right)-1=\frac{4}{e}.
+\]
+Thus
+\[
+\boxed{\int_C 2xe^{-y}\,dx + (2y-x^2e^{-y})\,dy=\frac{4}{e}}.
+\]
+
+\item $\displaystyle \int_C \sin y\,dx + (x\cos y-\sin y)\,dy$, where $C$ is any path from $(2,0)$ to $(1,\pi)$.
+
+\textbf{Solution.}
+Here
+\[
+P(x,y)=\sin y,\qquad Q(x,y)=x\cos y-\sin y.
+\]
+Then
+\[
+P_y=\cos y,\qquad Q_x=\cos y.
+\]
+So the form is exact on $\R^2$, hence the integral is independent of path.
+
+Integrate $P$ with respect to $x$:
+\[
+\phi(x,y)=\int \sin y\,dx = x\sin y + g(y).
+\]
+Then
+\[
+\phi_y=x\cos y + g'(y).
+\]
+This must equal $Q=x\cos y-\sin y$, hence
+\[
+g'(y)=-\sin y \quad\Longrightarrow\quad g(y)=\cos y.
+\]
+Thus
+\[
+\phi(x,y)=x\sin y+\cos y.
+\]
+Now evaluate:
+\[
+\int_C P\,dx+Q\,dy=\phi(1,\pi)-\phi(2,0)
+=(1\cdot 0+\cos\pi)-(2\cdot 0+\cos 0)
+=(-1)-1=-2.
+\]
+Therefore
+\[
+\boxed{\int_C \sin y\,dx + (x\cos y-\sin y)\,dy=-2}.
+\]
+\end{enumerate}
+
+\section*{Problem 2}
+On $\R^2\setminus\{(0,0)\}$ consider
+\[
+F(x,y)=\left(\frac{-y}{x^2+y^2},\frac{x}{x^2+y^2}\right).
+\]
+
+\begin{enumerate}
+\item Compute the line integral over the circle of radius $1$ centered at the origin, traced anti-clockwise.
+
+\textbf{Solution.}
+Parametrize the circle by
+\[
+\mathbf r(t)=(\cos t,\sin t),\qquad 0\le t\le 2\pi.
+\]
+Then
+\[
+\mathbf r'(t)=(-\sin t,\cos t),
+\]
+and on the circle,
+\[
+F(\mathbf r(t))=\left(\frac{-\sin t}{1},\frac{\cos t}{1}\right)=(-\sin t,\cos t).
+\]
+Therefore
+\[
+F(\mathbf r(t))\cdot \mathbf r'(t)
+=(-\sin t,\cos t)\cdot(-\sin t,\cos t)
+=\sin^2 t+\cos^2 t=1.
+\]
+Hence
+\[
+\int_C F\cdot d\mathbf r
+=\int_0^{2\pi} 1\,dt
+=2\pi.
+\]
+So
+\[
+\boxed{2\pi}.
+\]
+
+\item Compute the line integral over the circle of radius $2$ centered at the origin, traced anti-clockwise.
+
+\textbf{Solution.}
+Parametrize by
+\[
+\mathbf r(t)=(2\cos t,2\sin t),\qquad 0\le t\le 2\pi.
+\]
+Then
+\[
+\mathbf r'(t)=(-2\sin t,2\cos t).
+\]
+Also
+\[
+x^2+y^2=4,
+\]
+so
+\[
+F(\mathbf r(t))
+=\left(\frac{-2\sin t}{4},\frac{2\cos t}{4}\right)
+=\left(-\frac12\sin t,\frac12\cos t\right).
+\]
+Therefore
+\[
+F(\mathbf r(t))\cdot \mathbf r'(t)
+=\left(-\frac12\sin t,\frac12\cos t\right)\cdot(-2\sin t,2\cos t)
+=\sin^2 t+\cos^2 t=1.
+\]
+Thus
+\[
+\int_C F\cdot d\mathbf r=\int_0^{2\pi}1\,dt=2\pi.
+\]
+Hence
+\[
+\boxed{2\pi}.
+\]
+\end{enumerate}
+
+\section*{Problem 3}
+Use Green's theorem to evaluate the line integral along the positively oriented curve.
+
+\begin{enumerate}
+\item $\displaystyle \int_C xy^2\,dx+2x^2y\,dy$, where $C$ is the triangle with vertices $(0,0)$, $(2,2)$, $(2,4)$.
+
+\textbf{Solution.}
+Let
+\[
+P(x,y)=xy^2,\qquad Q(x,y)=2x^2y.
+\]
+By Green's theorem,
+\[
+\int_C P\,dx+Q\,dy=\iint_D \left(Q_x-P_y\right)\,dA.
+\]
+Now
+\[
+Q_x=4xy,\qquad P_y=2xy,
+\]
+so
+\[
+Q_x-P_y=2xy.
+\]
+The triangular region has sides $y=x$, $y=x+2$, and $x=2$, so it can be described by
+\[
+0\le x\le 2,\qquad x\le y\le x+2.
+\]
+Hence
+\[
+\int_C P\,dx+Q\,dy
+=\int_0^2\int_x^{x+2}2xy\,dy\,dx.
+\]
+Integrating in $y$,
+\[
+\int_x^{x+2}2xy\,dy
+=x[y^2]_{x}^{x+2}
+=x\bigl((x+2)^2-x^2\bigr)
+=x(4x+4)=4x^2+4x.
+\]
+Thus
+\[
+\int_0^2(4x^2+4x)\,dx
+=\left[\frac{4x^3}{3}+2x^2\right]_0^2
+=\frac{32}{3}+8=\frac{56}{3}.
+\]
+Therefore
+\[
+\boxed{\int_C xy^2\,dx+2x^2y\,dy=\frac{56}{3}}.
+\]
+
+\item $\displaystyle \int_C \cos y\,dx + x^2\sin y\,dy$, where $C$ is the rectangle with vertices $(0,0)$, $(5,0)$, $(5,2)$, $(0,2)$.
+
+\textbf{Solution.}
+Take
+\[
+P(x,y)=\cos y,\qquad Q(x,y)=x^2\sin y.
+\]
+Then
+\[
+Q_x=2x\sin y,\qquad P_y=-\sin y.
+\]
+Hence
+\[
+Q_x-P_y=(2x+1)\sin y.
+\]
+Over the rectangle
+\[
+0\le x\le 5,\qquad 0\le y\le 2,
+\]
+Green's theorem gives
+\[
+\int_C P\,dx+Q\,dy
+=\int_0^5\int_0^2 (2x+1)\sin y\,dy\,dx.
+\]
+Separate the variables:
+\[
+=\left(\int_0^5(2x+1)\,dx\right)\left(\int_0^2\sin y\,dy\right).
+\]
+Compute:
+\[
+\int_0^5(2x+1)\,dx=[x^2+x]_0^5=25+5=30,
+\]
+\[
+\int_0^2\sin y\,dy=[-\cos y]_0^2=1-\cos 2.
+\]
+Therefore
+\[
+\boxed{\int_C \cos y\,dx + x^2\sin y\,dy = 30(1-\cos 2)}.
+\]
+
+\item $\displaystyle \int_C x\,dy-y\,dx$, where $C$ is the circle of radius $a$.
+
+\textbf{Solution.}
+Here
+\[
+P(x,y)=-y,\qquad Q(x,y)=x.
+\]
+So
+\[
+Q_x=1,\qquad P_y=-1,
+\]
+and
+\[
+Q_x-P_y=2.
+\]
+The enclosed region is the disk of radius $a$, whose area is $\pi a^2$.
+Hence Green's theorem gives
+\[
+\int_C x\,dy-y\,dx
+=\iint_D 2\,dA
+=2\cdot \pi a^2.
+\]
+Therefore
+\[
+\boxed{\int_C x\,dy-y\,dx=2\pi a^2 }.
+\]
+\end{enumerate}
+
+\end{document}
