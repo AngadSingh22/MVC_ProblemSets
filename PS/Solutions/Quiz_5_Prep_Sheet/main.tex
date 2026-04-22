@@ -1,0 +1,522 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,mathtools,array,longtable,enumitem,booktabs}
+\usepackage{hyperref}
+
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\dd}{\,d}
+\newcommand{\grad}{\nabla}
+\newcommand{\curl}{\operatorname{curl}}
+\newcommand{\divg}{\operatorname{div}}
+
+\title{Quiz 5 Preparation Sheet\\Multivariable Calculus}
+\author{Angad Singh Ahuja}
+\date{Quiz: Friday 24/04/2026, 16:35--17:05}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section*{How To Use This Sheet}
+\addcontentsline{toc}{section}{How To Use This Sheet}
+
+This sheet is built for a short quiz, so the priority is speed, recognition, and correct setup. The syllabus is: triple integrals in cylindrical coordinates, spherical coordinates, change of variables, vector fields, line integrals, the Fundamental Theorem for Line Integrals, Green's theorem, curl, and divergence.
+
+Use the definitions first, then test yourself with the conceptual questions, then do the extracted problem-set questions. The short answer key is intentionally compact: it is meant for checking, not for replacing the full computations in your solution PDFs.
+
+\section{Definitions And Core Facts}
+
+\subsection{Triple Integrals}
+
+A triple integral
+\[
+\iiint_E f(x,y,z)\,dV
+\]
+adds the values of a function over a three-dimensional solid $E$. If $f=1$, then
+\[
+\iiint_E 1\,dV
+\]
+is the volume of $E$.
+
+For rectangular coordinates,
+\[
+dV=dx\,dy\,dz
+\]
+up to order, depending on the chosen order of integration.
+
+\subsection{Cylindrical Coordinates}
+
+Cylindrical coordinates are
+\[
+x=r\cos\theta,\qquad y=r\sin\theta,\qquad z=z.
+\]
+The radial coordinate is
+\[
+r=\sqrt{x^2+y^2}.
+\]
+The volume element is
+\[
+dV=r\,dz\,dr\,d\theta.
+\]
+The extra factor $r$ is the Jacobian.
+
+Use cylindrical coordinates when the problem has cylinders, circular disks, cones of the form $z=\sqrt{x^2+y^2}$, paraboloids $z=a-br^2$, or expressions involving $x^2+y^2$.
+
+\subsection{Spherical Coordinates}
+
+Spherical coordinates are
+\[
+x=\rho\sin\phi\cos\theta,\qquad
+y=\rho\sin\phi\sin\theta,\qquad
+z=\rho\cos\phi.
+\]
+Here $\rho$ is distance from the origin, $\theta$ is the angle in the $xy$-plane, and $\phi$ is the angle from the positive $z$-axis.
+
+Important identities:
+\[
+x^2+y^2+z^2=\rho^2,\qquad x^2+y^2=\rho^2\sin^2\phi,\qquad z=\rho\cos\phi.
+\]
+The volume element is
+\[
+dV=\rho^2\sin\phi\,d\rho\,d\phi\,d\theta.
+\]
+
+Use spherical coordinates for spheres, balls, spherical shells, cones through the origin, and integrands involving $x^2+y^2+z^2$.
+
+\subsection{Change Of Variables In Double Integrals}
+
+If
+\[
+x=x(u,v),\qquad y=y(u,v),
+\]
+then
+\[
+\iint_R f(x,y)\,dA
+=\iint_S f(x(u,v),y(u,v))
+\left|\frac{\partial(x,y)}{\partial(u,v)}\right|\,du\,dv.
+\]
+The Jacobian is
+\[
+\frac{\partial(x,y)}{\partial(u,v)}
+=
+\begin{vmatrix}
+x_u & x_v\\
+y_u & y_v
+\end{vmatrix}.
+\]
+
+The main steps are:
+\begin{enumerate}
+\item Rewrite the boundary curves in terms of $u,v$.
+\item Find the new region $S$.
+\item Compute the Jacobian.
+\item Replace the integrand and area element.
+\item Integrate over the simpler region.
+\end{enumerate}
+
+\subsection{Vector Fields}
+
+A vector field assigns a vector to each point. In two variables,
+\[
+\mathbf F(x,y)=\langle P(x,y),Q(x,y)\rangle.
+\]
+In three variables,
+\[
+\mathbf F(x,y,z)=\langle P(x,y,z),Q(x,y,z),R(x,y,z)\rangle.
+\]
+
+Vector fields can represent force, velocity, flow, electric fields, gradients, or direction fields.
+
+\subsection{Line Integrals Of Scalar Functions}
+
+For a scalar function $f$ along a curve $C$ parametrized by $\mathbf r(t)$, $a\le t\le b$,
+\[
+\int_C f\,ds=\int_a^b f(\mathbf r(t))\|\mathbf r'(t)\|\,dt.
+\]
+
+This adds the scalar value along the curve, weighted by arc length.
+
+\subsection{Line Integrals Of Vector Fields}
+
+For a vector field $\mathbf F$ along a parametrized curve $\mathbf r(t)$,
+\[
+\int_C \mathbf F\cdot d\mathbf r
+=\int_a^b \mathbf F(\mathbf r(t))\cdot \mathbf r'(t)\,dt.
+\]
+In two dimensions, if $\mathbf F=\langle P,Q\rangle$, then
+\[
+\int_C \mathbf F\cdot d\mathbf r
+=\int_C P\,dx+Q\,dy.
+\]
+
+This measures work done by the field along the curve.
+
+\subsection{Conservative Vector Fields}
+
+A vector field $\mathbf F$ is conservative if there exists a scalar potential function $\phi$ such that
+\[
+\mathbf F=\grad\phi.
+\]
+Then
+\[
+\int_C \mathbf F\cdot d\mathbf r
+\]
+depends only on the endpoints, not the path.
+
+For $\mathbf F=\langle P,Q\rangle$ on a simply connected domain, a quick test is
+\[
+P_y=Q_x.
+\]
+If true, the field is conservative. If false, it is not conservative.
+
+For $\mathbf F=\langle P,Q,R\rangle$ on a simply connected domain, a quick test is
+\[
+\curl \mathbf F=\mathbf 0.
+\]
+
+\subsection{Fundamental Theorem For Line Integrals}
+
+If $\mathbf F=\grad\phi$, and $C$ goes from point $A$ to point $B$, then
+\[
+\int_C \mathbf F\cdot d\mathbf r=\phi(B)-\phi(A).
+\]
+
+This is the vector-field analogue of
+\[
+\int_a^b f'(x)\,dx=f(b)-f(a).
+\]
+
+\subsection{Green's Theorem}
+
+Let $C$ be a positively oriented, simple, closed curve enclosing region $D$. If
+\[
+\mathbf F=\langle P,Q\rangle,
+\]
+then
+\[
+\oint_C P\,dx+Q\,dy
+=\iint_D (Q_x-P_y)\,dA.
+\]
+
+Positive orientation means counterclockwise orientation.
+
+Green's theorem converts a line integral around a closed curve into a double integral over the region inside the curve.
+
+\subsection{Curl}
+
+For a 3D vector field
+\[
+\mathbf F=\langle P,Q,R\rangle,
+\]
+the curl is
+\[
+\curl \mathbf F
+=\grad\times \mathbf F
+=
+\left\langle
+R_y-Q_z,\,
+P_z-R_x,\,
+Q_x-P_y
+\right\rangle.
+\]
+
+Curl measures local rotation. If $\curl \mathbf F=\mathbf 0$ on a simply connected domain, then $\mathbf F$ is conservative.
+
+For a 2D field $\mathbf F=\langle P,Q\rangle$, the scalar curl is
+\[
+Q_x-P_y.
+\]
+This is exactly the integrand in Green's theorem.
+
+\subsection{Divergence}
+
+For
+\[
+\mathbf F=\langle P,Q,R\rangle,
+\]
+the divergence is
+\[
+\divg \mathbf F=P_x+Q_y+R_z.
+\]
+
+Divergence measures net outward flow from a point. Positive divergence means the field behaves like a source; negative divergence means it behaves like a sink.
+
+\section{Theoretical Short-Question Quiz}
+
+\subsection*{A. Coordinates And Setup}
+\begin{enumerate}
+\item What is the difference between $r$ and $\rho$? \textbf{Answer:} $r=\sqrt{x^2+y^2}$ is distance from the $z$-axis; $\rho=\sqrt{x^2+y^2+z^2}$ is distance from the origin.
+\item Why does cylindrical coordinates have Jacobian $r$? \textbf{Answer:} Cylindrical Jacobian is $r$ because polar area elements scale by radius.
+\item Why does spherical coordinates have Jacobian $\rho^2\sin\phi$? \textbf{Answer:} Spherical Jacobian is $\rho^2\sin\phi$ because shells have radial scale $\rho^2$ and polar-angle scale $\sin\phi$.
+\item What surfaces are represented by $r=a$, $\theta=c$, and $z=c$? \textbf{Answer:} $r=a$ is a cylinder; $\theta=c$ is a vertical half-plane; $z=c$ is a horizontal plane.
+\item What surfaces are represented by $\rho=a$, $\phi=c$, and $\theta=c$? \textbf{Answer:} $\rho=a$ is a sphere; $\phi=c$ is a cone; $\theta=c$ is a vertical half-plane.
+\item Convert $x^2+y^2=4$ into cylindrical coordinates. \textbf{Answer:} $x^2+y^2=4$ becomes $r=2$.
+\item Convert $x^2+y^2+z^2=9$ into spherical coordinates. \textbf{Answer:} $x^2+y^2+z^2=9$ becomes $\rho=3$.
+\item Convert $z=\sqrt{x^2+y^2}$ into spherical coordinates. \textbf{Answer:} $z=\sqrt{x^2+y^2}$ becomes $\phi=\pi/4$.
+\item In cylindrical coordinates, why does $z=1-x^2-y^2$ become $z=1-r^2$? \textbf{Answer:} Since $x^2+y^2=r^2$, $z=1-x^2-y^2$ becomes $z=1-r^2$.
+\item If a region is inside a sphere and above a cone, which coordinates are usually best? \textbf{Answer:} Spherical coordinates.
+\item If a region is inside a cylinder and below a plane, which coordinates are usually best? \textbf{Answer:} Cylindrical coordinates.
+\item What does the inequality $0\le \theta\le \pi/2$ usually mean geometrically? \textbf{Answer:} First quadrant in the $xy$-plane.
+\item What does the inequality $0\le \phi\le \pi/4$ mean geometrically? \textbf{Answer:} Region near the positive $z$-axis above the cone $\phi=\pi/4$.
+\item How do you decide whether $r$ or $z$ should be integrated first? \textbf{Answer:} Choose the order that makes bounds simplest; usually integrate the variable with simple top-bottom bounds first.
+\item What is the biggest setup mistake students make in cylindrical/spherical coordinates? \textbf{Answer:} Forgetting the Jacobian.
+\end{enumerate}
+
+\subsection*{B. Change Of Variables}
+\begin{enumerate}
+\item What is a Jacobian? \textbf{Answer:} A Jacobian is the determinant measuring area/volume scaling under a coordinate change.
+\item Why do we take the absolute value of the Jacobian in change of variables? \textbf{Answer:} Absolute value is used because area/volume is positive.
+\item If the Jacobian is constant, what does that say geometrically? \textbf{Answer:} Constant Jacobian means constant area-scaling.
+\item What is the first step when using a given change of variables? \textbf{Answer:} Transform the boundary.
+\item Why should boundary curves be transformed before the integrand? \textbf{Answer:} Boundaries determine the new integration limits.
+\item How do you know the new $uv$-region is simpler than the old $xy$-region? \textbf{Answer:} It usually turns curved boundaries into straight lines or circles.
+\item What happens if the Jacobian is zero? \textbf{Answer:} The coordinate map degenerates and is not locally invertible.
+\item Why is polar coordinates just a special case of change of variables? \textbf{Answer:} Polar coordinates are $x=r\cos\theta$, $y=r\sin\theta$.
+\item In $x=r\cos\theta$, $y=r\sin\theta$, what is the Jacobian? \textbf{Answer:} The polar Jacobian is $r$.
+\item If $x=2u$, $y=3v$, what is the Jacobian and what does it mean? \textbf{Answer:} For $x=2u$, $y=3v$, the Jacobian is $6$.
+\end{enumerate}
+
+\subsection*{C. Vector Fields And Line Integrals}
+\begin{enumerate}
+\item What is a vector field? \textbf{Answer:} A vector field assigns a vector to each point.
+\item What does $\int_C \mathbf F\cdot d\mathbf r$ measure? \textbf{Answer:} $\int_C\mathbf F\cdot d\mathbf r$ measures work or circulation along a path.
+\item Why does orientation matter for vector line integrals? \textbf{Answer:} Reversing orientation changes the sign.
+\item Why does orientation not matter for scalar line integrals $\int_C f\,ds$? \textbf{Answer:} Scalar arc-length integrals use $ds$, which is always positive.
+\item How do you parametrize a circle of radius $a$ counterclockwise? \textbf{Answer:} $\mathbf r(t)=(a\cos t,a\sin t)$, $0\le t\le2\pi$.
+\item What is $d\mathbf r$ in terms of a parametrization $\mathbf r(t)$? \textbf{Answer:} $d\mathbf r=\mathbf r'(t)\,dt$.
+\item When is a line integral path independent? \textbf{Answer:} A line integral is path independent when the field is conservative.
+\item What is a conservative vector field? \textbf{Answer:} Conservative means $\mathbf F=\nabla\phi$.
+\item How do you test whether $\langle P,Q\rangle$ is conservative in $\R^2$? \textbf{Answer:} In $\R^2$, check $P_y=Q_x$ on a simply connected domain.
+\item How do you find a potential function once you know the field is conservative? \textbf{Answer:} Integrate one component, then compare partial derivatives to find the missing function.
+\item Why is the domain important when checking if a field is conservative? \textbf{Answer:} Domains with holes can break global conservativeness.
+\item What is special about $\left\langle \frac{-y}{x^2+y^2},\frac{x}{x^2+y^2}\right\rangle$? \textbf{Answer:} It has zero curl away from the origin but nonzero circulation around the origin.
+\item Why can a field have zero curl but still fail to be globally conservative? \textbf{Answer:} Because the domain may not be simply connected (e.g., it has a hole).
+\item What does the Fundamental Theorem for Line Integrals say? \textbf{Answer:} If $\mathbf F=\nabla\phi$, then $\int_C\mathbf F\cdot d\mathbf r=\phi(B)-\phi(A)$.
+\item How is it similar to the one-variable Fundamental Theorem of Calculus? \textbf{Answer:} It is the multivariable version of $\int_a^b f'(x)\,dx=f(b)-f(a)$.
+\end{enumerate}
+
+\subsection*{D. Green's Theorem, Curl, Divergence}
+\begin{enumerate}
+\item State Green's theorem. \textbf{Answer:} Green's theorem: $\oint_C Pdx+Qdy=\iint_D(Q_x-P_y)dA$.
+\item What does ``positively oriented'' mean? \textbf{Answer:} Positive orientation means counterclockwise.
+\item In Green's theorem, why does $Q_x-P_y$ appear? \textbf{Answer:} $Q_x-P_y$ is scalar curl.
+\item What is the scalar curl of $\langle P,Q\rangle$? \textbf{Answer:} Scalar curl is $Q_x-P_y$.
+\item How can Green's theorem simplify a hard boundary integral? \textbf{Answer:} It replaces a boundary integral by an area integral.
+\item What is the curl of a 3D vector field? \textbf{Answer:} $\curl\langle P,Q,R\rangle=\langle R_y-Q_z,P_z-R_x,Q_x-P_y\rangle$.
+\item What does curl measure conceptually? \textbf{Answer:} Curl measures local rotation.
+\item What is divergence? \textbf{Answer:} Divergence is $P_x+Q_y+R_z$.
+\item What does divergence measure conceptually? \textbf{Answer:} Divergence measures source/sink behavior.
+\item If $\mathbf F=\nabla\phi$, what is $\curl \mathbf F$? \textbf{Answer:} If $\mathbf F=\nabla\phi$, then $\curl\mathbf F=\mathbf0$.
+\item If $\divg \mathbf F>0$, what does that suggest physically? \textbf{Answer:} Positive divergence suggests outward flow/source.
+\item How do you remember the formula for curl? \textbf{Answer:} Remember curl as $\nabla\times\mathbf F$.
+\item What is the difference between curl and divergence? \textbf{Answer:} Curl measures rotation; divergence measures expansion/outflow.
+\item What is the difference between Green's theorem and the Fundamental Theorem for Line Integrals? \textbf{Answer:} FTLI is for conservative fields and endpoints; Green's theorem is for closed curves and enclosed regions.
+\item Why must Green's theorem use a closed curve? \textbf{Answer:} Green's theorem needs a boundary of a region.
+\end{enumerate}
+
+\section{Direct Practice Questions From Problem Sets}
+
+These are the most relevant questions to prepare for Quiz 5. They are copied or lightly standardized from Problem Sets 8, 9, and 10.
+
+\subsection*{From Problem Set 8}
+\begin{enumerate}
+\item PS8 Problem 7(i): Evaluate $\iiint_V y\,dV$, where $V=\{0\le x\le 3,\ 0\le y\le x,\ x-y\le z\le x+y\}$.
+\item PS8 Problem 7(iii): Evaluate $\iiint_V \sin y\,dV$, where $V$ is below $z=x$ and above the triangular region with vertices $(0,0,0)$, $(\pi,0,0)$, $(0,\pi,0)$.
+\item PS8 Problem 7(iv): Evaluate $\iiint_V xy\,dV$, where $V$ is bounded by $y=x^2$, $x=y^2$, $z=0$, and $z=x+y$.
+\item PS8 Problem 8(i): Change the order of $\int_0^1\int_0^y f(x,y)\,dx\,dy$.
+\item PS8 Problem 8(ii): Change the order of $\int_0^2\int_{2y}^{y^2}f(x,y)\,dx\,dy$.
+\item PS8 Problem 9(i): Write three other iterated integrals for the region $0\le x\le y\le z\le 1$.
+\end{enumerate}
+
+\subsection*{From Problem Set 9}
+\begin{enumerate}
+\item PS9 Problem 1(i): Use $x=u^2-v^2$, $y=2uv$ to evaluate $\iint_R y\,dA$, where $R$ is bounded by $y=0$, $y^2=4-4x$, and $y^2=4+4x$ with $y\ge0$.
+\item PS9 Problem 1(ii): Use $x=2u+v$, $y=u+2v$ to evaluate $\iint_R(x-3y)\,dA$, where $R$ has vertices $(0,0)$, $(2,1)$, $(1,2)$.
+\item PS9 Problem 2(ii): Evaluate $\int_{-2}^2\int_{-\sqrt{4-x^2}}^{\sqrt{4-x^2}}\int_{\sqrt{x^2+y^2}}^2(x^2+y^2)\,dz\,dy\,dx$.
+\item PS9 Problem 4(i): Evaluate $\int_0^1\int_0^{\sqrt{1-x^2}}\int_{\sqrt{x^2+y^2}}^{\sqrt{2-x^2-y^2}}xy\,dz\,dy\,dx$ using spherical coordinates.
+\item PS9 Problem 6(i): Find the volume above the cone $z=\sqrt{x^2+y^2}$ and below the sphere $x^2+y^2+z^2=z$.
+\item PS9 Problem 7(ii): Determine whether $F=(e^x\sin y,e^x\cos y)$ is conservative. If yes, find $\phi$.
+\item PS9 Problem 8(v): Determine whether $F=(e^x\sin yz,ze^x\cos yz,ye^x\cos yz)$ is conservative. If yes, find $\phi$.
+\end{enumerate}
+
+\subsection*{From Problem Set 10}
+\begin{enumerate}
+\item PS10 Problem 1(i): Show path independence and evaluate $\int_C 2xe^{-y}\,dx+(2y-x^2e^{-y})\,dy$ from $(1,0)$ to $(2,1)$.
+\item PS10 Problem 1(ii): Show path independence and evaluate $\int_C\sin y\,dx+(x\cos y-\sin y)\,dy$ from $(2,0)$ to $(1,\pi)$.
+\item PS10 Problem 2(i): Compute $\int_C \left\langle\frac{-y}{x^2+y^2},\frac{x}{x^2+y^2}\right\rangle\cdot d\mathbf r$ over the unit circle counterclockwise.
+\item PS10 Problem 3(i): Use Green's theorem to evaluate $\int_C xy^2\,dx+2x^2y\,dy$ over the triangle with vertices $(0,0)$, $(2,2)$, $(2,4)$.
+\item PS10 Problem 3(ii): Use Green's theorem to evaluate $\int_C\cos y\,dx+x^2\sin y\,dy$ over the rectangle with vertices $(0,0)$, $(5,0)$, $(5,2)$, $(0,2)$.
+\item PS10 Problem 3(iii): Use Green's theorem to evaluate $\int_C x\,dy-y\,dx$ over the circle of radius $a$.
+\end{enumerate}
+
+\section{Short Answer Sheet}
+
+\subsection*{Theory Quiz Short Answers}
+\begin{enumerate}
+\item $r=\sqrt{x^2+y^2}$ is distance from the $z$-axis; $\rho=\sqrt{x^2+y^2+z^2}$ is distance from the origin.
+\item Cylindrical Jacobian is $r$ because polar area elements scale by radius.
+\item Spherical Jacobian is $\rho^2\sin\phi$ because shells have radial scale $\rho^2$ and polar-angle scale $\sin\phi$.
+\item $r=a$ is a cylinder; $\theta=c$ is a vertical half-plane; $z=c$ is a horizontal plane.
+\item $\rho=a$ is a sphere; $\phi=c$ is a cone; $\theta=c$ is a vertical half-plane.
+\item $x^2+y^2=4$ becomes $r=2$.
+\item $x^2+y^2+z^2=9$ becomes $\rho=3$.
+\item $z=\sqrt{x^2+y^2}$ becomes $\phi=\pi/4$.
+\item Since $x^2+y^2=r^2$, $z=1-x^2-y^2$ becomes $z=1-r^2$.
+\item Spherical coordinates.
+\item Cylindrical coordinates.
+\item First quadrant in the $xy$-plane.
+\item Region near the positive $z$-axis above the cone $\phi=\pi/4$.
+\item Choose the order that makes bounds simplest; usually integrate the variable with simple top-bottom bounds first.
+\item Forgetting the Jacobian.
+\item A Jacobian is the determinant measuring area/volume scaling under a coordinate change.
+\item Absolute value is used because area/volume is positive.
+\item Constant Jacobian means constant area-scaling.
+\item Transform the boundary.
+\item Boundaries determine the new integration limits.
+\item It usually turns curved boundaries into straight lines or circles.
+\item The coordinate map degenerates and is not locally invertible.
+\item Polar coordinates are $x=r\cos\theta$, $y=r\sin\theta$.
+\item The polar Jacobian is $r$.
+\item For $x=2u$, $y=3v$, the Jacobian is $6$.
+\item A vector field assigns a vector to each point.
+\item $\int_C\mathbf F\cdot d\mathbf r$ measures work or circulation along a path.
+\item Reversing orientation changes the sign.
+\item Scalar arc-length integrals use $ds$, which is always positive.
+\item $\mathbf r(t)=(a\cos t,a\sin t)$, $0\le t\le2\pi$.
+\item $d\mathbf r=\mathbf r'(t)\,dt$.
+\item A line integral is path independent when the field is conservative.
+\item Conservative means $\mathbf F=\nabla\phi$.
+\item In $\R^2$, check $P_y=Q_x$ on a simply connected domain.
+\item Integrate one component, then compare partial derivatives to find the missing function.
+\item Domains with holes can break global conservativeness.
+\item It has zero curl away from the origin but nonzero circulation around the origin.
+\item If $\mathbf F=\nabla\phi$, then $\int_C\mathbf F\cdot d\mathbf r=\phi(B)-\phi(A)$.
+\item It is the multivariable version of $\int_a^b f'(x)\,dx=f(b)-f(a)$.
+\item Green's theorem: $\oint_C Pdx+Qdy=\iint_D(Q_x-P_y)dA$.
+\item Positive orientation means counterclockwise.
+\item $Q_x-P_y$ is scalar curl.
+\item Scalar curl is $Q_x-P_y$.
+\item It replaces a boundary integral by an area integral.
+\item $\curl\langle P,Q,R\rangle=\langle R_y-Q_z,P_z-R_x,Q_x-P_y\rangle$.
+\item Curl measures local rotation.
+\item Divergence is $P_x+Q_y+R_z$.
+\item Divergence measures source/sink behavior.
+\item If $\mathbf F=\nabla\phi$, then $\curl\mathbf F=\mathbf0$.
+\item Positive divergence suggests outward flow/source.
+\item Remember curl as $\nabla\times\mathbf F$.
+\item Curl measures rotation; divergence measures expansion/outflow.
+\item FTLI is for conservative fields and endpoints; Green's theorem is for closed curves and enclosed regions.
+\item Green's theorem needs a boundary of a region.
+\end{enumerate}
+
+\subsection*{Selected Problem-Set Answers}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.72\textwidth}}
+\toprule
+Question & Short answer \\
+\midrule
+PS8 7(i) & $\displaystyle \int_0^3\int_0^x\int_{x-y}^{x+y}y\,dz\,dy\,dx=\frac{27}{2}$.\\
+PS8 7(iii) & $\displaystyle \frac12\int_0^\pi(\pi-y)^2\sin y\,dy=\frac{\pi^2-4}{2}$.\\
+PS8 7(iv) & Region $0\le x\le1$, $x^2\le y\le\sqrt x$, $0\le z\le x+y$; value $\displaystyle \frac{3}{28}$.\\
+PS8 8(i) & $\displaystyle \int_0^1\int_x^1 f(x,y)\,dy\,dx$.\\
+PS8 8(ii) & Signed reversal: $\displaystyle \int_0^4\int_{\sqrt x}^{x/2}f(x,y)\,dy\,dx$. Geometric positive orientation: $-\int_0^4\int_{x/2}^{\sqrt x}f(x,y)\,dy\,dx$.\\
+PS8 9(i) & Region $0\le x\le y\le z\le1$. Examples: $\int_0^1\int_0^z\int_x^z f\,dy\,dx\,dz$, $\int_0^1\int_x^1\int_x^z f\,dy\,dz\,dx$, $\int_0^1\int_x^1\int_y^1 f\,dz\,dy\,dx$.\\
+PS9 1(i) & New region $0\le u,v\le1$, Jacobian $4(u^2+v^2)$, answer $2$.\\
+PS9 1(ii) & New region $u\ge0$, $v\ge0$, $u+v\le1$, Jacobian $3$, answer $-3$.\\
+PS9 2(ii) & Cylindrical setup $\int_0^{2\pi}\int_0^2\int_r^2 r^3\,dz\,dr\,d\theta$, answer $\frac{16\pi}{5}$.\\
+PS9 4(i) & Spherical setup $0\le\theta\le\frac\pi2$, $0\le\phi\le\frac\pi4$, $0\le\rho\le\sqrt2$; answer $\frac{4\sqrt2-5}{15}$.\\
+PS9 6(i) & $0\le\rho\le\cos\phi$, $0\le\phi\le\frac\pi4$, $0\le\theta\le2\pi$; volume $\frac{\pi}{8}$.\\
+PS9 7(ii) & Conservative; potential $\phi=e^x\sin y+C$.\\
+PS9 8(v) & Conservative; potential $\phi=e^x\sin(yz)+C$.\\
+PS10 1(i) & Potential $\phi=x^2e^{-y}+y^2$; value $\frac4e$.\\
+PS10 1(ii) & Potential $\phi=x\sin y+\cos y$; value $-2$.\\
+PS10 2(i) & Parametrize unit circle; integral $2\pi$.\\
+PS10 3(i) & Green's theorem gives $\iint_D2xy\,dA=\frac{56}{3}$.\\
+PS10 3(ii) & Green's theorem gives $\int_0^5\int_0^2(2x+1)\sin y\,dy\,dx=30(1-\cos2)$.\\
+PS10 3(iii) & Green's theorem gives $\iint_D2\,dA=2\pi a^2$.\\
+\bottomrule
+\end{longtable}
+
+\section{Notation Table}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.72\textwidth}}
+\toprule
+Notation & Meaning \\
+\midrule
+$\mathbf F$ & Vector field.\\
+$P,Q,R$ & Component functions of a vector field.\\
+$\grad\phi$ & Gradient of scalar potential $\phi$.\\
+$\curl\mathbf F$ & Curl; measures local rotation.\\
+$\divg\mathbf F$ & Divergence; measures source/sink behavior.\\
+$C$ & Curve, often boundary curve.\\
+$D$ & Plane region enclosed by $C$.\\
+$E$ or $V$ & Solid region in $\R^3$.\\
+$dA$ & Area element.\\
+$dV$ & Volume element.\\
+$ds$ & Arc-length element.\\
+$d\mathbf r$ & Vector differential along a curve.\\
+$r$ & Cylindrical/polar radius $\sqrt{x^2+y^2}$.\\
+$\rho$ & Spherical radius $\sqrt{x^2+y^2+z^2}$.\\
+$\theta$ & Angle in the $xy$-plane.\\
+$\phi$ & Angle from positive $z$-axis in spherical coordinates.\\
+$J$ & Jacobian determinant.\\
+$\oint_C$ & Line integral around a closed curve.\\
+$P_y=Q_x$ & Two-dimensional conservative-field test on simply connected domains.\\
+$Q_x-P_y$ & Scalar curl; Green's theorem integrand.\\
+\bottomrule
+\end{longtable}
+
+\section{FAQs}
+
+\begin{enumerate}
+\item \textbf{When should I use cylindrical coordinates?} Use them when $x^2+y^2$ appears, or the region has a cylinder, disk, cone, or circular paraboloid.
+\item \textbf{When should I use spherical coordinates?} Use them for spheres, balls, cones, or integrands involving $x^2+y^2+z^2$.
+\item \textbf{What is the most common mistake in cylindrical coordinates?} Forgetting the factor $r$ in $dV=r\,dz\,dr\,d\theta$.
+\item \textbf{What is the most common mistake in spherical coordinates?} Forgetting $\rho^2\sin\phi$ or mixing up $\phi$ and $\theta$.
+\item \textbf{Is $\phi$ measured from the $xy$-plane?} In Stewart convention, no. $\phi$ is measured from the positive $z$-axis.
+\item \textbf{What does $z=\sqrt{x^2+y^2}$ mean geometrically?} A cone. In spherical coordinates it is $\phi=\pi/4$.
+\item \textbf{How do I convert a sphere $x^2+y^2+z^2=z$?} Use $\rho^2=\rho\cos\phi$, so $\rho=\cos\phi$.
+\item \textbf{Why does $x^2+y^2+z^2=z$ describe a sphere?} Completing the square gives $x^2+y^2+(z-\frac12)^2=\frac14$.
+\item \textbf{Why is there an absolute value around the Jacobian?} Orientation can flip, but area/volume must stay positive.
+\item \textbf{How do I find a new region after change of variables?} Transform each boundary curve into equations in the new variables.
+\item \textbf{Do I transform the integrand or the region first?} Usually transform the region first.
+\item \textbf{What does a conservative field mean?} It is a gradient field $\mathbf F=\nabla\phi$.
+\item \textbf{Why are conservative fields important?} Their line integrals depend only on endpoints.
+\item \textbf{How do I find a potential in 2D?} Integrate $P$ with respect to $x$, add $g(y)$, then compare with $Q$.
+\item \textbf{How do I check if $\langle P,Q\rangle$ is conservative?} Check whether $P_y=Q_x$, assuming the domain is simply connected.
+\item \textbf{What if $P_y=Q_x$ but the domain has a hole?} The field may fail to be globally conservative.
+\item \textbf{What is the classic hole-domain example?} $\left\langle \frac{-y}{x^2+y^2},\frac{x}{x^2+y^2}\right\rangle$ on $\R^2\setminus\{0\}$.
+\item \textbf{What is the line integral of that field around a counterclockwise circle?} $2\pi$, regardless of radius.
+\item \textbf{Does zero curl always imply conservative?} Only on simply connected domains.
+\item \textbf{What does Green's theorem do?} Converts a closed line integral into a double integral over the enclosed region.
+\item \textbf{When should I use Green's theorem?} When the curve is closed and the boundary integral looks harder than the area integral.
+\item \textbf{What is positive orientation?} Counterclockwise around the boundary.
+\item \textbf{What happens if the curve is clockwise?} The answer changes sign.
+\item \textbf{How do I remember Green's theorem?} $\oint_C Pdx+Qdy=\iint_D(Q_x-P_y)dA$.
+\item \textbf{What if $Q_x-P_y$ is constant?} Then the line integral is constant times the area.
+\item \textbf{Why is $\int_C x\,dy-y\,dx=2\cdot\text{Area}(D)$?} Here $P=-y$, $Q=x$, so $Q_x-P_y=1-(-1)=2$.
+\item \textbf{What is curl in 2D?} The scalar $Q_x-P_y$.
+\item \textbf{What is curl in 3D?} $\langle R_y-Q_z,P_z-R_x,Q_x-P_y\rangle$.
+\item \textbf{What is divergence?} Sum of matching partial derivatives: $P_x+Q_y+R_z$.
+\item \textbf{What is the difference between curl and divergence?} Curl measures rotation; divergence measures net outward flow.
+\item \textbf{Do I need divergence theorem for this quiz?} The syllabus names divergence, but not necessarily the divergence theorem. Know the definition and interpretation.
+\item \textbf{What is the fastest way to evaluate a conservative line integral?} Find $\phi$, then compute $\phi(\text{end})-\phi(\text{start})$.
+\item \textbf{What if a line integral says ``any path''?} It is hinting at path independence/conservative fields.
+\item \textbf{How do I parametrize a circle radius $a$?} $\mathbf r(t)=(a\cos t,a\sin t)$, $0\le t\le2\pi$.
+\item \textbf{How do I parametrize clockwise?} Use $\mathbf r(t)=(a\cos t,-a\sin t)$ or reverse the limits.
+\item \textbf{What is the answer if the vector field is a gradient and the curve is closed?} Zero.
+\item \textbf{Why?} The start and end points are the same, so $\phi(B)-\phi(A)=0$.
+\item \textbf{How do I decide bounds for a triple integral?} Draw/project the solid, choose outer variables for the projection, then set inner bounds between lower and upper surfaces.
+\item \textbf{What is a good quiz strategy?} First identify the theorem/coordinate system, then write the correct setup before simplifying.
+\item \textbf{What should I memorize?} Cylindrical formulas, spherical formulas, Jacobians, Green's theorem, FTLI, curl, divergence, and conservative-field tests.
+\item \textbf{What should I practice most?} Setting up bounds and recognizing when a line integral is path independent.
+\end{enumerate}
+
+\end{document}
+
