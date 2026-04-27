@@ -7,45 +7,44 @@ Here are the best curated YouTube resources to help you study each block of cont
 ## 1. Triple Integrals: Cylindrical & Spherical Coordinates (PS 9)
 
 **Professor Leonard**
-*   [Calculus 3 Lecture 14.5: Triple Integrals in Cylindrical Coordinates](https://www.youtube.com/watch?v=1A8J9Y9V25c)
-*   [Calculus 3 Lecture 14.6: Triple Integrals in Spherical Coordinates](https://www.youtube.com/watch?v=yYyZf8a55zM)
+*   [Calculus 3 Lecture 14.7: Triple Integrals Over Regions with Cylindrical or Spherical Coord.](https://www.youtube.com/watch?v=R4vnw-yPnZ8)
 > [!NOTE]
 > Professor Leonard's videos are essentially full university lectures. If you need step-by-step guidance on how to evaluate the integrals and define bounds $r, \theta, z$ or $\rho, \theta, \phi$, these are the ultimate resource.
 
 **Khan Academy / The Organic Chemistry Tutor**
-*   [Double and Triple Integrals - Cylindrical & Spherical Coordinates](https://www.youtube.com/watch?v=F0OetM0zL-Y) *(The Organic Chemistry Tutor)*
-*   [Spherical coordinates | Multivariable Calculus | Khan Academy](https://www.youtube.com/watch?v=34d7wH-RtaQ)
+*   [Double and Triple Integrals - Cylindrical & Spherical Coordinates](https://www.youtube.com/watch?v=7iy83x8bv6o) *(The Organic Chemistry Tutor)*
+*   [Spherical coordinates | Multivariable Calculus | Khan Academy](https://www.youtube.com/watch?v=0pv0QtOi5l8)
 
 ## 2. Change of Variables / Jacobians (PS 9)
 
 **Professor Leonard**
-*   [Calculus 3 Lecture 14.7: Change of Variables in Multiple Integrals (Jacobian)](https://www.youtube.com/watch?v=DvuL_j5I26U)
+*   [Calculus 3 Lecture 14.8: How to Change Variables in Multiple Integrals (Using the Jacobian)](https://www.youtube.com/watch?v=VVPu5fWssPg)
 
 **Khan Academy**
-*   [The Jacobian | Multivariable Calculus](https://www.youtube.com/watch?v=wX-y0M-Qf2w)
+*   [The Jacobian | Multivariable Calculus](https://www.youtube.com/watch?v=TrcCbdWwCBc)
 > [!TIP]
 > The Jacobian measures how coordinate transformations stretch or shrink space. Focus on mastering the $2 \times 2$ determinant matrix computation as it appears heavily in your PS9.
 
 ## 3. Vector Fields, Line Integrals & Conservative Fields (PS 10 & Quiz)
 
 **3Blue1Brown** 
-*   [Vector Fields, Intro | Essence of calculus, chapter 12](https://www.youtube.com/watch?v=qD1vNqS3jKQ)
-*   [Line Integrals | Essence of calculus](https://www.youtube.com/watch?v=qD1vNqS3jKQ)
+*   [Vector Fields, Intro | Essence of calculus](https://www.youtube.com/watch?v=R9L2U2Ue3uU)
+*   [Line Integrals | Essence of calculus](https://www.youtube.com/watch?v=k5_b9WkP46w)
 > [!IMPORTANT]
 > 3Blue1Brown is unrivaled for visual intuition. If you've been struggling to understand *what* a vector field actually is or *how* work/circulation is calculated dynamically, watch these before doing any algebra.
 
 **Professor Leonard**
-*   [Calculus 3 Lecture 15.1: Vector Fields](https://www.youtube.com/watch?v=E2lQnQzBExg)
-*   [Calculus 3 Lecture 15.2: Line Integrals](https://www.youtube.com/watch?v=y21B4S_UaWg)
-*   [Calculus 3 Lecture 15.3: Fundamental Theorem for Line Integrals & Conservative Vector Fields](https://www.youtube.com/watch?v=I6D7D3K2tBc)
+*   [Calculus 3 Lecture 15.1: Introduction to Vector Fields (and what makes them Conservative)](https://www.youtube.com/watch?v=71Z1RVYZ8HY)
+*   [Calculus 3 Lecture 15.3: How to Compute Line Integrals (Over Non-Conservative Vector Fields)](https://www.youtube.com/watch?v=t6vtOOAnqyU)
+*   [Calculus 3 Lecture 15.4: Line Integrals on Conservative Vector Fields (Independence of Path)](https://www.youtube.com/watch?v=HhopxDkW4L8)
 
 ## 4. Green's Theorem (PS 10 & Quiz)
 
 **Professor Leonard**
-*   [Calculus 3 Lecture 15.4: Green's Theorem](https://www.youtube.com/watch?v=S0yO-2wL5R4)
+*   [Calculus 3 Lecture 15.5: Green's Theorem](https://www.youtube.com/watch?v=OnyCk62hEL4)
 
 **The Math Sorcerer**
-*   [Green's Theorem Example](https://www.youtube.com/watch?v=E5P0B29b82Q)
+*   [Green's Theorem Example](https://www.youtube.com/watch?v=qaXsX7eDBoY)
 > [!TIP]
 > Your Quiz Prep Sheet specifically mentions translating line integrals of closed loops into double integrals using Green's Theorem. Professor Leonard clearly breaks down the $Q_x - P_y$ scalar curl computation required here.
 
@@ -57,7 +56,7 @@ Here are the best curated YouTube resources to help you study each block of cont
 > This is widely considered the single best visualization of curl and divergence on the internet. It beautifully clarifies how curl measures "local rotation" and divergence measures "outward flow or sink/source behavior," concepts specifically tested in your quiz sheet.
 
 **Professor Leonard**
-*   [Calculus 3 Lecture 15.5: Curl and Divergence](https://www.youtube.com/watch?v=mY2K0Pzofl8)
+*   [Calculus 3 Lecture 15.2: How to Find Divergence and Curl of Vector Fields](https://www.youtube.com/watch?v=TMWevkxtS9s)
 
 ---
 ### Suggested Study Path for the Quiz:

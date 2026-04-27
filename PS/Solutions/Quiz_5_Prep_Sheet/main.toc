@@ -12,8 +12,14 @@
 \contentsline {subsection}{\numberline {1.10}Green's Theorem}{4}{subsection.1.10}%
 \contentsline {subsection}{\numberline {1.11}Curl}{4}{subsection.1.11}%
 \contentsline {subsection}{\numberline {1.12}Divergence}{5}{subsection.1.12}%
-\contentsline {section}{\numberline {2}Theoretical Short-Question Quiz}{5}{section.2}%
-\contentsline {section}{\numberline {3}Direct Practice Questions From Problem Sets}{7}{section.3}%
-\contentsline {section}{\numberline {4}Short Answer Sheet}{9}{section.4}%
-\contentsline {section}{\numberline {5}Notation Table}{11}{section.5}%
-\contentsline {section}{\numberline {6}FAQs}{12}{section.6}%
+\contentsline {section}{\numberline {2}Vector Calculus Revision Sprint: Line Integrals \& Green's Theorem}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Core Definitions}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}The Three Key Theorems (Formal Statements)}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Intuition and Diagrams}{7}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Fully Worked Problem-Set Examples (Complete Problem Set 10)}{8}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Realistic Quiz Practice: Five Likely Questions}{12}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Theoretical Short-Question Quiz}{14}{section.3}%
+\contentsline {section}{\numberline {4}Direct Practice Questions From Problem Sets}{16}{section.4}%
+\contentsline {section}{\numberline {5}Short Answer Sheet}{18}{section.5}%
+\contentsline {section}{\numberline {6}Notation Table}{20}{section.6}%
+\contentsline {section}{\numberline {7}FAQs}{21}{section.7}%

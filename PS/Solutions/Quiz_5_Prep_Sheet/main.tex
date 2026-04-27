@@ -3,6 +3,8 @@
 \usepackage[margin=0.8in]{geometry}
 \usepackage{amsmath,amssymb,mathtools,array,longtable,enumitem,booktabs}
 \usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{decorations.markings,shapes.geometric,arrows.meta}
 
 \setlist[itemize]{leftmargin=*}
 \setlist[enumerate]{leftmargin=*}
@@ -246,6 +248,663 @@ the divergence is
 \]
 
 Divergence measures net outward flow from a point. Positive divergence means the field behaves like a source; negative divergence means it behaves like a sink.
+
+\section{Vector Calculus Revision Sprint: Line Integrals \& Green's Theorem}
+
+This section is your complete self-study guide for the vector calculus topics on Quiz~5.
+It is structured as: \textbf{Definitions} $\to$ \textbf{Formal Theorems} $\to$ \textbf{Intuition \& Diagrams} $\to$ \textbf{Full Worked Examples from Problem Sets} $\to$ \textbf{Realistic Quiz Practice}.
+
+%------------------------------------------------------------------
+\subsection{Core Definitions}
+%------------------------------------------------------------------
+
+\subsubsection*{Parametrized Curves and the Line Element}
+
+A \textbf{smooth curve} $C$ is given by a parametrization
+\[
+  \mathbf{r}(t) = \langle x(t),\, y(t) \rangle \quad (\text{or } \langle x(t),y(t),z(t)\rangle),
+  \qquad a \le t \le b.
+\]
+The \textbf{tangent vector} is $\mathbf{r}'(t) = \langle x'(t), y'(t) \rangle$ and the \textbf{vector line element} is
+\[
+  d\mathbf{r} = \mathbf{r}'(t)\,dt = \langle dx, dy \rangle.
+\]
+The \textbf{arc-length element} is $ds = \|\mathbf{r}'(t)\|\,dt$.
+
+\subsubsection*{Line Integral of a Scalar Function}
+
+For a scalar $f$,
+\[
+  \int_C f\,ds = \int_a^b f(\mathbf{r}(t))\,\|\mathbf{r}'(t)\|\,dt.
+\]
+This is \textbf{orientation-independent}: it measures total ``weight'' along the curve.
+
+\subsubsection*{Line Integral of a Vector Field (Work Integral)}
+
+For a vector field $\mathbf{F} = \langle P, Q \rangle$ (or $\langle P,Q,R\rangle$),
+\[
+  \int_C \mathbf{F}\cdot d\mathbf{r}
+  = \int_a^b \mathbf{F}(\mathbf{r}(t))\cdot\mathbf{r}'(t)\,dt
+  = \int_C P\,dx + Q\,dy.
+\]
+This is \textbf{orientation-dependent}: reversing the curve changes the sign.
+
+\textit{Physical meaning:} If $\mathbf{F}$ is a force field and $C$ is the trajectory of a particle, then $\int_C \mathbf{F}\cdot d\mathbf{r}$ is the \textbf{work} done by the force.
+
+\subsubsection*{Conservative Vector Fields and Potential Functions}
+
+A vector field $\mathbf{F} = \langle P, Q \rangle$ on a domain $D$ is \textbf{conservative} if there exists a scalar function $\phi$ (called the \textbf{potential function} or \textbf{scalar potential}) such that
+\[
+  \mathbf{F} = \nabla\phi = \left\langle \frac{\partial\phi}{\partial x},\, \frac{\partial\phi}{\partial y} \right\rangle.
+\]
+\textit{Physical meaning:} A conservative field conserves energy. The work done moving a particle depends only on where you start and where you end up, not the path you take.
+
+\textbf{Test for conservativeness in $\mathbb{R}^2$:} If $P$ and $Q$ have continuous partial derivatives on a simply connected domain, then
+\[
+  \mathbf{F} \text{ is conservative} \iff P_y = Q_x.
+\]
+
+\textbf{How to find $\phi$:} Integrate $\phi_x = P$ with respect to $x$, obtaning $\phi = \int P\,dx + g(y)$. Then differentiate with respect to $y$ and set equal to $Q$ to find $g(y)$.
+
+\subsubsection*{Scalar Curl (2D)}
+
+For $\mathbf{F} = \langle P, Q \rangle$, the \textbf{scalar curl} (or 2D curl) is
+\[
+  \operatorname{curl}_z\mathbf{F} = Q_x - P_y.
+\]
+This is the $z$-component of $\nabla\times\mathbf{F}$. It measures the tendency of the field to cause local rotation. The field is conservative on a simply connected domain iff this equals zero everywhere.
+
+%------------------------------------------------------------------
+\subsection{The Three Key Theorems (Formal Statements)}
+%------------------------------------------------------------------
+
+\subsubsection*{Theorem 1: Fundamental Theorem for Line Integrals (FTLI)}
+
+\textbf{Statement.} Let $C$ be a smooth curve parametrized by $\mathbf{r}(t)$, $a \le t \le b$, with start point $A = \mathbf{r}(a)$ and end point $B = \mathbf{r}(b)$. Let $\phi$ be a differentiable function whose gradient $\mathbf{F} = \nabla\phi$ is continuous on $C$. Then
+\[
+  \boxed{\int_C \nabla\phi \cdot d\mathbf{r} = \phi(B) - \phi(A).}
+\]
+
+\textbf{Consequences:}
+\begin{itemize}
+  \item If $C$ is a \textbf{closed curve} (so $A = B$) and $\mathbf{F}$ is conservative, then $\oint_C \mathbf{F}\cdot d\mathbf{r} = 0$.
+  \item The integral is \textbf{path independent}: any smooth curve from $A$ to $B$ gives the same value.
+\end{itemize}
+
+\textbf{Analogy with single-variable calculus:}
+\[
+  \int_a^b f'(x)\,dx = f(b) - f(a)
+  \quad\longleftrightarrow\quad
+  \int_C \nabla\phi\cdot d\mathbf{r} = \phi(B) - \phi(A).
+\]
+The FTLI tells us that antiderivatives in the multivariable world are potential functions.
+
+\subsubsection*{Theorem 2: Green's Theorem}
+
+\textbf{Statement.} Let $C$ be a positively oriented (counterclockwise), piecewise-smooth, simple closed curve in the plane, and let $D$ be the region it encloses. If $P$ and $Q$ have continuous partial derivatives on an open set containing $D$, then
+\[
+  \boxed{\oint_C P\,dx + Q\,dy = \iint_D \left(Q_x - P_y\right)\,dA.}
+\]
+
+\textbf{Key points:}
+\begin{itemize}
+  \item ``Simple closed curve'' means it does not cross itself.
+  \item ``Positively oriented'' means the enclosed region $D$ is always on your \textbf{left} as you traverse $C$. Equivalently, the boundary is traversed counterclockwise.
+  \item If the curve is clockwise, the right-hand side gets a \textbf{negative sign}.
+  \item The integrand $Q_x - P_y$ is exactly the scalar curl of $\mathbf{F}$.
+\end{itemize}
+
+\textbf{Very useful corollary --- area from a line integral:}
+\[
+  \text{Area}(D) = \oint_C x\,dy = -\oint_C y\,dx = \tfrac{1}{2}\oint_C x\,dy - y\,dx.
+\]
+This follows from Green's theorem with $(P,Q) = (0,x)$, giving $Q_x - P_y = 1$, so the double integral over $D$ equals $\iint_D 1\,dA = \text{Area}(D)$.
+
+\subsubsection*{Theorem 3: The Conservative Field Equivalences}
+
+On a simply connected domain, the following are equivalent:
+\begin{enumerate}
+  \item $\mathbf{F}$ is conservative (i.e., $\mathbf{F} = \nabla\phi$).
+  \item $\oint_C \mathbf{F}\cdot d\mathbf{r} = 0$ for every closed curve $C$.
+  \item $\int_C \mathbf{F}\cdot d\mathbf{r}$ is path independent.
+  \item $P_y = Q_x$ everywhere on the domain.
+\end{enumerate}
+
+\textbf{Warning:} Property 4 alone ($P_y = Q_x$ everywhere) is \emph{not} sufficient if the domain is not simply connected (e.g., it has a hole). The classic example is
+\[
+  \mathbf{F} = \left\langle \frac{-y}{x^2+y^2},\,\frac{x}{x^2+y^2} \right\rangle
+\]
+on $\mathbb{R}^2 \setminus \{(0,0)\}$: it satisfies $P_y = Q_x$ everywhere it is defined, yet the circulation around any circle enclosing the origin is $2\pi \ne 0$.
+
+%------------------------------------------------------------------
+\subsection{Intuition and Diagrams}
+%------------------------------------------------------------------
+
+\subsubsection*{Diagram 1: Path Independence (FTLI)}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+  \filldraw[fill=blue!8, draw=blue!40, thick, rounded corners=12pt]
+      (-5.3,-1.2) rectangle (-2.7,1.2);
+  \node[font=\bfseries] at (-4, 1.55) {Path Independence (FTLI)};
+  \filldraw (-5,-0.5) circle (2.5pt) node[below left]{\textit{A}};
+  \filldraw (-3, 0.5) circle (2.5pt) node[above right]{\textit{B}};
+  \draw[thick, red!70!black,
+        postaction={decorate,decoration={markings,
+          mark=at position 0.55 with {\arrow{>}}}}]
+    (-5,-0.5) to[out=60,in=170] (-3,0.5)
+    node[above, midway, yshift=2pt]{\footnotesize $C_1$};
+  \draw[thick, blue!70!black, dashed,
+        postaction={decorate,decoration={markings,
+          mark=at position 0.55 with {\arrow{>}}}}]
+    (-5,-0.5) to[out=-20,in=-80] (-3,0.5)
+    node[below, midway, yshift=-2pt]{\footnotesize $C_2$};
+  \draw[thick, orange!80!black, dotted,
+        postaction={decorate,decoration={markings,
+          mark=at position 0.45 with {\arrow{>}}}}]
+    (-5,-0.5) to[out=120,in=100] (-3.8,0.9) to[out=-80,in=130] (-3,0.5)
+    node[above right, xshift=-8pt]{\footnotesize $C_3$};
+  \node at (-4,-1.0) {$\phi(B)-\phi(A)$ regardless of path};
+\end{tikzpicture}
+\hspace{1.5cm}
+\begin{tikzpicture}[scale=1.1]
+  \filldraw[fill=green!8, draw=green!50, thick] (0,0) circle (1.8cm);
+  \node[font=\bfseries] at (0,2.15) {Green's Theorem};
+  \node[font=\LARGE] at (0,0.2) {$D$};
+  \node[font=\footnotesize] at (0,-0.5) {$\iint_D(Q_x-P_y)\,dA$};
+  \draw[very thick, black!70,
+        postaction={decorate,decoration={markings,
+          mark=at position 0.1 with {\arrow{>}},
+          mark=at position 0.35 with {\arrow{>}},
+          mark=at position 0.6 with {\arrow{>}},
+          mark=at position 0.85 with {\arrow{>}}}}]
+    (0,0) circle (1.8cm);
+  \node at (0,-2.2) {\footnotesize Positive (CCW) orientation};
+  \node at (2.8, 0) {$=$};
+  \node at (4.5, 0) {$\oint_C P\,dx+Q\,dy$};
+\end{tikzpicture}
+\end{center}
+
+\medskip
+\textbf{Key intuition for Green's Theorem:} Imagine the scalar curl $Q_x - P_y$ as the ``density of tiny rotation'' at each point inside $D$. Green's theorem says that if you add up all those tiny rotations over the interior, you get the total circulation around the boundary. Regions where the field spins, clockwise cancel with counterclockwise regions, and only the net boundary circulation survives.
+
+%------------------------------------------------------------------
+\subsection{Fully Worked Problem-Set Examples (Complete Problem Set 10)}
+%------------------------------------------------------------------
+
+The problems below are the complete Problem Set 10 as set by Prof.\ Rajendra Bhatia.
+Every solution is written out in full with all intermediate steps.
+
+%==================================================================
+\subsubsection*{Problem 1(i) --- Path-Independent Integral via FTLI}
+%==================================================================
+
+\textbf{Problem.}
+Show that the line integral
+$\int_C 2xe^{-y}\,dx + (2y - x^2 e^{-y})\,dy$
+is independent of path, and evaluate it for any path $C$ from $(1,0)$ to $(2,1)$.
+
+\medskip
+\textbf{Solution.}
+
+\textit{Step 1: Identify $P$, $Q$, and test for conservativeness.}
+
+Set $P(x,y) = 2xe^{-y}$ and $Q(x,y) = 2y - x^2 e^{-y}$.
+Both are defined and have continuous partial derivatives on all of $\mathbb{R}^2$, which is simply connected. Compute:
+\[
+  P_y = \frac{\partial}{\partial y}(2xe^{-y}) = -2xe^{-y},
+  \qquad
+  Q_x = \frac{\partial}{\partial x}(2y - x^2e^{-y}) = -2xe^{-y}.
+\]
+Since $P_y = Q_x = -2xe^{-y}$ everywhere, $\mathbf{F} = \langle P,Q\rangle$ is conservative and the integral is path independent.
+
+\textit{Step 2: Find the scalar potential $\phi$.}
+
+We need $\phi_x = P$ and $\phi_y = Q$. Integrate $\phi_x = 2xe^{-y}$ w.r.t.\ $x$:
+\[
+  \phi(x,y) = x^2 e^{-y} + g(y),
+\]
+where $g(y)$ is unknown. Differentiate w.r.t.\ $y$ and match with $Q$:
+\[
+  \phi_y = -x^2 e^{-y} + g'(y) \stackrel{!}{=} 2y - x^2 e^{-y}
+  \implies g'(y) = 2y \implies g(y) = y^2.
+\]
+So $\phi(x,y) = x^2 e^{-y} + y^2$.
+
+\textit{Step 3: Apply the FTLI.}
+\[
+  \int_C \mathbf{F}\cdot d\mathbf{r}
+  = \phi(2,1) - \phi(1,0)
+  = (4e^{-1} + 1) - (e^0 + 0)
+  = \frac{4}{e} + 1 - 1
+  = \boxed{\dfrac{4}{e}}.
+\]
+
+\bigskip
+%==================================================================
+\subsubsection*{Problem 1(ii) --- Path-Independent Integral via FTLI}
+%==================================================================
+
+\textbf{Problem.}
+Show that $\int_C \sin y\,dx + (x\cos y - \sin y)\,dy$ is independent of path and evaluate it for any path $C$ from $(2,0)$ to $(1,\pi)$.
+
+\medskip
+\textbf{Solution.}
+
+\textit{Step 1: Test for conservativeness.}
+
+$P = \sin y$, $Q = x\cos y - \sin y$; both $C^\infty$ on $\mathbb{R}^2$.
+\[
+  P_y = \frac{\partial}{\partial y}(\sin y) = \cos y,
+  \qquad
+  Q_x = \frac{\partial}{\partial x}(x\cos y - \sin y) = \cos y.
+\]
+$P_y = Q_x$ everywhere, so $\mathbf{F}$ is conservative and the integral is path independent.
+
+\textit{Step 2: Recover $\phi$.}
+
+Integrate $\phi_x = \sin y$ w.r.t.\ $x$: $\phi(x,y) = x\sin y + g(y)$.
+Differentiate w.r.t.\ $y$ and match with $Q$:
+\[
+  x\cos y + g'(y) = x\cos y - \sin y
+  \implies g'(y) = -\sin y \implies g(y) = \cos y.
+\]
+Potential: $\phi(x,y) = x\sin y + \cos y$.
+
+\textit{Step 3: Evaluate via FTLI.}
+\begin{align*}
+  \phi(1,\pi) &= 1\cdot\sin\pi + \cos\pi = 0 + (-1) = -1, \\
+  \phi(2,0)   &= 2\cdot\sin 0 + \cos 0 = 0 + 1 = 1.
+\end{align*}
+\[
+  \int_C \mathbf{F}\cdot d\mathbf{r}
+  = \phi(1,\pi) - \phi(2,0) = -1 - 1 = \boxed{-2}.
+\]
+
+\bigskip
+%==================================================================
+\subsubsection*{Problem 2 --- Winding Number Field on a Punctured Plane}
+%==================================================================
+
+\textbf{Setup.}
+On $\mathbb{R}^2\setminus\{(0,0)\}$, consider
+\[
+  \mathbf{F}(x,y)
+  = \left\langle \frac{-y}{x^2+y^2},\;\frac{x}{x^2+y^2} \right\rangle
+  = \langle P, Q \rangle.
+\]
+
+\textbf{Preliminary: $P_y = Q_x$ but $\mathbf{F}$ is not globally conservative.}
+
+By the quotient rule:
+\[
+  P_y
+  = \frac{-(x^2+y^2) + y\cdot 2y}{(x^2+y^2)^2}
+  = \frac{y^2-x^2}{(x^2+y^2)^2},
+  \qquad
+  Q_x
+  = \frac{(x^2+y^2) - x\cdot 2x}{(x^2+y^2)^2}
+  = \frac{y^2-x^2}{(x^2+y^2)^2}.
+\]
+So $P_y = Q_x$ on the punctured plane. However, the domain has a hole at the origin and is \emph{not} simply connected. We cannot apply the conservativeness criterion. We must integrate directly.
+
+\medskip
+\textbf{Problem 2(i).} $C$ = unit circle, anticlockwise.
+
+\medskip
+\textbf{Solution.}
+
+Parametrize the unit circle: $x = \cos t$, $y = \sin t$, $0 \le t \le 2\pi$.
+Then $dx = -\sin t\,dt$, $dy = \cos t\,dt$, and $x^2+y^2 = 1$.
+
+Substitute $P$, $Q$:
+\[
+  P\,dx + Q\,dy
+  = \frac{-\sin t}{1}(-\sin t\,dt) + \frac{\cos t}{1}(\cos t\,dt)
+  = (\sin^2 t + \cos^2 t)\,dt = 1\,dt.
+\]
+\[
+  \int_C \mathbf{F}\cdot d\mathbf{r}
+  = \int_0^{2\pi} 1\,dt = \boxed{2\pi}.
+\]
+
+This is nonzero even though $P_y = Q_x$, confirming the field is not conservative on a domain with a hole.
+
+\medskip
+\textbf{Problem 2(ii).} $C$ = circle of radius 2, anticlockwise.
+
+\medskip
+\textbf{Solution.}
+
+Parametrize: $x = 2\cos t$, $y = 2\sin t$, $0 \le t \le 2\pi$.
+Then $dx = -2\sin t\,dt$, $dy = 2\cos t\,dt$, and $x^2+y^2 = 4$.
+
+Substitute:
+\[
+  P\,dx + Q\,dy
+  = \frac{-2\sin t}{4}(-2\sin t\,dt) + \frac{2\cos t}{4}(2\cos t\,dt)
+  = \frac{4\sin^2 t}{4}\,dt + \frac{4\cos^2 t}{4}\,dt
+  = (\sin^2 t + \cos^2 t)\,dt = 1\,dt.
+\]
+\[
+  \int_C \mathbf{F}\cdot d\mathbf{r}
+  = \int_0^{2\pi} 1\,dt = \boxed{2\pi}.
+\]
+
+\textbf{Key observation.} The integral equals $2\pi$ for a circle of \emph{any} radius, as long as the circle encloses the origin.
+This field is the classical example of a field that is locally irrotational ($P_y=Q_x$) yet globally non-conservative.
+Its total circulation around the origin equals $2\pi$ regardless of the path, which is the topological \emph{winding number} of the curve times $2\pi$.
+
+\bigskip
+
+\bigskip
+%==================================================================
+\subsubsection*{Problem 3(i) --- Green's Theorem over a Triangle}
+%==================================================================
+
+\textbf{Problem.}
+Evaluate $\displaystyle\oint_C xy^2\,dx + 2x^2y\,dy$, where $C$ is the positively oriented (CCW) boundary of the triangle with vertices $(0,0)$, $(2,2)$, $(2,4)$.
+
+\medskip
+\textbf{Solution.}
+
+\textit{Step 1: Compute the scalar curl.}
+
+$P = xy^2$, $Q = 2x^2y$.
+\[
+  Q_x = \frac{\partial}{\partial x}(2x^2y) = 4xy,
+  \qquad
+  P_y = \frac{\partial}{\partial y}(xy^2) = 2xy.
+  \qquad\Longrightarrow\qquad
+  Q_x - P_y = 4xy - 2xy = 2xy.
+\]
+
+\textit{Step 2: Identify the triangular region $D$ and find the integration bounds.}
+
+The three vertices are $O=(0,0)$, $A=(2,2)$, $B=(2,4)$. Find the equations of the three sides:
+\begin{itemize}
+  \item Side $OA$: passes through $(0,0)$ and $(2,2)$, slope $= 1$. Equation: $y = x$, for $0\le x\le 2$.
+  \item Side $AB$: passes through $(2,2)$ and $(2,4)$, it is the vertical segment $x = 2$, for $2\le y\le 4$.
+  \item Side $BO$: passes through $(2,4)$ and $(0,0)$, slope $= \frac{4}{2} = 2$. Equation: $y = 2x$, for $0\le x\le 2$.
+\end{itemize}
+
+For $0 \le x \le 2$, the lower boundary of $D$ is $y = x$ and the upper boundary is $y = 2x$.
+By Green's theorem:
+\[
+  \oint_C xy^2\,dx + 2x^2y\,dy
+  = \iint_D 2xy\,dA
+  = \int_0^2 \int_x^{2x} 2xy\,dy\,dx.
+\]
+
+\textit{Step 3: Evaluate the inner integral (in $y$).}
+\[
+  \int_x^{2x} 2xy\,dy
+  = 2x\left[\frac{y^2}{2}\right]_{y=x}^{y=2x}
+  = 2x\cdot\frac{(2x)^2 - x^2}{2}
+  = 2x\cdot\frac{4x^2 - x^2}{2}
+  = 2x\cdot\frac{3x^2}{2}
+  = 3x^3.
+\]
+
+\textit{Step 4: Evaluate the outer integral (in $x$).}
+\[
+  \int_0^2 3x^3\,dx
+  = \left[\frac{3x^4}{4}\right]_0^2
+  = \frac{3 \cdot 16}{4}
+  = \boxed{12}.
+\]
+
+\bigskip
+%==================================================================
+\subsubsection*{Problem 3(ii) --- Green's Theorem over a Rectangle}
+%==================================================================
+
+\textbf{Problem.}
+Evaluate $\displaystyle\oint_C \cos y\,dx + x^2\sin y\,dy$, where $C$ is the positively oriented boundary of the rectangle with vertices $(0,0)$, $(5,0)$, $(5,2)$, $(0,2)$.
+
+\medskip
+\textbf{Solution.}
+
+\textit{Step 1: Compute the scalar curl.}
+
+$P = \cos y$, $Q = x^2\sin y$.
+\[
+  P_y = \frac{\partial}{\partial y}(\cos y) = -\sin y,
+  \qquad
+  Q_x = \frac{\partial}{\partial x}(x^2\sin y) = 2x\sin y.
+\]
+\[
+  Q_x - P_y = 2x\sin y - (-\sin y) = (2x+1)\sin y.
+\]
+
+\textit{Step 2: Set up the double integral over the rectangle $D = [0,5]\times[0,2]$.}
+\[
+  \iint_D (2x+1)\sin y\,dA
+  = \int_0^5\int_0^2 (2x+1)\sin y\,dy\,dx.
+\]
+
+\textit{Step 3: The integrand is separable; compute each factor.}
+
+Inner integral (in $y$):
+\[
+  \int_0^2 \sin y\,dy = \bigl[-\cos y\bigr]_0^2 = -\cos 2 + \cos 0 = 1 - \cos 2.
+\]
+Outer integral (in $x$):
+\[
+  \int_0^5 (2x+1)\,dx = \bigl[x^2 + x\bigr]_0^5 = 25 + 5 = 30.
+\]
+
+\textit{Step 4: Multiply.}
+\[
+  \iint_D (2x+1)\sin y\,dA = 30\cdot(1-\cos 2) = \boxed{30(1-\cos 2)}.
+\]
+
+\bigskip
+%==================================================================
+\subsubsection*{Problem 3(iii) --- Green's Theorem: Area of a Disk}
+%==================================================================
+
+\textbf{Problem.}
+Evaluate $\displaystyle\oint_C x\,dy - y\,dx$, where $C$ is the circle of radius $a$, positively oriented (counterclockwise).
+
+\medskip
+\textbf{Solution.}
+
+\textit{Step 1: Identify $P$, $Q$, and compute the scalar curl.}
+
+Write the integral as $\oint_C P\,dx + Q\,dy$ with $P = -y$, $Q = x$.
+\[
+  P_y = -1, \qquad Q_x = 1.
+  \qquad\Longrightarrow\qquad Q_x - P_y = 1 - (-1) = 2.
+\]
+
+\textit{Step 2: Apply Green's Theorem.}
+
+The region $D$ enclosed by the circle of radius $a$ is a disk with area $\pi a^2$:
+\[
+  \oint_C x\,dy - y\,dx
+  = \iint_D 2\,dA
+  = 2\cdot\text{Area}(D)
+  = 2\pi a^2.
+\]
+
+\textbf{Answer: $\boxed{2\pi a^2}$.}
+
+\textbf{Key takeaway.} This gives the important formula
+$\text{Area}(D) = \dfrac{1}{2}\oint_C x\,dy - y\,dx$,
+which lets you compute the area of any region from just its boundary parametrization.
+
+\textit{Independent verification by direct parametrization.}
+
+Let $x = a\cos t$, $y = a\sin t$, $0\le t\le 2\pi$. Then $dy = a\cos t\,dt$, $dx = -a\sin t\,dt$:
+\begin{align*}
+  \oint_C x\,dy - y\,dx
+  &= \int_0^{2\pi}\bigl[a\cos t\cdot a\cos t - a\sin t\cdot(-a\sin t)\bigr]dt \\
+  &= \int_0^{2\pi} a^2(\cos^2 t + \sin^2 t)\,dt
+   = a^2\int_0^{2\pi} 1\,dt = 2\pi a^2.\quad\checkmark
+\end{align*}
+
+%------------------------------------------------------------------
+\subsection{Realistic Quiz Practice: Five Likely Questions}
+%------------------------------------------------------------------
+
+A 30-minute quiz with five questions will typically have:
+one conservative-field identification+potential question, one FTLI evaluation, one straight Green's theorem computation, one orientation or domain reasoning question, and one ``should I use Green's or FTLI?'' recognition question.
+
+\bigskip
+\hrule
+\bigskip
+
+\textbf{Practice Quiz Question 1.} Determine whether
+$\mathbf{F} = \langle y^2 + 2x,\; 2xy + 3y^2 \rangle$
+is conservative. If it is, find the potential function $\phi(x,y)$.
+
+\textbf{Full Solution.}
+
+$P = y^2 + 2x$, $Q = 2xy + 3y^2$.
+\[
+  P_y = 2y, \qquad Q_x = 2y.
+\]
+Equal, and the domain is all of $\mathbb{R}^2$ (simply connected), so $\mathbf{F}$ is conservative.
+
+Find $\phi$: integrate $\phi_x = y^2 + 2x$ with respect to $x$:
+\[
+  \phi = xy^2 + x^2 + g(y).
+\]
+Differentiate: $\phi_y = 2xy + g'(y) = 2xy + 3y^2 \implies g'(y) = 3y^2 \implies g(y) = y^3$.
+
+\[
+  \boxed{\phi(x,y) = xy^2 + x^2 + y^3.}
+\]
+
+\bigskip
+\hrule
+\bigskip
+
+\textbf{Practice Quiz Question 2.} Let $\mathbf{F} = \langle 3x^2 y^2,\; 2x^3 y \rangle$. Evaluate $\int_C \mathbf{F}\cdot d\mathbf{r}$ along any curve from $(-1, 2)$ to $(2, 3)$.
+
+\textbf{Full Solution.}
+
+Check: $P_y = 6x^2 y$, $Q_x = 6x^2 y$. Conservative.
+
+Find $\phi$: $\phi_x = 3x^2 y^2 \implies \phi = x^3 y^2 + g(y)$.
+$\phi_y = 2x^3 y + g'(y) = 2x^3 y \implies g'(y) = 0 \implies g = C$.
+
+So $\phi(x,y) = x^3 y^2$.
+
+Apply FTLI:
+\[
+  \int_C \mathbf{F}\cdot d\mathbf{r} = \phi(2,3) - \phi(-1,2) = (8 \cdot 9) - (-1 \cdot 4) = 72 + 4 = 76.
+\]
+
+\textbf{Answer: $76$.}
+
+\bigskip
+\hrule
+\bigskip
+
+\textbf{Practice Quiz Question 3.} Use Green's theorem to evaluate
+\[
+  \oint_C (x^2 - y^2)\,dx + 2xy\,dy
+\]
+where $C$ is the boundary of the square $[0,1]\times[0,1]$, oriented positively (counterclockwise).
+
+\textbf{Full Solution.}
+
+$P = x^2 - y^2$, $Q = 2xy$.
+\[
+  Q_x = 2y, \qquad P_y = -2y.
+\]
+Scalar curl: $Q_x - P_y = 2y - (-2y) = 4y$.
+
+\[
+  \iint_D 4y\,dA = \int_0^1\int_0^1 4y\,dy\,dx
+  = \int_0^1 \left[2y^2\right]_0^1 dx
+  = \int_0^1 2\,dx = 2.
+\]
+
+\textbf{Answer: $2$.}
+
+\bigskip
+\hrule
+\bigskip
+
+\textbf{Practice Quiz Question 4.} Use Green's theorem to find the area enclosed by the ellipse $\tfrac{x^2}{a^2} + \tfrac{y^2}{b^2} = 1$.
+
+\textbf{Full Solution.}
+
+Parametrize the ellipse counterclockwise: $x = a\cos t$, $y = b\sin t$, $0 \le t \le 2\pi$.
+
+Using the area formula $\text{Area} = \tfrac{1}{2}\oint_C x\,dy - y\,dx$:
+\[
+  dx = -a\sin t\,dt, \qquad dy = b\cos t\,dt.
+\]
+\[
+  \text{Area} = \frac{1}{2}\int_0^{2\pi} \Bigl[(a\cos t)(b\cos t) - (b\sin t)(-a\sin t)\Bigr]dt
+  = \frac{1}{2}\int_0^{2\pi} ab\bigl(\cos^2 t + \sin^2 t\bigr)dt
+  = \frac{1}{2}\int_0^{2\pi} ab\,dt = \pi ab.
+\]
+
+\textbf{Answer: $\pi ab$.}
+
+\bigskip
+\hrule
+\bigskip
+
+\textbf{Practice Quiz Question 5.} Evaluate $\int_C \mathbf{F}\cdot d\mathbf{r}$ where
+$\mathbf{F} = \langle e^x\sin y,\; e^x\cos y \rangle$
+and $C$ is the arc of the parabola $y = x^2$ from $(0,0)$ to $(1,1)$.
+
+\textbf{Full Solution.}
+
+\textit{Step 1: Check conservativeness.}
+$P = e^x\sin y$, $Q = e^x\cos y$.
+\[
+  P_y = e^x\cos y, \qquad Q_x = e^x\cos y.
+\]
+Equal, so the field is conservative.
+
+\textit{Step 2: Find $\phi$.}
+Integrate $\phi_x = e^x\sin y$ with respect to $x$:
+\[
+  \phi = e^x\sin y + g(y).
+\]
+Differentiate: $\phi_y = e^x\cos y + g'(y) = e^x\cos y \implies g'(y) = 0 \implies g = C$.
+
+So $\phi(x,y) = e^x\sin y$.
+
+\textit{Step 3: Apply FTLI.} (The path does not matter; use start $(0,0)$ and end $(1,1)$.)
+\[
+  \int_C \mathbf{F}\cdot d\mathbf{r} = \phi(1,1) - \phi(0,0) = e^1\sin(1) - e^0\sin(0) = e\sin 1.
+\]
+
+\textbf{Answer: $e\sin 1$.}
+
+\bigskip
+\hrule
+\bigskip
+
+\textbf{Summary: The Setup Decision Tree}
+
+\begin{center}
+\begin{tikzpicture}[
+    every node/.style={draw, rounded corners=4pt, align=center, font=\small},
+    decision/.style={draw, diamond, aspect=2, inner sep=2pt},
+    arrow/.style={->, thick}
+]
+  \node (start) at (0,0) {Given $\int_C \mathbf{F}\cdot d\mathbf{r}$};
+  \node[decision] (closed) at (0,-1.6) {Is $C$ a closed loop?};
+  \node[fill=green!15] (green) at (3.5,-1.6) {Use \textbf{Green's Theorem}\\$\iint_D(Q_x-P_y)\,dA$};
+  \node[decision] (consv) at (0,-3.2) {Is $P_y = Q_x$?};
+  \node[fill=blue!15] (ftli) at (3.5,-3.2) {Field is \textbf{conservative}\\Find $\phi$, use FTLI:\\$\phi(B)-\phi(A)$};
+  \node[fill=orange!15] (param) at (0,-4.8) {Brute force:\\Parametrize $C$, compute\\$\int_a^b\mathbf{F}(\mathbf{r}(t))\cdot\mathbf{r}'(t)\,dt$};
+  \draw[arrow] (start) -- (closed);
+  \draw[arrow] (closed) -- node[draw=none, right=2pt]{Yes} (green);
+  \draw[arrow] (closed) -- node[draw=none, left=2pt]{No} (consv);
+  \draw[arrow] (consv) -- node[draw=none, right=2pt]{Yes} (ftli);
+  \draw[arrow] (consv) -- node[draw=none, left=2pt]{No} (param);
+\end{tikzpicture}
+\end{center}
 
 \section{Theoretical Short-Question Quiz}
 
