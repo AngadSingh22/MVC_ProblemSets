@@ -1,0 +1,4 @@
+\contentsline {section}{\numberline {1}Problem 1: Little-$o$ notation}{3}{section.1}%
+\contentsline {section}{\numberline {2}Problem 2: The derivative}{5}{section.2}%
+\contentsline {section}{\numberline {3}Problem 3: Gradient vector}{8}{section.3}%
+\contentsline {section}{Final answer summary}{17}{section*.33}%
