@@ -1,1014 +1,1271 @@
 \documentclass[11pt]{article}
-
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=0.82in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{bm}
 \usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{booktabs,array,longtable}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,patterns,decorations.pathreplacing,positioning,3d}
 \usepackage{hyperref}
-
-\setlist[enumerate,1]{label=(\roman*), leftmargin=*}
-
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist[enumerate]{itemsep=5pt,topsep=5pt}
+\definecolor{ashokaBlue}{RGB}{20,56,105}
+\definecolor{softBlue}{RGB}{237,244,252}
+\definecolor{softGreen}{RGB}{239,250,244}
+\definecolor{softRed}{RGB}{252,241,240}
+\definecolor{softGray}{RGB}{248,249,251}
 \newcommand{\R}{\mathbb{R}}
-\newcommand{\Ti}{\operatorname{Ti}_2}
-
-\title{Multivariable Calculus\\Problem Set 8: Solutions}
-\author{Angad Singh Ahuja}
-\date{\today}
-
+\newcommand{\grad}{\nabla}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\dd}{\,d}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pdd}[3]{\frac{\partial^2 #1}{\partial #2\partial #3}}
+\newcommand{\boxnote}[2]{\vspace{4pt}\begin{center}\fcolorbox{ashokaBlue!18}{#1}{\begin{minipage}{0.90\linewidth}\raggedright #2\end{minipage}}\end{center}\vspace{4pt}}
+\newcommand{\method}[1]{\boxnote{softBlue}{\textbf{Method.} #1}}
+\newcommand{\answer}[1]{\boxnote{softGreen}{\textbf{Answer.} #1}}
+\newcommand{\warning}[1]{\boxnote{softRed}{\textbf{Remark.} #1}}
+\newcommand{\Ttwo}{T_2}
+\newcommand{\vect}[1]{\begin{bmatrix}#1\end{bmatrix}}
 \begin{document}
-\maketitle
+\begin{center}
+{\Large\bfseries Multivariable Calculus: Problem Set 6}\\[3pt]
+{\large Detailed Assignment-Style Solutions with Diagrams}\\[3pt]
+{\small Lecturer: Rajendra Bhatia \quad TA: Debabrata Jana}
+\end{center}
+\hrule
+\vspace{0.4cm}
 
-\noindent
-\textbf{Note.} The source PDF is \emph{Problem Set 8}. I have placed the solutions in the folder name requested by the prompt, namely \texttt{PS\_6\_Solutions}. Also, in Problem 3(i) the PDF appears to have a missing minus sign; the region is interpreted as $-2\le x\le 2$, $1\le y\le 6$.
+\section*{Global conventions used throughout}
+For a level curve $F(x,y)=c$, the gradient $\grad F(x_0,y_0)$ is perpendicular to the tangent line at $(x_0,y_0)$, provided $\grad F(x_0,y_0)\ne 0$. Therefore the tangent line is
+\[
+F_x(x_0,y_0)(x-x_0)+F_y(x_0,y_0)(y-y_0)=0.
+\]
+For a level surface $F(x,y,z)=c$, the gradient $\grad F(x_0,y_0,z_0)$ is perpendicular to the tangent plane, so the tangent plane is
+\[
+F_x(P)(x-x_0)+F_y(P)(y-y_0)+F_z(P)(z-z_0)=0,
+\]
+where $P=(x_0,y_0,z_0)$.
 
-\section*{Problem 1}
-Find the extreme values of $f$ subject to both constraints.
+\begin{center}
+\begin{tikzpicture}[scale=1.02,>=Latex]
+\draw[very thick,ashokaBlue] plot[smooth] coordinates {(-3,-0.7) (-2,-0.05) (-1,0.45) (0,0.25) (1,0.0) (2,0.5) (3,1.1)};
+\coordinate (P) at (0,0.25);
+\fill[ashokaBlue] (P) circle (2pt) node[above left] {$P$};
+\draw[thick,orange!80!black,->] (P)--++(0.9,-0.23) node[right] {tangent direction};
+\draw[thick,red!75!black,->] (P)--++(0.35,1.2) node[above] {$\grad F(P)$};
+\draw[dashed,red!75!black] ($(P)+(0.35,1.2)$)--++(0.15,0.5);
+\node[align=center] at (0,-1.35) {On a level curve, the gradient is normal to the curve.\\ The tangent line is therefore perpendicular to the gradient.};
+\end{tikzpicture}
+\end{center}
 
-\begin{enumerate}
-\item $f(x,y,z)=x+2y$ subject to $x+y+z=1$ and $y^2+z^2=4$.
+\newpage
+\section*{Problem 1: Level curves and tangent lines}
+\method{Write the curve as $F(x,y)=k$ or $F(x,y)=0$. Compute $\grad F$. At the specified point $P=(x_0,y_0)$, use $\grad F(P)$ as the normal vector to the tangent line.}
 
-\textbf{Solution.}
-From the linear constraint,
+\subsection*{1(i) $x^2+y^2=k^2$ at $(k,0)$}
+Let
 \[
-x=1-y-z.
+F(x,y)=x^2+y^2.
 \]
-Hence
+The level curve is $F(x,y)=k^2$. Its gradient is
 \[
-f=x+2y=(1-y-z)+2y=1+y-z.
+\grad F(x,y)=(2x,2y).
 \]
-So we need to maximize/minimize $y-z$ on the circle $y^2+z^2=4$.
-Write
+At $(k,0)$,
 \[
-y-z=\langle (y,z),(1,-1)\rangle.
+\grad F(k,0)=(2k,0).
 \]
-By Cauchy-Schwarz,
+Thus the tangent line satisfies
 \[
-|y-z|\le \sqrt{y^2+z^2}\,\sqrt{1^2+(-1)^2}=2\sqrt2.
+2k(x-k)+0(y-0)=0.
 \]
-Therefore
+If $k\ne 0$, divide by $2k$:
 \[
-f_{\max}=1+2\sqrt2,\qquad f_{\min}=1-2\sqrt2.
+x-k=0.
 \]
-Equality holds when $(y,z)$ is parallel to $(1,-1)$ or $(-1,1)$:
-\[
-(y,z)=(\sqrt2,-\sqrt2)\quad\text{or}\quad (-\sqrt2,\sqrt2).
-\]
-Since $x=1-y-z$, in both cases $x=1$. Hence
-\[
-f_{\max}=1+2\sqrt2 \text{ at } (1,\sqrt2,-\sqrt2),
-\]
-\[
-f_{\min}=1-2\sqrt2 \text{ at } (1,-\sqrt2,\sqrt2).
-\]
+\answer{$\boxed{x=k}$. If $k=0$, the curve collapses to the single point $(0,0)$, so there is no ordinary tangent line to a regular curve.}
 
-\item $f(x,y,z)=3x-y-3z$ subject to $x+y-z=0$ and $x^2+2z^2=1$.
+\begin{center}
+\begin{tikzpicture}[scale=1.05,>=Latex]
+\draw[->] (-2.1,0)--(2.4,0) node[right] {$x$};
+\draw[->] (0,-1.8)--(0,1.8) node[above] {$y$};
+\draw[thick,ashokaBlue] (0,0) circle (1.35);
+\draw[thick,orange!80!black] (1.35,-1.4)--(1.35,1.4) node[above] {$x=k$};
+\fill[red!75!black] (1.35,0) circle (2pt) node[below right] {$(k,0)$};
+\draw[red!75!black,->,thick] (1.35,0)--(2.05,0) node[below] {$\grad F$};
+\node at (0,-2.15) {The radius is normal to the circle, so the tangent is vertical.};
+\end{tikzpicture}
+\end{center}
 
-\textbf{Solution.}
-From $x+y-z=0$ we get
+\subsection*{1(ii) $xy=k$ at $(1,k)$}
+Let
 \[
-y=z-x.
+F(x,y)=xy.
 \]
 Then
 \[
-f=3x-(z-x)-3z=4x-4z=4(x-z).
+\grad F(x,y)=(y,x).
 \]
-Thus we maximize/minimize the linear function $x-z$ on the ellipse
+At $(1,k)$,
 \[
-x^2+2z^2=1.
+\grad F(1,k)=(k,1).
 \]
-Introduce $u=x$ and $v=\sqrt2\,z$. Then $u^2+v^2=1$ and
+Therefore the tangent line is
 \[
-f=4u-2\sqrt2\,v.
+k(x-1)+1(y-k)=0.
 \]
-Its maximum and minimum on the unit circle are
+Equivalently,
 \[
-\pm\sqrt{4^2+(2\sqrt2)^2}=\pm 2\sqrt6.
+y-k=-k(x-1).
+\]
+\answer{$\boxed{k(x-1)+y-k=0}$, or $\boxed{y=-kx+2k}$.}
+
+\subsection*{1(iii) $y-x^2=k$ at $(1,k+1)$}
+Let
+\[
+F(x,y)=y-x^2.
+\]
+Then
+\[
+\grad F(x,y)=(-2x,1).
+\]
+At $(1,k+1)$,
+\[
+\grad F(1,k+1)=(-2,1).
+\]
+The tangent line is
+\[
+-2(x-1)+1(y-(k+1))=0.
 \]
 So
 \[
-f_{\max}=2\sqrt6,\qquad f_{\min}=-2\sqrt6.
+y-k-1=2(x-1),
 \]
-The maximizing point on the $(u,v)$-circle is
+and therefore
 \[
-(u,v)=\frac{(4,-2\sqrt2)}{2\sqrt6}=\left(\frac{\sqrt6}{3},-\frac1{\sqrt3}\right).
+y=2x+k-1.
 \]
-Hence
+\answer{$\boxed{y=2x+k-1}$.}
+
+\newpage
+\section*{Problem 2: Level surfaces and tangent planes}
+\method{Either convert the surface to a level surface $F(x,y,z)=0$ and use $\grad F$ as the normal vector, or, if the surface is a graph $z=f(x,y)$, use $z-z_0=f_x(P)(x-x_0)+f_y(P)(y-y_0)$. Always first check that the given point lies on the surface.}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0,>=Latex]
+\fill[blue!6] (-3,-0.75) .. controls (-1.4,0.4) and (1.4,0.4) .. (3,-0.75) -- (3,-1.4) -- (-3,-1.4) -- cycle;
+\draw[ashokaBlue,thick] (-3,-0.75) .. controls (-1.4,0.4) and (1.4,0.4) .. (3,-0.75);
+\draw[fill=orange!20,draw=orange!80!black,opacity=0.8] (-1.55,-0.15)--(1.9,0.2)--(1.45,1.15)--(-2,0.8)--cycle;
+\coordinate (P) at (0,0.45);
+\fill[red!75!black] (P) circle (2pt) node[above right] {$P$};
+\draw[red!75!black,->,thick] (P)--++(0.15,1.15) node[above] {$\grad F(P)$};
+\node at (0,-1.85) {For a level surface, the tangent plane is the plane perpendicular to $\grad F(P)$.};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{2(i) $z=x^2+y^2$ at $(1,1,2)$}
+Here $z=f(x,y)=x^2+y^2$. First check the point:
 \[
-x=\frac{\sqrt6}{3},\qquad z=\frac{v}{\sqrt2}=-\frac1{\sqrt6},\qquad y=z-x=-\frac{\sqrt6}{2}.
+1^2+1^2=2,
+\]
+so $(1,1,2)$ lies on the surface. Compute
+\[
+f_x(x,y)=2x,\qquad f_y(x,y)=2y.
+\]
+At $(1,1)$,
+\[
+f_x(1,1)=2,\qquad f_y(1,1)=2.
+\]
+Therefore
+\[
+z-2=2(x-1)+2(y-1).
+\]
+Simplifying,
+\[
+z=2x+2y-2.
+\]
+\answer{$\boxed{z=2x+2y-2}$.}
+
+\subsection*{2(ii) $y=x^2-z^2$ at $(4,7,2)$}
+First check whether the point lies on the surface. The right-hand side at $(x,z)=(4,2)$ is
+\[
+4^2-2^2=16-4=12.
+\]
+But the given $y$-coordinate is $7$, not $12$. Hence
+\[
+7\ne 12.
+\]
+\answer{The point $\boxed{(4,7,2)}$ is not on the surface $y=x^2-z^2$. Therefore the requested tangent plane at that point is not defined.}
+\warning{If the intended point was $(4,12,2)$, then $y-12=8(x-4)-4(z-2)$, i.e. $y=8x-4z-12$.}
+
+\subsection*{2(iii) $xy+yz+zx=5$ at $(1,2,1)$}
+Let
+\[
+F(x,y,z)=xy+yz+zx-5.
+\]
+Check the point:
+\[
+1\cdot 2+2\cdot 1+1\cdot 1=2+2+1=5.
+\]
+So the point lies on the surface. Compute
+\[
+F_x=y+z,\qquad F_y=x+z,\qquad F_z=x+y.
+\]
+At $(1,2,1)$,
+\[
+\grad F(1,2,1)=(3,2,3).
+\]
+Thus the tangent plane is
+\[
+3(x-1)+2(y-2)+3(z-1)=0.
+\]
+Simplifying,
+\[
+3x+2y+3z=10.
+\]
+\answer{$\boxed{3x+2y+3z=10}$.}
+
+\subsection*{2(iv) $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}+\dfrac{z^2}{c^2}=1$ at $(x_0,y_0,z_0)$}
+Let
+\[
+F(x,y,z)=\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}-1.
+\]
+Then
+\[
+\grad F(x,y,z)=\left(\frac{2x}{a^2},\frac{2y}{b^2},\frac{2z}{c^2}\right).
+\]
+At $(x_0,y_0,z_0)$,
+\[
+\grad F(x_0,y_0,z_0)=\left(\frac{2x_0}{a^2},\frac{2y_0}{b^2},\frac{2z_0}{c^2}\right).
+\]
+The tangent plane is
+\[
+\frac{2x_0}{a^2}(x-x_0)+\frac{2y_0}{b^2}(y-y_0)+\frac{2z_0}{c^2}(z-z_0)=0.
+\]
+Dividing by $2$,
+\[
+\frac{x_0x}{a^2}+\frac{y_0y}{b^2}+\frac{z_0z}{c^2}
+=\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}+\frac{z_0^2}{c^2}.
+\]
+Since $(x_0,y_0,z_0)$ lies on the ellipsoid, the right-hand side is $1$. Hence
+\[
+\frac{x_0x}{a^2}+\frac{y_0y}{b^2}+\frac{z_0z}{c^2}=1.
+\]
+\answer{$\boxed{\dfrac{x_0x}{a^2}+\dfrac{y_0y}{b^2}+\dfrac{z_0z}{c^2}=1}$.}
+
+\newpage
+\section*{Problem 3: Chain rule}
+\method{When $f=f(x(t),y(t))$, use $\dfrac{df}{dt}=f_x\dfrac{dx}{dt}+f_y\dfrac{dy}{dt}$. When $f=f(x(t),y(t),z(t))$, use $\dfrac{df}{dt}=f_xx'(t)+f_yy'(t)+f_zz'(t)$. The computation is always: first compute partial derivatives, then compute derivatives of the inner functions, then substitute.}
+
+\begin{center}
+\begin{tikzpicture}[node distance=1.2cm,>=Latex]
+\node[draw,rounded corners,fill=softBlue,minimum width=2.0cm] (t) {$t$};
+\node[draw,rounded corners,fill=softGray,right=1.6cm of t] (xy) {$(x(t),y(t),z(t))$};
+\node[draw,rounded corners,fill=softGreen,right=1.8cm of xy] (f) {$f(x,y,z)$};
+\draw[->,thick] (t)--(xy) node[midway,above] {inner derivatives};
+\draw[->,thick] (xy)--(f) node[midway,above] {gradient};
+\node[below=0.65cm of xy] {$\displaystyle \frac{df}{dt}=\grad f\cdot \frac{d}{dt}(x,y,z)$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{3(i) $f(x,y)=\dfrac{x^3+y^3}{3}$, $x=4\cos t$, $y=3\sin t$}
+First compute partial derivatives:
+\[
+f_x=x^2,\qquad f_y=y^2.
+\]
+Compute the inner derivatives:
+\[
+x'(t)=-4\sin t,\qquad y'(t)=3\cos t.
+\]
+Therefore
+\[
+\frac{df}{dt}=x^2(-4\sin t)+y^2(3\cos t).
+\]
+Substitute $x=4\cos t$ and $y=3\sin t$:
+\[
+\frac{df}{dt}=(4\cos t)^2(-4\sin t)+(3\sin t)^2(3\cos t).
 \]
 Thus
 \[
-f_{\max}=2\sqrt6 \text{ at } \left(\frac{\sqrt6}{3},-\frac{\sqrt6}{2},-\frac1{\sqrt6}\right).
+\frac{df}{dt}=-64\cos^2t\sin t+27\sin^2t\cos t.
 \]
-By symmetry,
-\[
-f_{\min}=-2\sqrt6 \text{ at } \left(-\frac{\sqrt6}{3},\frac{\sqrt6}{2},\frac1{\sqrt6}\right).
-\]
+\answer{$\boxed{\dfrac{df}{dt}=-64\cos^2t\sin t+27\sin^2t\cos t}$.}
 
-\item $f(x,y,z)=yz+xy$ subject to $xy=1$ and $y^2+z^2=1$.
-
-\textbf{Solution.}
-From $xy=1$ we have $x=1/y$ (so $y\neq 0$). Then
+\subsection*{3(ii) $f(x,y)=x^2+y^2+xy$, $x=\sin t$, $y=e^t$}
+The partial derivatives are
 \[
-f=yz+xy=yz+1.
+f_x=2x+y,\qquad f_y=2y+x.
 \]
-Thus we only need to maximize/minimize $yz$ subject to
+The inner derivatives are
 \[
-y^2+z^2=1.
-\]
-Since
-\[
-2|yz|\le y^2+z^2=1,
-\]
-we get
-\[
--\frac12\le yz\le \frac12.
-\]
-Therefore
-\[
-f_{\max}=1+\frac12=\frac32,\qquad f_{\min}=1-\frac12=\frac12.
-\]
-The maximum $yz=\frac12$ occurs at
-\[
-(y,z)=\left(\frac1{\sqrt2},\frac1{\sqrt2}\right),\quad
-\left(-\frac1{\sqrt2},-\frac1{\sqrt2}\right),
-\]
-and then $x=1/y=\pm\sqrt2$. Hence
-\[
-f_{\max}=\frac32 \text{ at } \left(\sqrt2,\frac1{\sqrt2},\frac1{\sqrt2}\right),\ 
-\left(-\sqrt2,-\frac1{\sqrt2},-\frac1{\sqrt2}\right).
-\]
-The minimum $yz=-\frac12$ occurs at
-\[
-(y,z)=\left(\frac1{\sqrt2},-\frac1{\sqrt2}\right),\quad
-\left(-\frac1{\sqrt2},\frac1{\sqrt2}\right),
-\]
-so
-\[
-f_{\min}=\frac12 \text{ at } \left(\sqrt2,\frac1{\sqrt2},-\frac1{\sqrt2}\right),\ 
-\left(-\sqrt2,-\frac1{\sqrt2},\frac1{\sqrt2}\right).
-\]
-
-\item $f(x,y,z)=x^2+y^2+z^2$ subject to $x-y=1$ and $y^2-z^2=1$.
-
-\textbf{Solution.}
-From the constraints,
-\[
-x=y+1,\qquad z^2=y^2-1.
+x'(t)=\cos t,\qquad y'(t)=e^t.
 \]
 Hence
 \[
-f=(y+1)^2+y^2+(y^2-1)=3y^2+2y.
+\frac{df}{dt}=(2x+y)x'(t)+(2y+x)y'(t).
 \]
-The constraint $z^2=y^2-1\ge 0$ implies $|y|\ge 1$.
-So we minimize $3y^2+2y$ on the set $(-\infty,-1]\cup[1,\infty)$.
-
-Since $3y^2+2y$ is an upward-opening parabola, and its vertex $y=-1/3$ is not feasible, the minimum occurs at the nearest feasible endpoint $y=-1$.
-Then
+Substitute:
 \[
-x=0,\qquad z=0,\qquad f=1.
+\frac{df}{dt}=(2\sin t+e^t)\cos t+(2e^t+\sin t)e^t.
 \]
-As $|y|\to\infty$, we have $f=3y^2+2y\to\infty$, so there is no maximum.
+\answer{$\boxed{\dfrac{df}{dt}=(2\sin t+e^t)\cos t+(2e^t+\sin t)e^t}$.}
 
+\subsection*{3(iii) $f(x,y)=\sqrt{1+x^2+y^2}$, $x=\ln t$, $y=\cos t$}
+The expression $\ln t$ requires $t>0$. Compute partial derivatives:
+\[
+f_x=\frac{x}{\sqrt{1+x^2+y^2}},\qquad f_y=\frac{y}{\sqrt{1+x^2+y^2}}.
+\]
+The inner derivatives are
+\[
+x'(t)=\frac1t,\qquad y'(t)=-\sin t.
+\]
 Therefore
 \[
-f_{\min}=1 \text{ at } (0,-1,0),
+\frac{df}{dt}=\frac{x}{\sqrt{1+x^2+y^2}}\cdot\frac1t+\frac{y}{\sqrt{1+x^2+y^2}}(-\sin t).
 \]
-and there is no maximum.
-\end{enumerate}
-
-\section*{Problem 2}
-Find the absolute maximum and minimum values of the following function in the specified region.
-
-\begin{enumerate}
-\item $f(x,y)=4xy^2-x^2y^2-xy^3$ on the closed triangle with vertices $(0,0)$, $(0,6)$, $(6,0)$.
-
-\textbf{Solution.}
-The region is
+Substitute $x=\ln t$, $y=\cos t$:
 \[
-R=\{(x,y):x\ge 0,\ y\ge 0,\ x+y\le 6\}.
+\frac{df}{dt}=\frac{\frac{\ln t}{t}-\cos t\sin t}{\sqrt{1+(\ln t)^2+\cos^2t}}.
 \]
+\answer{$\boxed{\dfrac{df}{dt}=\dfrac{\frac{\ln t}{t}-\sin t\cos t}{\sqrt{1+(\ln t)^2+\cos^2t}}}$, for $t>0$.}
+
+\subsection*{3(iv) $f(x,y,z)=\ln\sqrt{x^2+y^2+z^2}$, $x=\sin t$, $y=\cos t$, $z=\tan t$}
 Write
 \[
-f(x,y)=xy^2(4-x-y).
+f(x,y,z)=\frac12\ln(x^2+y^2+z^2).
 \]
-Since $R$ is compact and $f$ is continuous, absolute extrema exist.
+Therefore
+\[
+f_x=\frac{x}{x^2+y^2+z^2},\quad f_y=\frac{y}{x^2+y^2+z^2},\quad f_z=\frac{z}{x^2+y^2+z^2}.
+\]
+Also,
+\[
+x'(t)=\cos t,\qquad y'(t)=-\sin t,\qquad z'(t)=\sec^2t.
+\]
+Thus
+\[
+\frac{df}{dt}=\frac{x\cos t-y\sin t+z\sec^2t}{x^2+y^2+z^2}.
+\]
+Substitute $x=\sin t$, $y=\cos t$, $z=\tan t$. The numerator becomes
+\[
+\sin t\cos t-\cos t\sin t+\tan t\sec^2t=\tan t\sec^2t.
+\]
+The denominator is
+\[
+\sin^2t+\cos^2t+\tan^2t=1+\tan^2t=\sec^2t.
+\]
+Therefore
+\[
+\frac{df}{dt}=\frac{\tan t\sec^2t}{\sec^2t}=\tan t.
+\]
+\answer{$\boxed{\dfrac{df}{dt}=\tan t}$, wherever all expressions are defined.}
 
-\textbf{Interior critical points.}
-\[
-f_x=y^2(4-2x-y),\qquad f_y=xy(8-2x-3y).
-\]
-In the interior, $x>0$ and $y>0$, so
-\[
-4-2x-y=0,\qquad 8-2x-3y=0.
-\]
-Subtracting gives $2y=4$, so $y=2$, and then $x=1$.
-Thus the only interior critical point is $(1,2)$, where
-\[
-f(1,2)=4.
-\]
+\newpage
+\section*{Problem 4: Implicit differentiation}
+\method{For one implicit equation $F(x,y)=0$, if $F_y\ne 0$, then $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}$. For one implicit equation $F(x,y,z)=0$ defining $z=z(x,y)$, if $F_z\ne 0$, then $\dfrac{\partial z}{\partial x}=-\dfrac{F_x}{F_z}$ and $\dfrac{\partial z}{\partial y}=-\dfrac{F_y}{F_z}$.}
 
-\textbf{Boundary.}
-On $x=0$ or $y=0$, we have $f=0$.
-
-On the slanted edge $x+y=6$, put $y=6-x$:
+\subsection*{4(i)(a) $x^2-5xy+2y^2=1$}
+Let
 \[
-f(x,6-x)=x(6-x)^2(4-6)=-2x(6-x)^2,\qquad 0\le x\le 6.
+F(x,y)=x^2-5xy+2y^2-1.
+\]
+Then
+\[
+F_x=2x-5y,\qquad F_y=-5x+4y.
+\]
+Therefore
+\[
+\frac{dy}{dx}=-\frac{F_x}{F_y}
+=-\frac{2x-5y}{-5x+4y}
+=\frac{2x-5y}{5x-4y}.
+\]
+\answer{$\boxed{\dfrac{dy}{dx}=\dfrac{2x-5y}{5x-4y}}$, where $5x-4y\ne 0$.}
+
+\subsection*{4(i)(b) $x^3+y^3-6xy=0$}
+Let
+\[
+F(x,y)=x^3+y^3-6xy.
+\]
+Then
+\[
+F_x=3x^2-6y,
+\qquad
+F_y=3y^2-6x.
+\]
+Hence
+\[
+\frac{dy}{dx}=-\frac{3x^2-6y}{3y^2-6x}
+=\frac{2y-x^2}{y^2-2x}.
+\]
+\answer{$\boxed{\dfrac{dy}{dx}=\dfrac{2y-x^2}{y^2-2x}}$, where $y^2-2x\ne 0$.}
+
+\subsection*{4(i)(c) $y\cos x=x^2$}
+Let
+\[
+F(x,y)=y\cos x-x^2.
+\]
+Then
+\[
+F_x=-y\sin x-2x,
+\qquad
+F_y=\cos x.
+\]
+Therefore
+\[
+\frac{dy}{dx}=-\frac{-y\sin x-2x}{\cos x}
+=\frac{y\sin x+2x}{\cos x}.
+\]
+\answer{$\boxed{\dfrac{dy}{dx}=\dfrac{y\sin x+2x}{\cos x}}$, where $\cos x\ne 0$.}
+
+\subsection*{4(i)(d) $y^2=\dfrac{\cos(xy)}{1+\sin y}$}
+The printed problem is naturally read as the fraction form above. To avoid quotient algebra, first multiply both sides by $1+\sin y$:
+\[
+y^2(1+\sin y)=\cos(xy).
+\]
+Define
+\[
+F(x,y)=y^2(1+\sin y)-\cos(xy).
+\]
+Then
+\[
+F_x=y\sin(xy),
+\]
+because $\partial[-\cos(xy)]/\partial x=y\sin(xy)$. Also,
+\[
+F_y=2y(1+\sin y)+y^2\cos y+x\sin(xy).
+\]
+Therefore
+\[
+\frac{dy}{dx}=-\frac{F_x}{F_y}
+=-\frac{y\sin(xy)}{2y(1+\sin y)+y^2\cos y+x\sin(xy)}.
+\]
+\answer{$\boxed{\dfrac{dy}{dx}=-\dfrac{y\sin(xy)}{2y(1+\sin y)+y^2\cos y+x\sin(xy)}}$.}
+
+\subsection*{4(ii)(a) $x^2+2y^2+3z^2=1$}
+Let
+\[
+F(x,y,z)=x^2+2y^2+3z^2-1.
+\]
+Then
+\[
+F_x=2x,\qquad F_y=4y,\qquad F_z=6z.
+\]
+Hence
+\[
+z_x=-\frac{2x}{6z}=-\frac{x}{3z},
+\qquad
+z_y=-\frac{4y}{6z}=-\frac{2y}{3z}.
+\]
+\answer{$\boxed{z_x=-\dfrac{x}{3z}}$, $\boxed{z_y=-\dfrac{2y}{3z}}$, where $z\ne0$.}
+
+\subsection*{4(ii)(b) $x^2-y^2+z^2-2z=4$}
+Let
+\[
+F(x,y,z)=x^2-y^2+z^2-2z-4.
+\]
+Then
+\[
+F_x=2x,\qquad F_y=-2y,\qquad F_z=2z-2.
+\]
+Thus
+\[
+z_x=-\frac{2x}{2z-2}=-\frac{x}{z-1},
+\qquad
+z_y=-\frac{-2y}{2z-2}=\frac{y}{z-1}.
+\]
+\answer{$\boxed{z_x=-\dfrac{x}{z-1}}$, $\boxed{z_y=\dfrac{y}{z-1}}$, where $z\ne1$.}
+
+\subsection*{4(ii)(c) $x^3+y^3+z^3+4xyz=1$}
+Let
+\[
+F(x,y,z)=x^3+y^3+z^3+4xyz-1.
+\]
+Then
+\[
+F_x=3x^2+4yz,
+\qquad
+F_y=3y^2+4xz,
+\qquad
+F_z=3z^2+4xy.
+\]
+Therefore
+\[
+z_x=-\frac{3x^2+4yz}{3z^2+4xy},
+\qquad
+z_y=-\frac{3y^2+4xz}{3z^2+4xy}.
+\]
+\answer{$\boxed{z_x=-\dfrac{3x^2+4yz}{3z^2+4xy}}$, $\boxed{z_y=-\dfrac{3y^2+4xz}{3z^2+4xy}}$.}
+
+\subsection*{4(ii)(d) $yz+x\ln y=z^2$}
+Let
+\[
+F(x,y,z)=yz+x\ln y-z^2.
+\]
+Then
+\[
+F_x=\ln y,
+\qquad
+F_y=z+\frac{x}{y},
+\qquad
+F_z=y-2z.
+\]
+Hence
+\[
+z_x=-\frac{\ln y}{y-2z},
+\qquad
+z_y=-\frac{z+x/y}{y-2z}.
+\]
+\answer{$\boxed{z_x=-\dfrac{\ln y}{y-2z}}$, $\boxed{z_y=-\dfrac{z+x/y}{y-2z}}$, where $y>0$ and $y\ne2z$.}
+
+\newpage
+\section*{Problem 5: Mean value theorem}
+
+\subsection*{5(i) Convexity of $S=\{x:\norm{x-x_0}<r\}\subset\R^n$}
+\method{To prove a set is convex, take any two points in the set and show that every point on the straight segment joining them is still in the set.}
+Let $a,b\in S$ and let $\lambda\in[0,1]$. We must show that
+\[
+\lambda a+(1-\lambda)b\in S.
+\]
+By definition of $S$,
+\[
+\norm{a-x_0}<r,
+\qquad
+\norm{b-x_0}<r.
+\]
+Now compute the distance from the convex combination to $x_0$:
+\[
+\lambda a+(1-\lambda)b-x_0
+=\lambda(a-x_0)+(1-\lambda)(b-x_0).
+\]
+Using the triangle inequality and homogeneity of the norm,
+\[
+\begin{aligned}
+\norm{\lambda a+(1-\lambda)b-x_0}
+&=\norm{\lambda(a-x_0)+(1-\lambda)(b-x_0)}\\
+&\le \lambda\norm{a-x_0}+(1-\lambda)\norm{b-x_0}\\
+&<\lambda r+(1-\lambda)r\\
+&=r.
+\end{aligned}
+\]
+Therefore $\lambda a+(1-\lambda)b\in S$.
+\answer{$\boxed{S\text{ is convex.}}$}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0,>=Latex]
+\fill[blue!8] (0,0) circle (1.8);
+\draw[thick,ashokaBlue] (0,0) circle (1.8);
+\fill[black] (0,0) circle (1.5pt) node[below] {$x_0$};
+\coordinate (A) at (-1.1,0.75);
+\coordinate (B) at (1.25,-0.45);
+\fill[red!70!black] (A) circle (2pt) node[above left] {$a$};
+\fill[red!70!black] (B) circle (2pt) node[below right] {$b$};
+\draw[thick,orange!80!black] (A)--(B);
+\node at (0,-2.35) {Every line segment between two points in an open ball stays inside the ball.};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{5(ii) If $D_uf(x)=0$ in every unit direction on an open convex set, then $f$ is constant}
+Let $a,b\in S$. If $a=b$, then clearly $f(a)=f(b)$. Assume $a\ne b$.
+Define
+\[
+u=\frac{b-a}{\norm{b-a}}.
+\]
+Then $u$ is a unit vector. Because $S$ is convex, every point of the segment
+\[
+\gamma(t)=a+t(b-a),\qquad 0\le t\le1,
+\]
+lies in $S$. Define a one-variable function
+\[
+g(t)=f(\gamma(t))=f(a+t(b-a)).
+\]
+The derivative of $g$ is the rate of change of $f$ along the direction $u$, scaled by the speed $\norm{b-a}$:
+\[
+g'(t)=\norm{b-a}\,D_uf(\gamma(t)).
+\]
+By hypothesis, $D_uf(x)=0$ for every $x\in S$ and every unit vector $u$. Therefore
+\[
+g'(t)=0
+\]
+for every $t\in[0,1]$ where the derivative is taken. By the one-variable mean value theorem, $g$ is constant on $[0,1]$. Hence
+\[
+g(0)=g(1).
+\]
+But
+\[
+g(0)=f(a),\qquad g(1)=f(b).
+\]
+Therefore
+\[
+f(a)=f(b).
+\]
+Since $a,b\in S$ were arbitrary, $f$ is constant on $S$.
+\answer{$\boxed{f\text{ is constant on }S.}$}
+
+\subsection*{5(iii) For differentiable $f$ on open convex $S$, prove $\grad f=0$ iff $f$ is constant}
+First suppose $f$ is constant on $S$. Then for each coordinate direction $e_i$,
+\[
+\frac{\partial f}{\partial x_i}(x)=0
+\]
+for all $x\in S$. Therefore
+\[
+\grad f(x)=0
+\]
+for all $x\in S$.
+
+Conversely, suppose
+\[
+\grad f(x)=0
+\]
+for all $x\in S$. For any unit vector $u$,
+\[
+D_uf(x)=\grad f(x)\cdot u=0\cdot u=0.
+\]
+By part (ii), $f$ is constant on $S$.
+\answer{$\boxed{\grad f=0\text{ on }S\iff f\text{ is constant on }S.}$}
+
+\newpage
+\section*{Problem 6: Linear maps}
+\method{A linear map is determined by what it does to basis vectors. In coordinates, every linear map is represented by a matrix. Geometric transformations such as rotations, reflections, and projections are therefore written as matrices acting on coordinate vectors.}
+
+\subsection*{6(i) Rotation in $\R^2$ anticlockwise by angle $\theta$}
+The standard anticlockwise rotation matrix is
+\[
+R_\theta=
+\begin{bmatrix}
+\cos\theta&-\sin\theta\\
+\sin\theta&\cos\theta
+\end{bmatrix}.
+\]
+Therefore
+\[
+R_\theta\begin{bmatrix}x\\y\end{bmatrix}
+=
+\begin{bmatrix}
+x\cos\theta-y\sin\theta\\
+x\sin\theta+y\cos\theta
+\end{bmatrix}.
+\]
+\answer{$\boxed{R_\theta=\begin{bmatrix}\cos\theta&-\sin\theta\\ \sin\theta&\cos\theta\end{bmatrix}}$.}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.05,>=Latex]
+\draw[->] (-0.2,0)--(3,0) node[right] {$x$};
+\draw[->] (0,-0.2)--(0,2.4) node[above] {$y$};
+\draw[thick,ashokaBlue,->] (0,0)--(2.1,0.6) node[right] {$v$};
+\draw[thick,orange!80!black,->] (0,0)--(1.25,1.8) node[above] {$R_\theta v$};
+\draw (0.75,0.2) arc[start angle=15,end angle=55,radius=0.9];
+\node at (0.95,0.7) {$\theta$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{6(ii) Reflection about a line making angle $\theta$ with the $x$-axis}
+Reflection across the $x$-axis is
+\[
+\begin{bmatrix}1&0\\0&-1\end{bmatrix}.
+\]
+To reflect across a line making angle $\theta$, rotate the line to the $x$-axis, reflect, then rotate back:
+\[
+M_\theta=R_\theta
+\begin{bmatrix}1&0\\0&-1\end{bmatrix}
+R_{-\theta}.
+\]
+Carrying out the multiplication gives
+\[
+M_\theta=
+\begin{bmatrix}
+\cos 2\theta&\sin 2\theta\\
+\sin 2\theta&-\cos 2\theta
+\end{bmatrix}.
+\]
+\answer{$\boxed{M_\theta=\begin{bmatrix}\cos2\theta&\sin2\theta\\ \sin2\theta&-\cos2\theta\end{bmatrix}}$.}
+
+\subsection*{6(iii) Projection onto a line through the origin}
+Let the line be spanned by a nonzero vector $v\in\R^n$. The projection of $x$ onto the line is the component of $x$ in the direction of $v$:
+\[
+\operatorname{proj}_v(x)=\frac{x\cdot v}{v\cdot v}v.
+\]
+If $u$ is the unit vector in the direction of the line, then $v\cdot v=1$ and
+\[
+\operatorname{proj}_u(x)=(x\cdot u)u.
+\]
+In matrix form,
+\[
+P=\frac{vv^T}{v^Tv}.
+\]
+For a line in $\R^2$ making angle $\theta$ with the $x$-axis, take $u=(\cos\theta,\sin\theta)$. Then
+\[
+P_\theta=uu^T=
+\begin{bmatrix}
+\cos^2\theta&\sin\theta\cos\theta\\
+\sin\theta\cos\theta&\sin^2\theta
+\end{bmatrix}.
+\]
+\answer{$\boxed{\operatorname{proj}_v(x)=\dfrac{x\cdot v}{v\cdot v}v}$ and $\boxed{P=\dfrac{vv^T}{v^Tv}}$.}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0,>=Latex]
+\draw[->] (-2.3,0)--(2.6,0) node[right] {$x$};
+\draw[->] (0,-1.6)--(0,2.2) node[above] {$y$};
+\draw[thick,ashokaBlue] (-2,-0.8)--(2,0.8) node[right] {line};
+\draw[thick,red!70!black,->] (0,0)--(1.2,1.55) node[above] {$v$};
+\coordinate (P) at (1.55,0.62);
+\draw[thick,orange!85!black,->] (0,0)--(P) node[below right] {$\operatorname{proj}(v)$};
+\draw[dashed] (1.2,1.55)--(P);
+\node at (0,-1.95) {Projection drops the vector perpendicularly onto the line.};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{6(iv) Map from $\R^3$ onto the $xy$-plane}
+The $xy$-plane consists of all points whose third coordinate is $0$. Therefore the projection map is
+\[
+P(x,y,z)=(x,y,0).
+\]
+In matrix form,
+\[
+P=
+\begin{bmatrix}
+1&0&0\\
+0&1&0\\
+0&0&0
+\end{bmatrix}.
+\]
+\answer{$\boxed{P(x,y,z)=(x,y,0)}$ and $\boxed{P=\begin{bmatrix}1&0&0\\0&1&0\\0&0&0\end{bmatrix}}$.}
+
+\subsection*{6(v) Every linear map $A:\R^n\to\R^m$ has an $m\times n$ matrix}
+Let $e_1,\dots,e_n$ be the standard basis of $\R^n$. Every vector $x\in\R^n$ can be written as
+\[
+x=x_1e_1+x_2e_2+\cdots+x_ne_n.
+\]
+Since $A$ is linear,
+\[
+A(x)=x_1A(e_1)+x_2A(e_2)+\cdots+x_nA(e_n).
+\]
+Now form the matrix $\widetilde A$ whose $j$th column is $A(e_j)$:
+\[
+\widetilde A=\begin{bmatrix} A(e_1)&A(e_2)&\cdots&A(e_n)\end{bmatrix}.
+\]
+Then matrix multiplication gives exactly
+\[
+A(x)=\widetilde A
+\begin{bmatrix}
+x_1\\x_2\\\vdots\\x_n
+\end{bmatrix}.
+\]
+Conversely, any $m\times n$ matrix defines a linear map by multiplication because matrix multiplication preserves sums and scalar multiples.
+\answer{$\boxed{\text{Linear maps }\R^n\to\R^m\text{ are exactly }m\times n\text{ matrices.}}$}
+
+\newpage
+\section*{Problems 7 and 8: Second-degree Taylor polynomials and Hessians at critical points}
+\method{First solve $\grad f=0$ to find the critical points. Then compute the Hessian matrix
+\[
+H_f(a,b)=\begin{bmatrix}f_{xx}(a,b)&f_{xy}(a,b)\\f_{yx}(a,b)&f_{yy}(a,b)\end{bmatrix}.
+\]
+At a critical point $(a,b)$, the second-degree Taylor polynomial is
+\[
+T_2(x,y)=f(a,b)+\frac12
+\begin{bmatrix}x-a&y-b\end{bmatrix}
+H_f(a,b)
+\begin{bmatrix}x-a\\y-b\end{bmatrix},
+\]
+because the first-order term is zero when $\grad f(a,b)=0$.}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0,>=Latex]
+\node[draw,rounded corners,fill=softBlue,minimum width=3.6cm] (g) {Solve $\grad f=0$};
+\node[draw,rounded corners,fill=softGray,right=1.4cm of g,minimum width=3.6cm] (h) {Compute Hessian $H_f$};
+\node[draw,rounded corners,fill=softGreen,right=1.4cm of h,minimum width=3.8cm] (t) {Insert into $T_2$};
+\draw[->,thick] (g)--(h);
+\draw[->,thick] (h)--(t);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{7(i), 8(i) $f(x,y)=xy^2+x^2y$}
+Compute the gradient:
+\[
+f_x=y^2+2xy=y(y+2x),\qquad f_y=2xy+x^2=x(2y+x).
+\]
+Set both equal to zero:
+\[
+y(y+2x)=0,
+\qquad
+x(2y+x)=0.
+\]
+Checking the cases gives only
+\[
+(x,y)=(0,0).
+\]
+The Hessian entries are
+\[
+f_{xx}=2y,
+\qquad
+f_{xy}=2x+2y,
+\qquad
+f_{yy}=2x.
+\]
+At $(0,0)$,
+\[
+H_f(0,0)=\begin{bmatrix}0&0\\0&0\end{bmatrix}.
+\]
+Also $f(0,0)=0$. Therefore
+\[
+T_2(x,y)=0.
+\]
+\answer{Critical point: $\boxed{(0,0)}$. Hessian: $\boxed{\begin{bmatrix}0&0\\0&0\end{bmatrix}}$. Taylor polynomial: $\boxed{T_2=0}$.}
+
+\subsection*{7(ii), 8(ii) $f(x,y)=x^2+(y-1)^2$}
+\[
+f_x=2x,
+\qquad
+f_y=2(y-1).
+\]
+Thus $\grad f=0$ gives
+\[
+x=0,
+\qquad y=1.
+\]
+So the critical point is $(0,1)$. The Hessian is constant:
+\[
+H_f=\begin{bmatrix}2&0\\0&2\end{bmatrix}.
+\]
+Since $f(0,1)=0$,
+\[
+T_2(x,y)=x^2+(y-1)^2.
+\]
+\answer{Critical point: $\boxed{(0,1)}$. Hessian: $\boxed{\begin{bmatrix}2&0\\0&2\end{bmatrix}}$. Taylor polynomial: $\boxed{T_2=x^2+(y-1)^2}$.}
+
+\subsection*{7(iii), 8(iii) $f(x,y)=1+x^2-(y-1)^2$}
+\[
+f_x=2x,
+\qquad
+f_y=-2(y-1).
+\]
+Thus $\grad f=0$ gives $(0,1)$. The Hessian is
+\[
+H_f=\begin{bmatrix}2&0\\0&-2\end{bmatrix}.
+\]
+Since $f(0,1)=1$,
+\[
+T_2(x,y)=1+x^2-(y-1)^2.
+\]
+\answer{Critical point: $\boxed{(0,1)}$. Hessian: $\boxed{\begin{bmatrix}2&0\\0&-2\end{bmatrix}}$. Taylor polynomial: $\boxed{T_2=1+x^2-(y-1)^2}$.}
+
+\subsection*{7(iv), 8(iv) $f(x,y)=(x-y+1)^2$}
+Let $q=x-y+1$. Then
+\[
+f_x=2q,
+\qquad
+f_y=-2q.
+\]
+Thus $\grad f=0$ exactly when
+\[
+q=0,
+\qquad\text{that is}\qquad y=x+1.
+\]
+So every point $(a,a+1)$ is critical. The Hessian is constant:
+\[
+H_f=\begin{bmatrix}2&-2\\-2&2\end{bmatrix}.
+\]
+At a critical point $(a,a+1)$, $f(a,a+1)=0$. Let
+\[
+u=x-a,
+\qquad
+v=y-(a+1).
+\]
+Then
+\[
+T_2(x,y)=\frac12\begin{bmatrix}u&v\end{bmatrix}
+\begin{bmatrix}2&-2\\-2&2\end{bmatrix}
+\begin{bmatrix}u\\v\end{bmatrix}
+=(u-v)^2.
+\]
+Since $u-v=(x-a)-(y-a-1)=x-y+1$,
+\[
+T_2(x,y)=(x-y+1)^2.
+\]
+\answer{Critical set: $\boxed{y=x+1}$. Hessian: $\boxed{\begin{bmatrix}2&-2\\-2&2\end{bmatrix}}$. Taylor polynomial at $(a,a+1)$: $\boxed{T_2=(x-y+1)^2}$.}
+
+\subsection*{7(v), 8(v) $f(x,y)=\sin x\sin y\sin(x+y)$ on $[0,\pi]^2$}
+First compute the first partial derivatives:
+\[
+\begin{aligned}
+f_x
+&=\cos x\sin y\sin(x+y)+\sin x\sin y\cos(x+y)\\
+&=\sin y\sin(2x+y),
+\end{aligned}
+\]
+and similarly
+\[
+f_y=\sin x\sin(x+2y).
+\]
+Thus $\grad f=0$ means
+\[
+\sin y\sin(2x+y)=0,
+\qquad
+\sin x\sin(x+2y)=0.
+\]
+On the boundary, this gives the four corners
+\[
+(0,0),\quad (\pi,0),\quad (0,\pi),\quad (\pi,\pi).
+\]
+In the interior, $\sin x\ne0$ and $\sin y\ne0$, so
+\[
+\sin(2x+y)=0,
+\qquad
+\sin(x+2y)=0.
+\]
+Since $x,y\in(0,\pi)$, the only interior solutions are
+\[
+(x,y)=\left(\frac\pi3,\frac\pi3\right),
+\qquad
+(x,y)=\left(\frac{2\pi}{3},\frac{2\pi}{3}\right).
+\]
+Now compute the second derivatives:
+\[
+f_{xx}=2\sin y\cos(2x+y),
+\qquad
+f_{xy}=\sin(2x+2y),
+\qquad
+f_{yy}=2\sin x\cos(x+2y).
+\]
+At the four corners, $H_f=0$ and $f=0$, so $T_2=0$.
+
+At $p_1=(\pi/3,\pi/3)$,
+\[
+f(p_1)=\frac{3\sqrt3}{8},
+\qquad
+H_f(p_1)=
+\begin{bmatrix}
+-\sqrt3&-\sqrt3/2\\
+-\sqrt3/2&-\sqrt3
+\end{bmatrix}.
+\]
+Let $u=x-\pi/3$ and $v=y-\pi/3$. Then
+\[
+T_2=\frac{3\sqrt3}{8}-\frac{\sqrt3}{2}u^2-\frac{\sqrt3}{2}uv-\frac{\sqrt3}{2}v^2.
+\]
+At $p_2=(2\pi/3,2\pi/3)$,
+\[
+f(p_2)=-\frac{3\sqrt3}{8},
+\qquad
+H_f(p_2)=
+\begin{bmatrix}
+\sqrt3&\sqrt3/2\\
+\sqrt3/2&\sqrt3
+\end{bmatrix}.
+\]
+Let $u=x-2\pi/3$ and $v=y-2\pi/3$. Then
+\[
+T_2=-\frac{3\sqrt3}{8}+\frac{\sqrt3}{2}u^2+\frac{\sqrt3}{2}uv+\frac{\sqrt3}{2}v^2.
+\]
+\answer{Critical points are $\boxed{(0,0),(\pi,0),(0,\pi),(\pi,\pi),(\pi/3,\pi/3),(2\pi/3,2\pi/3)}$. The Hessians and Taylor polynomials are listed above explicitly.}
+
+\subsection*{7(vi), 8(vi) $f(x,y)=x^2-xy+y^2-2x+y$}
+\[
+f_x=2x-y-2,
+\qquad
+f_y=-x+2y+1.
+\]
+Set both equal to zero:
+\[
+2x-y-2=0,
+\qquad
+-x+2y+1=0.
+\]
+From the first equation $y=2x-2$. Substitute into the second:
+\[
+-x+2(2x-2)+1=0
+\quad\Longrightarrow\quad
+3x-3=0.
+\]
+Thus $x=1$ and $y=0$. The Hessian is constant:
+\[
+H_f=\begin{bmatrix}2&-1\\-1&2\end{bmatrix}.
+\]
+Also $f(1,0)=-1$. Let $u=x-1$ and $v=y$. Then
+\[
+T_2=-1+u^2-uv+v^2.
+\]
+\answer{Critical point: $\boxed{(1,0)}$. Hessian: $\boxed{\begin{bmatrix}2&-1\\-1&2\end{bmatrix}}$. Taylor polynomial: $\boxed{T_2=-1+(x-1)^2-(x-1)y+y^2}$.}
+
+\subsection*{7(vii), 8(vii) $f(x,y)=2x^2-xy-3y^2-3x+7y$}
+\[
+f_x=4x-y-3,
+\qquad
+f_y=-x-6y+7.
+\]
+Set both equal to zero:
+\[
+4x-y-3=0,
+\qquad
+-x-6y+7=0.
+\]
+The first gives $y=4x-3$. Substitute:
+\[
+-x-6(4x-3)+7=0
+\quad\Longrightarrow\quad
+-25x+25=0.
+\]
+So $x=1$, and then $y=1$. The Hessian is
+\[
+H_f=\begin{bmatrix}4&-1\\-1&-6\end{bmatrix}.
+\]
+Also $f(1,1)=2$. Let $u=x-1$, $v=y-1$. Then
+\[
+T_2=2+2u^2-uv-3v^2.
+\]
+\answer{Critical point: $\boxed{(1,1)}$. Hessian: $\boxed{\begin{bmatrix}4&-1\\-1&-6\end{bmatrix}}$. Taylor polynomial: $\boxed{T_2=2+2(x-1)^2-(x-1)(y-1)-3(y-1)^2}$.}
+
+\subsection*{7(viii), 8(viii) $f(x,y)=x^3-3xy^2+y^3$}
+\[
+f_x=3x^2-3y^2=3(x-y)(x+y),
+\qquad
+f_y=-6xy+3y^2=3y(y-2x).
+\]
+Set both equal to zero. From $f_y=0$, either $y=0$ or $y=2x$. If $y=0$, then $f_x=3x^2$, so $x=0$. If $y=2x$, then
+\[
+f_x=3x^2-3(2x)^2=-9x^2,
+\]
+so again $x=0$ and $y=0$. Thus the only critical point is $(0,0)$.
+
+The second derivatives are
+\[
+f_{xx}=6x,
+\qquad
+f_{xy}=-6y,
+\qquad
+f_{yy}=-6x+6y.
+\]
+At $(0,0)$,
+\[
+H_f(0,0)=\begin{bmatrix}0&0\\0&0\end{bmatrix}.
+\]
+Since $f(0,0)=0$,
+\[
+T_2=0.
+\]
+\answer{Critical point: $\boxed{(0,0)}$. Hessian: $\boxed{0}$. Taylor polynomial: $\boxed{T_2=0}$.}
+
+\subsection*{7(ix), 8(ix) $f(x,y)=x^2y^3(6-x-y)$}
+First compute
+\[
+f_x=x y^3(12-3x-2y),
+\qquad
+f_y=x^2y^2(18-3x-4y).
+\]
+Thus $\grad f=0$ if either $x=0$, or $y=0$, or both linear factors vanish:
+\[
+12-3x-2y=0,
+\qquad
+18-3x-4y=0.
+\]
+Solving these two equations gives
+\[
+y=3,
+\qquad x=2.
+\]
+Therefore the critical set is
+\[
+\{(0,b):b\in\R\}\cup\{(a,0):a\in\R\}\cup\{(2,3)\}.
+\]
+The second derivatives are
+\[
+\begin{aligned}
+f_{xx}&=y^3(12-6x-2y),\\
+f_{xy}&=xy^2(36-9x-8y),\\
+f_{yy}&=x^2y(36-6x-12y).
+\end{aligned}
+\]
+At $(0,b)$,
+\[
+H_f(0,b)=\begin{bmatrix}b^3(12-2b)&0\\0&0\end{bmatrix}.
+\]
+Since $f(0,b)=0$, the Taylor polynomial at $(0,b)$ is
+\[
+T_2=b^3(6-b)x^2.
+\]
+At $(a,0)$,
+\[
+H_f(a,0)=\begin{bmatrix}0&0\\0&0\end{bmatrix},
+\qquad
+T_2=0.
+\]
+At $(2,3)$,
+\[
+f(2,3)=2^2\cdot 3^3(6-2-3)=108,
+\]
+and
+\[
+H_f(2,3)=\begin{bmatrix}-162&-108\\-108&-144\end{bmatrix}.
+\]
+Let $u=x-2$, $v=y-3$. Then
+\[
+T_2=108-81u^2-108uv-72v^2.
+\]
+\answer{Critical set: $\boxed{x=0\text{ or }y=0\text{ or }(x,y)=(2,3)}$. Hessians and Taylor polynomials are as computed above.}
+
+\subsection*{7(x), 8(x) $f(x,y)=e^{2x+3y}(8x^2-6xy+3y^2)$}
+Let
+\[
+q(x,y)=8x^2-6xy+3y^2,
+\qquad
+f=e^{2x+3y}q.
+\]
+Then
+\[
+f_x=e^{2x+3y}(2q+q_x),
+\qquad
+f_y=e^{2x+3y}(3q+q_y),
+\]
+where
+\[
+q_x=16x-6y,
+\qquad
+q_y=-6x+6y.
+\]
+Because $e^{2x+3y}\ne0$, the critical point equations are
+\[
+2q+16x-6y=0,
+\qquad
+3q-6x+6y=0.
+\]
+From the second equation,
+\[
+q=2x-2y.
+\]
+From the first equation,
+\[
+q=-8x+3y.
+\]
+Equating these two expressions for $q$ gives
+\[
+2x-2y=-8x+3y
+\quad\Longrightarrow\quad
+10x=5y
+\quad\Longrightarrow\quad
+y=2x.
+\]
+Substitute $y=2x$ into $q=2x-2y$:
+\[
+q=2x-4x=-2x.
+\]
+But directly from $q=8x^2-6x(2x)+3(2x)^2$,
+\[
+q=8x^2-12x^2+12x^2=8x^2.
+\]
+Thus
+\[
+8x^2=-2x
+\quad\Longrightarrow\quad
+2x(4x+1)=0.
+\]
+Hence
+\[
+x=0\quad\text{or}\quad x=-\frac14.
+\]
+Using $y=2x$, the critical points are
+\[
+(0,0),
+\qquad
+\left(-\frac14,-\frac12\right).
+\]
+At a critical point the Hessian simplifies to the derivative of the bracketed first-derivative factors. The resulting Hessian values are
+\[
+H_f(0,0)=\begin{bmatrix}16&-6\\-6&6\end{bmatrix},
+\]
+and
+\[
+H_f\left(-\frac14,-\frac12\right)
+=e^{-2}\begin{bmatrix}14&-9\\-9&3/2\end{bmatrix}.
+\]
+At $(0,0)$, $f(0,0)=0$, so
+\[
+T_2=8x^2-6xy+3y^2.
+\]
+At $p=(-1/4,-1/2)$,
+\[
+f(p)=e^{-2}\cdot \frac12=\frac{e^{-2}}2.
 \]
 Let
 \[
-g(x)=-2x(6-x)^2.
+u=x+\frac14,
+\qquad
+v=y+\frac12.
 \]
 Then
 \[
-g'(x)=-2(6-x)(6-3x).
+T_2=\frac{e^{-2}}2+e^{-2}\left(7u^2-9uv+\frac34v^2\right).
 \]
-So critical points are $x=2$ and $x=6$. Evaluating,
-\[
-g(0)=0,\qquad g(2)=-64,\qquad g(6)=0.
-\]
-Hence the boundary minimum is $-64$ at $(2,4)$.
+\answer{Critical points: $\boxed{(0,0)}$ and $\boxed{(-1/4,-1/2)}$. Hessians and Taylor polynomials are as above.}
 
-Comparing all candidates:
+\newpage
+\section*{Problem 9: First and second degree Taylor polynomial of $f(x,y)=e^x\cos y$ at the origin}
+\method{For Taylor expansion at $(0,0)$, compute $f(0,0)$, the gradient at $(0,0)$, and the Hessian at $(0,0)$. Then use
 \[
-f_{\max}=4 \text{ at } (1,2),\qquad f_{\min}=-64 \text{ at } (2,4).
-\]
-
-\item $f(x,y)=e^{-x^2-y^2}(x^2+2y^2)$ on the disk $x^2+y^2\le 1$.
-
-\textbf{Solution.}
-Write $x=r\cos\theta$, $y=r\sin\theta$. Then
-\[
-f(r,\theta)=e^{-r^2}r^2(\cos^2\theta+2\sin^2\theta).
-\]
-For fixed $\theta$, the angular factor is positive and
-\[
-g(r)=r^2e^{-r^2},\qquad 0\le r\le 1.
-\]
-Now
-\[
-g'(r)=2re^{-r^2}(1-r^2)\ge 0 \quad\text{for } 0\le r\le 1.
-\]
-So for each $\theta$, the maximum occurs at $r=1$ and the minimum at $r=0$.
-
-At $r=0$,
-\[
-f(0,0)=0.
-\]
-At $r=1$,
-\[
-f=e^{-1}(\cos^2\theta+2\sin^2\theta)=e^{-1}(1+\sin^2\theta).
-\]
-This is largest when $\sin^2\theta=1$, i.e. at $(0,\pm 1)$, and smallest on the boundary when $\sin^2\theta=0$, i.e. at $(\pm 1,0)$.
-
-Therefore
-\[
-f_{\min}=0 \text{ at } (0,0),
-\]
-\[
-f_{\max}=\frac{2}{e} \text{ at } (0,1)\text{ and }(0,-1).
-\]
-\end{enumerate}
-
-\section*{Problem 3}
-Evaluate the double integral by first identifying it as the volume of a solid.
-
-\begin{enumerate}
-\item $\displaystyle \iint_R 3\,dA$, where $R=\{(x,y):-2\le x\le 2,\ 1\le y\le 6\}$.
-
-\textbf{Solution.}
-This is the volume of the solid of constant height $3$ over the rectangle $R$.
-The area of the base is
-\[
-\text{Area}(R)=(2-(-2))(6-1)=4\cdot 5=20.
-\]
-Hence
-\[
-\iint_R 3\,dA = 3\cdot 20=60.
-\]
-
-\item $\displaystyle \iint_R 5x\,dA$, where $R=\{(x,y):0\le x\le 5,\ 0\le y\le 3\}$.
-
-\textbf{Solution.}
-This is the volume under the plane $z=5x$ over the given rectangle:
-\[
-\iint_R 5x\,dA
-=\int_0^5\int_0^3 5x\,dy\,dx
-=\int_0^5 15x\,dx
-=15\cdot \frac{25}{2}
-=\frac{375}{2}.
-\]
-\end{enumerate}
-
-\section*{Problem 4}
-Evaluate the following iterated integrals.
-
-\begin{enumerate}
-\item $\displaystyle \int_0^2\int_0^4 y^2e^{2x}\,dy\,dx$.
-
-\[
-\int_0^2 e^{2x}\left(\int_0^4 y^2\,dy\right)dx
-=\int_0^2 e^{2x}\cdot \frac{64}{3}\,dx
-=\frac{64}{3}\cdot \frac{e^4-1}{2}
-=\frac{32}{3}(e^4-1).
-\]
-
-\item $\displaystyle \int_{-3}^3\int_0^{\pi/2}(y+y^2\cos x)\,dx\,dy$.
-
-\[
-\int_{-3}^3 \left(\frac{\pi}{2}y+y^2\int_0^{\pi/2}\cos x\,dx\right)dy
-=\int_{-3}^3\left(\frac{\pi}{2}y+y^2\right)dy.
-\]
-The first term is odd and integrates to $0$:
-\[
-\int_{-3}^3 \frac{\pi}{2}y\,dy=0.
-\]
-Thus
-\[
-\int_{-3}^3 y^2\,dy=2\int_0^3 y^2\,dy=2\cdot 9=18.
-\]
-So the value is
-\[
-18.
-\]
-
-\item $\displaystyle \int_1^3\int_1^5 (\ln y)\,xy\,dy\,dx$.
-
-\[
-\left(\int_1^3 x\,dx\right)\left(\int_1^5 y\ln y\,dy\right)
-=4\left[\frac{y^2}{2}\ln y-\frac{y^2}{4}\right]_1^5.
-\]
-Hence
-\[
-4\left(\frac{25}{2}\ln 5-\frac{25}{4}+\frac14\right)
-=50\ln 5-24.
-\]
-
-\item $\displaystyle \int_0^1\int_0^1 v(u+v^2)^4\,du\,dv$.
-
-\[
-\int_0^1 v\left[\frac{(u+v^2)^5}{5}\right]_{u=0}^{u=1}dv
-=\frac15\int_0^1 v\left((1+v^2)^5-v^{10}\right)dv.
-\]
-Now
-\[
-\int_0^1 v(1+v^2)^5\,dv
-=\frac12\int_1^2 t^5\,dt
-=\frac{1}{12}(64-1)=\frac{63}{12},
+T_1=f(0,0)+f_x(0,0)x+f_y(0,0)y,
 \]
 and
 \[
-\int_0^1 v^{11}\,dv=\frac1{12}.
-\]
-Therefore
-\[
-\frac15\left(\frac{63}{12}-\frac1{12}\right)=\frac15\cdot \frac{62}{12}=\frac{21}{20}.
-\]
-
-\item $\displaystyle \int_0^1\int_0^1 xy\sqrt{x^2+y^2}\,dy\,dx$.
-
-Integrate with respect to $y$ first:
-\[
-\int_0^1 x\left(\int_0^1 y\sqrt{x^2+y^2}\,dy\right)dx.
-\]
-Let $t=x^2+y^2$, so $dt=2y\,dy$:
-\[
-\int y\sqrt{x^2+y^2}\,dy
-=\frac12\int t^{1/2}\,dt
-=\frac13 t^{3/2}.
-\]
-Hence
-\[
-\int_0^1 x\cdot \frac13\left[(x^2+y^2)^{3/2}\right]_{y=0}^{y=1}dx
-=\frac13\int_0^1 x\Big((x^2+1)^{3/2}-x^3\Big)\,dx.
-\]
-Now
-\[
-\int_0^1 x(x^2+1)^{3/2}\,dx
-=\frac12\int_1^2 t^{3/2}\,dt
-=\frac15\bigl(2^{5/2}-1\bigr)=\frac{4\sqrt2-1}{5},
-\]
-and
-\[
-\int_0^1 x^4\,dx=\frac15.
-\]
-Therefore
-\[
-\frac13\left(\frac{4\sqrt2-1}{5}-\frac15\right)
-=\frac{2(2\sqrt2-1)}{15}.
-\]
-
-\item $\displaystyle \int_0^2\int_0^\pi r\sin^2\theta\,d\theta\,dr$.
-
-\[
-\left(\int_0^2 r\,dr\right)\left(\int_0^\pi \sin^2\theta\,d\theta\right)
-=2\cdot \frac{\pi}{2}=\pi.
-\]
-
-\item $\displaystyle \int_0^1\int_0^1 \sqrt{s+t}\,ds\,dt$.
-
-Integrating in $s$ first,
-\[
-\int_0^1 \left[\frac23(s+t)^{3/2}\right]_{s=0}^{s=1}dt
-=\frac23\int_0^1 \bigl((1+t)^{3/2}-t^{3/2}\bigr)\,dt.
-\]
-So
-\[
-\frac23\left(\frac25(2^{5/2}-1)-\frac25\right)
-=\frac{8(2\sqrt2-1)}{15}.
-\]
-
-\item $\displaystyle \int_1^2\int_0^{2z}\int_0^{\ln x} xe^y\,dy\,dx\,dz$.
-
-First integrate in $y$:
-\[
-\int_0^{\ln x} xe^y\,dy=x(e^{\ln x}-1)=x(x-1)=x^2-x.
-\]
-So
-\[
-\int_1^2\int_0^{2z}(x^2-x)\,dx\,dz
-=\int_1^2\left[\frac{x^3}{3}-\frac{x^2}{2}\right]_0^{2z}dz
-=\int_1^2\left(\frac{8z^3}{3}-2z^2\right)dz.
-\]
-This gives
-\[
-\left[\frac{2z^4}{3}-\frac{2z^3}{3}\right]_1^2=\frac{16}{3}.
-\]
-
-\item $\displaystyle \int_0^{\pi/2}\int_0^y\int_0^x \cos(x+y+z)\,dz\,dx\,dy$.
+T_2=T_1+\frac12\left(f_{xx}(0,0)x^2+2f_{xy}(0,0)xy+f_{yy}(0,0)y^2\right).
+\]}
 
 First,
 \[
-\int_0^x \cos(x+y+z)\,dz
-=\sin(x+y+z)\Big|_0^x
-=\sin(2x+y)-\sin(x+y).
+f(0,0)=e^0\cos0=1.
 \]
-So the integral becomes
+The first partial derivatives are
 \[
-\int_0^{\pi/2}\int_0^y \bigl(\sin(2x+y)-\sin(x+y)\bigr)\,dx\,dy.
+f_x=e^x\cos y,
+\qquad
+f_y=-e^x\sin y.
 \]
-Integrating in $x$,
+At $(0,0)$,
 \[
-\int_0^y \sin(2x+y)\,dx=-\frac12\cos(2x+y)\Big|_0^y
-=-\frac12\cos 3y+\frac12\cos y,
+f_x(0,0)=1,
+\qquad
+f_y(0,0)=0.
 \]
+Therefore the first-degree Taylor polynomial is
 \[
-\int_0^y \sin(x+y)\,dx=-\cos(x+y)\Big|_0^y
-=-\cos 2y+\cos y.
+T_1(x,y)=1+x.
 \]
-Hence the inner integral is
+Now compute second partial derivatives:
 \[
--\frac12\cos 3y+\cos 2y-\frac12\cos y.
+f_{xx}=e^x\cos y,
+\qquad
+f_{xy}=-e^x\sin y,
+\qquad
+f_{yy}=-e^x\cos y.
 \]
-Now integrate from $0$ to $\pi/2$:
+At $(0,0)$,
 \[
-\left[-\frac16\sin 3y+\frac12\sin 2y-\frac12\sin y\right]_0^{\pi/2}
-=\frac16-\frac12=-\frac13.
-\]
-Therefore the value is
-\[
--\frac13.
-\]
-
-\item $\displaystyle \int_0^{\sqrt\pi}\int_0^x\int_0^{xz} x^2\sin y\,dy\,dz\,dx$.
-
-First,
-\[
-\int_0^{xz} x^2\sin y\,dy
-=x^2(1-\cos(xz)).
-\]
-Then
-\[
-\int_0^x x^2(1-\cos(xz))\,dz
-=x^2\left[z-\frac{\sin(xz)}{x}\right]_0^x
-=x^3-x\sin(x^2).
-\]
-Therefore
-\[
-\int_0^{\sqrt\pi} \bigl(x^3-x\sin(x^2)\bigr)\,dx
-=\left[\frac{x^4}{4}\right]_0^{\sqrt\pi}
--\int_0^{\sqrt\pi}x\sin(x^2)\,dx.
-\]
-For the second term, let $u=x^2$, $du=2x\,dx$:
-\[
-\int_0^{\sqrt\pi}x\sin(x^2)\,dx
-=\frac12\int_0^\pi \sin u\,du=1.
-\]
-Hence the value is
-\[
-\frac{\pi^2}{4}-1.
-\]
-\end{enumerate}
-
-\section*{Problem 5}
-Calculate the double integral of the following functions in the specified regions.
-
-\begin{enumerate}
-\item $f(x,y)=\sin(x-y)$ on $R=\{(x,y):0\le x\le \pi/2,\ 0\le y\le \pi/2\}$.
-
-\textbf{Solution.}
-Since the square is symmetric under $(x,y)\leftrightarrow(y,x)$ and
-\[
-\sin(y-x)=-\sin(x-y),
-\]
-the integral is zero:
-\[
-\iint_R \sin(x-y)\,dA=0.
-\]
-
-\item $f(x,y)=y+xy^{-2}$ on $R=\{(x,y):0\le x\le 2,\ 1\le y\le 2\}$.
-
-\textbf{Solution.}
-\[
-\int_0^2\int_1^2 \left(y+\frac{x}{y^2}\right)dy\,dx
-=\int_0^2 \left[\frac{y^2}{2}-\frac{x}{y}\right]_{1}^{2}dx
-=\int_0^2\left(\frac32+\frac{x}{2}\right)dx=4.
-\]
-
-\item $f(x,y)=x^2+2y$, where $R$ is bounded by $y=0$, $y=x^2$, $x=1$.
-
-\textbf{Solution.}
-The region is
-\[
-0\le x\le 1,\qquad 0\le y\le x^2.
+f_{xx}(0,0)=1,
+\qquad
+f_{xy}(0,0)=0,
+\qquad
+f_{yy}(0,0)=-1.
 \]
 Thus
 \[
-\iint_R (x^2+2y)\,dA
-=\int_0^1\int_0^{x^2}(x^2+2y)\,dy\,dx
-=\int_0^1 \bigl(x^4+x^4\bigr)\,dx
-=2\int_0^1 x^4\,dx=\frac25.
+T_2(x,y)=1+x+\frac12(x^2-y^2).
 \]
+\answer{$\boxed{T_1(x,y)=1+x}$ and $\boxed{T_2(x,y)=1+x+\dfrac12(x^2-y^2)}$.}
 
-\item $f(x,y)=y^2$, where $R$ is the triangle with vertices $(0,1)$, $(1,2)$, $(4,1)$.
-
-\textbf{Solution.}
-The two nonhorizontal sides are
-\[
-y=x+1 \quad (0\le x\le 1),\qquad y=\frac{7-x}{3}\quad (1\le x\le 4).
-\]
-Hence
-\[
-\iint_R y^2\,dA
-=\int_0^1\int_1^{x+1} y^2\,dy\,dx
-+\int_1^4\int_1^{(7-x)/3} y^2\,dy\,dx.
-\]
-Compute:
-\[
-\int_0^1\int_1^{x+1} y^2\,dy\,dx
-=\frac13\int_0^1\bigl((x+1)^3-1\bigr)\,dx
-=\frac{11}{12},
-\]
-\[
-\int_1^4\int_1^{(7-x)/3} y^2\,dy\,dx
-=\frac13\int_1^4\left(\left(\frac{7-x}{3}\right)^3-1\right)dx
-=\frac{11}{4}.
-\]
-Therefore
-\[
-\iint_R y^2\,dA=\frac{11}{12}+\frac{11}{4}=\frac{11}{3}.
-\]
-
-\item $f(x,y)=xy^2$, where $R$ is enclosed by $x=0$ and $x=\sqrt{1-y^2}$.
-
-\textbf{Solution.}
-This is the right half of the unit disk:
-\[
--1\le y\le 1,\qquad 0\le x\le \sqrt{1-y^2}.
-\]
-Thus
-\[
-\iint_R xy^2\,dA
-=\int_{-1}^1\int_0^{\sqrt{1-y^2}}xy^2\,dx\,dy
-=\int_{-1}^1 y^2\left[\frac{x^2}{2}\right]_0^{\sqrt{1-y^2}}dy.
-\]
-Hence
-\[
-=\frac12\int_{-1}^1(y^2-y^4)\,dy
-=\int_0^1 (y^2-y^4)\,dy
-=\frac13-\frac15=\frac{2}{15}.
-\]
-
-\item $f(x,y)=\sin(x^2+y^2)$, where $R$ is the region in the first quadrant between the circles $x^2+y^2=a^2$ and $x^2+y^2=b^2$, with $0<a<b$.
-
-\textbf{Solution.}
-Use polar coordinates:
-\[
-0\le \theta\le \frac{\pi}{2},\qquad a\le r\le b.
-\]
-Then
-\[
-\iint_R \sin(x^2+y^2)\,dA
-=\int_0^{\pi/2}\int_a^b \sin(r^2)\,r\,dr\,d\theta.
-\]
-Let $u=r^2$, $du=2r\,dr$:
-\[
-\int_a^b \sin(r^2)\,r\,dr
-=\frac12\int_{a^2}^{b^2}\sin u\,du
-=\frac12\bigl(\cos a^2-\cos b^2\bigr).
-\]
-Therefore
-\[
-\iint_R \sin(x^2+y^2)\,dA
-=\frac{\pi}{4}\bigl(\cos a^2-\cos b^2\bigr).
-\]
-
-\item $f(x,y)=e^{-x^2-y^2}$, where $R$ is bounded by the semicircle $x=\sqrt{4-y^2}$ and the $y$-axis.
-
-\textbf{Solution.}
-This is the right semicircle of radius $2$:
-\[
-0\le r\le 2,\qquad -\frac{\pi}{2}\le \theta\le \frac{\pi}{2}.
-\]
-Thus
-\[
-\iint_R e^{-x^2-y^2}\,dA
-=\int_{-\pi/2}^{\pi/2}\int_0^2 e^{-r^2}r\,dr\,d\theta.
-\]
-Now
-\[
-\int_0^2 e^{-r^2}r\,dr
-=\frac12\int_0^4 e^{-u}\,du
-=\frac12(1-e^{-4}).
-\]
-Multiplying by the angular length $\pi$ gives
-\[
-\iint_R e^{-x^2-y^2}\,dA
-=\frac{\pi}{2}(1-e^{-4}).
-\]
-
-\item $f(x,y)=\arctan\!\left(\frac{y}{x}\right)$ on $R=\{(x,y):1\le x^2+y^2\le 4,\ 0\le y\le x\}$.
-
-\textbf{Solution.}
-In polar coordinates, the region is
-\[
-1\le r\le 2,\qquad 0\le \theta\le \frac{\pi}{4},
-\]
-and
-\[
-\arctan\!\left(\frac{y}{x}\right)=\theta.
-\]
-Therefore
-\[
-\iint_R \arctan\!\left(\frac{y}{x}\right)\,dA
-=\int_0^{\pi/4}\int_1^2 \theta r\,dr\,d\theta
-=\left(\int_1^2 r\,dr\right)\left(\int_0^{\pi/4}\theta\,d\theta\right).
-\]
-Hence
-\[
-=\frac32\cdot \frac{\pi^2}{32}
-=\frac{3\pi^2}{64}.
-\]
-\end{enumerate}
-
-\section*{Problem 6}
-Solve the following volume problems.
-
-\begin{enumerate}
-\item Volume bounded by the circular paraboloid $z=1-x^2-y^2$ and the $xy$-plane.
-
-\textbf{Solution.}
-The paraboloid meets the plane $z=0$ when
-\[
-x^2+y^2=1.
-\]
-So in polar coordinates,
-\[
-0\le r\le 1,\qquad 0\le \theta\le 2\pi.
-\]
-The volume is
-\[
-V=\int_0^{2\pi}\int_0^1 (1-r^2)r\,dr\,d\theta
-=2\pi\left[\frac{r^2}{2}-\frac{r^4}{4}\right]_0^1
-=2\pi\left(\frac14\right)=\frac{\pi}{2}.
-\]
-
-\item Volume under the cone $z=\sqrt{x^2+y^2}$ and above the disk $x^2+y^2\le 4$.
-
-\textbf{Solution.}
-In polar coordinates, $z=r$ and $0\le r\le 2$:
-\[
-V=\int_0^{2\pi}\int_0^2 r\cdot r\,dr\,d\theta
-=2\pi\int_0^2 r^2\,dr
-=2\pi\cdot \frac{8}{3}
-=\frac{16\pi}{3}.
-\]
-
-\item Volume below the paraboloid $z=18-2x^2-2y^2$ and above the $xy$-plane.
-
-\textbf{Solution.}
-The paraboloid meets $z=0$ when
-\[
-18-2r^2=0 \quad\Longrightarrow\quad r=3.
-\]
-Hence
-\[
-V=\int_0^{2\pi}\int_0^3 (18-2r^2)r\,dr\,d\theta
-=2\pi\left[9r^2-\frac{r^4}{2}\right]_0^3
-=2\pi\left(81-\frac{81}{2}\right)=81\pi.
-\]
-
-\item Volume enclosed by the hyperboloid $-x^2-y^2+z^2=1$ and the plane $z=2$.
-
-\textbf{Solution.}
-Rewrite the surface as
-\[
-z^2-r^2=1 \quad\Longrightarrow\quad r^2=z^2-1.
-\]
-For $1\le z\le 2$, the cross-section at height $z$ is a disk of area
-\[
-\pi(z^2-1).
-\]
-Thus
-\[
-V=\int_1^2 \pi(z^2-1)\,dz
-=\pi\left[\frac{z^3}{3}-z\right]_1^2
-=\frac{4\pi}{3}.
-\]
-
-\item Volume inside the sphere $x^2+y^2+z^2=16$ and outside the cylinder $x^2+y^2=4$.
-
-\textbf{Solution.}
-In cylindrical coordinates, the region is
-\[
-2\le r\le 4,\qquad 0\le \theta\le 2\pi,\qquad -\sqrt{16-r^2}\le z\le \sqrt{16-r^2}.
-\]
-Hence
-\[
-V=\int_0^{2\pi}\int_2^4\int_{-\sqrt{16-r^2}}^{\sqrt{16-r^2}} r\,dz\,dr\,d\theta
-=4\pi\int_2^4 r\sqrt{16-r^2}\,dr.
-\]
-Let $u=16-r^2$, so $du=-2r\,dr$:
-\[
-V=4\pi\cdot \frac12\int_0^{12} u^{1/2}\,du
-=2\pi\cdot \frac{2}{3}u^{3/2}\Big|_0^{12}
-=\frac{4\pi}{3}\cdot 12^{3/2}.
-\]
-Since $12^{3/2}=24\sqrt3$,
-\[
-V=32\pi\sqrt3.
-\]
-\end{enumerate}
-
-\section*{Problem 7}
-Evaluate the triple integral of the following functions in the specified solids.
-
-\begin{enumerate}
-\item $f(x,y,z)=y$, \quad $V=\{(x,y,z):0\le x\le 3,\ 0\le y\le x,\ x-y\le z\le x+y\}$.
-
-\textbf{Solution.}
-\[
-\iiint_V y\,dV
-=\int_0^3\int_0^x\int_{x-y}^{x+y} y\,dz\,dy\,dx.
-\]
-Since the $z$-length is
-\[
-(x+y)-(x-y)=2y,
-\]
-we get
-\[
-\iiint_V y\,dV
-=\int_0^3\int_0^x 2y^2\,dy\,dx
-=2\int_0^3 \frac{x^3}{3}\,dx
-=\frac{2}{3}\cdot \frac{81}{4}
-=\frac{27}{2}.
-\]
-
-\item $f(x,y,z)=\dfrac{z}{x^2+y^2}$, \quad $V=\{1\le y\le 4,\ y\le z\le 4,\ 0\le x\le z\}$.
-
-\textbf{Solution.}
-We write
-\[
-I=\int_1^4\int_y^4\int_0^z \frac{z}{x^2+y^2}\,dx\,dz\,dy.
-\]
-Integrating in $x$ first gives
-\[
-\int_0^z \frac{z}{x^2+y^2}\,dx
-=\frac{z}{y}\arctan\!\left(\frac{z}{y}\right).
-\]
-Hence
-\[
-I=\int_1^4\int_y^4 \frac{z}{y}\arctan\!\left(\frac{z}{y}\right)\,dz\,dy.
-\]
-Now set $t=z/y$. Then $z=yt$, $dz=y\,dt$, and for fixed $y$, $t$ runs from $1$ to $4/y$. So
-\[
-I=\int_1^4 y\left(\int_1^{4/y} t\arctan t\,dt\right)dy.
-\]
-Swapping the order in the $(y,t)$-plane gives
-\[
-I=\frac12\int_1^4 \left(\frac{16}{t}-t\right)\arctan t\,dt.
-\]
-The term $\int t\arctan t\,dt$ is elementary, while $\int \frac{\arctan t}{t}\,dt$ is the inverse tangent integral $\Ti(t)=\int_0^t \frac{\arctan u}{u}\,du$. Therefore
-\[
-I
-=8\bigl(\Ti(4)-\Ti(1)\bigr)-\frac14\left(17\arctan 4-\frac{\pi}{2}-3\right).
-\]
-Numerically,
-\[
-I\approx 7.58735.
-\]
-
-\item $f(x,y,z)=\sin y$, where $V$ is the solid below the plane $z=x$ and above the triangular region with vertices $(0,0,0)$, $(\pi,0,0)$, $(0,\pi,0)$.
-
-\textbf{Solution.}
-The base in the $xy$-plane is
-\[
-D=\{(x,y):x\ge 0,\ y\ge 0,\ x+y\le \pi\},
-\]
-and $z$ runs from $0$ to $x$. Hence
-\[
-\iiint_V \sin y\,dV
-=\int_0^\pi\int_0^{\pi-y}\int_0^x \sin y\,dz\,dx\,dy
-=\int_0^\pi\int_0^{\pi-y} x\sin y\,dx\,dy.
-\]
-Thus
-\[
-=\frac12\int_0^\pi (\pi-y)^2\sin y\,dy.
-\]
-Expanding,
-\[
-\frac12\int_0^\pi (\pi^2-2\pi y+y^2)\sin y\,dy.
-\]
-Using
-\[
-\int_0^\pi \sin y\,dy=2,\qquad \int_0^\pi y\sin y\,dy=\pi,\qquad \int_0^\pi y^2\sin y\,dy=\pi^2-4,
-\]
-we get
-\[
-\iiint_V \sin y\,dV=\frac12(\pi^2-4).
-\]
-
-\item $f(x,y,z)=xy$, where $V$ is bounded by the parabolic cylinders $y=x^2$ and $x=y^2$, and the planes $z=0$ and $z=x+y$.
-
-\textbf{Solution.}
-In the first quadrant, the curves $y=x^2$ and $x=y^2$ meet at $(0,0)$ and $(1,1)$.
-For $0\le x\le 1$, we have
-\[
-x^2\le y\le \sqrt{x}.
-\]
-Since $0\le z\le x+y$, the integral is
-\[
-\iiint_V xy\,dV
-=\int_0^1\int_{x^2}^{\sqrt{x}}\int_0^{x+y} xy\,dz\,dy\,dx
-=\int_0^1\int_{x^2}^{\sqrt{x}} xy(x+y)\,dy\,dx.
-\]
-That is,
-\[
-\int_0^1\int_{x^2}^{\sqrt{x}} (x^2y+xy^2)\,dy\,dx.
-\]
-Integrating in $y$:
-\[
-\int_0^1 \left[\frac{x^2y^2}{2}+\frac{xy^3}{3}\right]_{y=x^2}^{y=\sqrt{x}} dx
-=\int_0^1\left(\frac{x^3}{2}+\frac{x^{5/2}}{3}-\frac{x^6}{2}-\frac{x^7}{3}\right)dx.
-\]
-So
-\[
-\iiint_V xy\,dV
-=\frac18+\frac{2}{21}-\frac{1}{14}-\frac{1}{24}
-=\frac{3}{28}.
-\]
-
-\item $f(x,y,z)=x^2$, where $V$ is the tetrahedron with vertices $(0,0,0)$, $(1,0,0)$, $(0,1,0)$, $(0,0,1)$.
-
-\textbf{Solution.}
-The tetrahedron is
-\[
-V=\{(x,y,z):x\ge 0,\ y\ge 0,\ z\ge 0,\ x+y+z\le 1\}.
-\]
-For fixed $x$, the $(y,z)$-section is a right triangle of area
-\[
-\frac{(1-x)^2}{2}.
-\]
-Therefore
-\[
-\iiint_V x^2\,dV
-=\int_0^1 x^2\cdot \frac{(1-x)^2}{2}\,dx
-=\frac12\int_0^1 (x^2-2x^3+x^4)\,dx.
-\]
-Hence
-\[
-\iiint_V x^2\,dV
-=\frac12\left(\frac13-\frac12+\frac15\right)=\frac{1}{60}.
-\]
-\end{enumerate}
-
-\section*{Problem 8}
-For each repeated integral, describe the region and change the order of integration.
-
-\begin{enumerate}
-\item $\displaystyle \int_0^1\left[\int_0^y f(x,y)\,dx\right]dy$.
-
-\textbf{Region.}
-\[
-R=\{(x,y):0\le x\le y\le 1\}.
-\]
-Reversing the order, for fixed $x$, $y$ runs from $x$ to $1$. Therefore
-\[
-\int_0^1\int_x^1 f(x,y)\,dy\,dx.
-\]
-
-\item $\displaystyle \int_0^2\left[\int_{2y}^{y^2} f(x,y)\,dx\right]dy$.
-
-\textbf{Region.}
-The geometric region is bounded by
-\[
-x=2y,\qquad x=y^2,\qquad 0\le y\le 2.
-\]
-Since $y^2\le 2y$ on $[0,2]$, the original integral has reversed $x$-limits. The corresponding geometric region is
-\[
-R=\{(x,y):0\le x\le 4,\ x/2\le y\le \sqrt{x}\}.
-\]
-Hence the same signed integral can be written as
-\[
-\int_0^4\int_{\sqrt{x}}^{x/2} f(x,y)\,dy\,dx,
-\]
-or equivalently
-\[
--\int_0^4\int_{x/2}^{\sqrt{x}} f(x,y)\,dy\,dx.
-\]
-
-\item Interpreting the third integral consistently as
-\[
-\int_1^e\left[\int_0^{\ln x} f(x,y)\,dy\right]dx.
-\]
-
-\textbf{Region.}
-\[
-R=\{(x,y):1\le x\le e,\ 0\le y\le \ln x\}.
-\]
-For fixed $y$, this becomes
-\[
-e^y\le x\le e,\qquad 0\le y\le 1.
-\]
-So the reversed order is
-\[
-\int_0^1\int_{e^y}^{e} f(x,y)\,dx\,dy.
-\]
-\end{enumerate}
-
-\section*{Problem 9}
-Write three other iterated integrals equal to the given one.
-
-\begin{enumerate}
-\item Given
-\[
-\int_0^1\int_y^1\int_0^y f(x,y,z)\,dx\,dz\,dy.
-\]
-
-\textbf{Region.}
-\[
-0\le x\le y\le z\le 1.
-\]
-Three other equivalent iterated integrals are:
-\[
-\int_0^1\int_0^z\int_x^z f(x,y,z)\,dy\,dx\,dz,
-\]
-\[
-\int_0^1\int_x^1\int_x^z f(x,y,z)\,dy\,dz\,dx,
-\]
-\[
-\int_0^1\int_x^1\int_y^1 f(x,y,z)\,dz\,dy\,dx.
-\]
-
-\item Given
-\[
-\int_0^1\int_0^{1-x^2}\int_0^{1-x} f(x,y,z)\,dy\,dz\,dx.
-\]
-
-\textbf{Region.}
-\[
-0\le x\le 1,\qquad 0\le y\le 1-x,\qquad 0\le z\le 1-x^2.
-\]
-Three other equivalent iterated integrals are:
-\[
-\int_0^1\int_0^{1-x}\int_0^{1-x^2} f(x,y,z)\,dz\,dy\,dx,
-\]
-\[
-\int_0^1\int_0^{1-y}\int_0^{1-x^2} f(x,y,z)\,dz\,dx\,dy,
-\]
-\[
-\int_0^1\int_0^{\sqrt{1-z}}\int_0^{1-x} f(x,y,z)\,dy\,dx\,dz.
-\]
-
-\item Given
-\[
-\int_0^1\int_{\sqrt{x}}^1\int_0^{1-y} f(x,y,z)\,dz\,dy\,dx.
-\]
-
-\textbf{Region.}
-Since $\sqrt{x}\le y$ is equivalent to $x\le y^2$, the region is
-\[
-0\le y\le 1,\qquad 0\le x\le y^2,\qquad 0\le z\le 1-y.
-\]
-Three other equivalent iterated integrals are:
-\[
-\int_0^1\int_0^{1-y}\int_0^{y^2} f(x,y,z)\,dx\,dz\,dy,
-\]
-\[
-\int_0^1\int_0^{1-z}\int_0^{y^2} f(x,y,z)\,dx\,dy\,dz,
-\]
-\[
-\int_0^1\int_0^{(1-z)^2}\int_{\sqrt{x}}^{1-z} f(x,y,z)\,dy\,dx\,dz.
-\]
-\end{enumerate}
+\section*{Final checklist of core formulas}
+\begin{longtable}{p{0.29\linewidth}p{0.63\linewidth}}
+\toprule
+Topic & Formula used \\
+\midrule
+Level curve tangent & $F_x(P)(x-x_0)+F_y(P)(y-y_0)=0$ \\
+Level surface tangent plane & $\grad F(P)\cdot((x,y,z)-P)=0$ \\
+Chain rule & $\dfrac{df}{dt}=\grad f\cdot \dfrac{d}{dt}(x,y,z)$ \\
+Implicit derivative & $\dfrac{dy}{dx}=-F_x/F_y$ \\
+Implicit partials & $z_x=-F_x/F_z$, $z_y=-F_y/F_z$ \\
+Gradient-zero theorem & On an open convex set, differentiable $f$ is constant iff $\grad f=0$ \\
+Taylor at critical point & $T_2=f(P)+\frac12(h^TH_f(P)h)$ \\
+\bottomrule
+\end{longtable}
 
 \end{document}

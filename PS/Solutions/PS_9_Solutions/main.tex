@@ -1,779 +1,1306 @@
-\documentclass[11pt]{article}
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,mathtools}
-\usepackage{enumitem}
-\usepackage{hyperref}
 
-\setlist[enumerate,1]{label=(\roman*), leftmargin=*}
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=0.82in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{array}
+\usetikzlibrary{arrows.meta,calc,patterns,angles,quotes,intersections,positioning,decorations.pathreplacing}
+\allowdisplaybreaks
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\sloppy
+
+\definecolor{deepnavy}{HTML}{0B1F3A}
+\definecolor{softblue}{HTML}{EAF3FF}
+\definecolor{softgreen}{HTML}{EAF8F0}
+\definecolor{softorange}{HTML}{FFF4E5}
+\definecolor{lineblue}{HTML}{1E5AA8}
+\definecolor{linegreen}{HTML}{147A3F}
+\definecolor{lineorange}{HTML}{CC6B00}
+\definecolor{softgray}{HTML}{F7F7F7}
+
+
+
+\newenvironment{methodbox}[1]{\par\medskip\noindent\begin{minipage}{\linewidth}\hrule\smallskip\textbf{#1}\par\smallskip}{\smallskip\hrule\end{minipage}\par\medskip}
+\newenvironment{resultbox}{\par\medskip\noindent\begin{minipage}{\linewidth}\hrule\smallskip}{\smallskip\hrule\end{minipage}\par\medskip}
+\newenvironment{notebox}{\par\medskip\noindent\begin{minipage}{\linewidth}\hrule\smallskip}{\smallskip\hrule\end{minipage}\par\medskip}
 
 \newcommand{\R}{\mathbb{R}}
-\newcommand{\ii}{\iint}
-\newcommand{\iii}{\iiint}
+\newcommand{\dd}{\,d}
+\newcommand{\ii}{\item}
+\newcommand{\grad}{\nabla}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\ans}[1]{\begin{resultbox}\[\boxed{#1}\]\end{resultbox}}
 
-\title{Multivariable Calculus\\Problem Set 9: Solutions}
-\author{Angad Singh Ahuja}
-\date{\today}
+\title{\vspace{-1.2cm}\textbf{Problem Set 9: Detailed Assignment-Style Solutions}\\
+\large Multivariable Calculus}
+\author{Prepared solution set}
+\date{}
 
 \begin{document}
 \maketitle
+\begin{notebox}
+\textbf{Scope and conventions.} I use the standard cylindrical coordinates
+\(x=r\cos\theta,\ y=r\sin\theta,\ z=z\), with \(dV=r\,dz\,dr\,d\theta\), and the standard spherical coordinates
+\(x=\rho\sin\phi\cos\theta,\ y=\rho\sin\phi\sin\theta,\ z=\rho\cos\phi\), with
+\(dV=\rho^2\sin\phi\,d\rho\,d\phi\,d\theta\). Every change of variables explicitly includes the Jacobian factor. The diagrams are schematic but metrically faithful to the inequalities and bounds used in the calculation.
+\end{notebox}
+\tableofcontents
+\newpage
 
-\section*{Problem 1}
-Change of variable in multiple integrals.
+\section{Problem 1: Change of variable in multiple integrals}
 
-\begin{enumerate}
-\item Use $x=u^2-v^2$, $y=2uv$ to evaluate $\displaystyle \iint_R y\,dA$, where $R$ is bounded by the $x$-axis and the parabolas $y^2=4-4x$, $y^2=4+4x$, $y\ge 0$.
+\begin{methodbox}{General method for a two-variable change of variables}
+To evaluate \(\iint_R F(x,y)\,dA\) under a change \(x=x(u,v),\ y=y(u,v)\), do the following.
+\begin{enumerate}[label=\arabic*.]
+\item Find the image in the \((u,v)\)-plane of each boundary curve of \(R\).
+\item Identify the transformed region \(D\).
+\item Compute the Jacobian
+\[
+J(u,v)=\frac{\partial(x,y)}{\partial(u,v)}
+=\begin{vmatrix}x_u&x_v\\y_u&y_v\end{vmatrix}.
+\]
+\item Replace \(dA\) by \(|J(u,v)|\,du\,dv\), replace the integrand by \(F(x(u,v),y(u,v))\), and integrate over \(D\).
+\end{enumerate}
+\end{methodbox}
 
-\textbf{Solution.}
-Under the map
+\subsection*{1(i)}
+We are given
 \[
-x=u^2-v^2,\qquad y=2uv,
+x=u^2-v^2,\qquad y=2uv.
 \]
-the curves $u=1$ and $v=1$ become
+The boundary curves in the \((x,y)\)-plane are
 \[
-x=1-v^2,\ y=2v \quad\Longrightarrow\quad y^2=4-4x,
+y=0,\qquad y^2=4-4x,\qquad y^2=4+4x,\qquad y\ge 0.
 \]
+We first translate the two parabolas.
+
+For \(y^2=4-4x\), substitute \(x=u^2-v^2\) and \(y=2uv\):
+\begin{align*}
+(2uv)^2&=4-4(u^2-v^2)\\
+4u^2v^2&=4-4u^2+4v^2\\
+u^2v^2&=1-u^2+v^2\\
+u^2v^2+u^2-v^2-1&=0\\
+(u^2-1)(v^2+1)&=0.
+\end{align*}
+Since \(v^2+1\ne 0\), this boundary becomes \(u^2=1\). In the upper half-region with \(u,v\ge 0\), this is \(u=1\).
+
+For \(y^2=4+4x\), similarly,
+\begin{align*}
+(2uv)^2&=4+4(u^2-v^2)\\
+u^2v^2&=1+u^2-v^2\\
+u^2v^2-u^2+v^2-1&=0\\
+(u^2+1)(v^2-1)&=0.
+\end{align*}
+Thus \(v^2=1\), and in the upper half-region this is \(v=1\).
+
+The boundary \(y=0\) means \(2uv=0\), so either \(u=0\) or \(v=0\). Hence the transformed region is the unit square
 \[
-x=u^2-1,\ y=2u \quad\Longrightarrow\quad y^2=4+4x.
+D=\{(u,v):0\le u\le 1,
+0\le v\le 1\}.
 \]
-The $x$-axis with $-1\le x\le 1$ corresponds to $u=0$ or $v=0$. Hence the given region is the image of the square
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.8]
+\begin{scope}
+  \draw[->] (-1.4,0)--(1.45,0) node[right]{\(x\)};
+  \draw[->] (0,-0.15)--(0,2.45) node[above]{\(y\)};
+  \fill[softblue,opacity=0.85,domain=0:2,samples=80,variable=\t]
+    plot ({1-\t*\t/4},{\t}) -- plot[domain=2:0] ({\t*\t/4-1},{\t}) -- cycle;
+  \draw[lineblue,thick,domain=0:2,samples=80,variable=\t] plot ({1-\t*\t/4},{\t}) node[pos=.65,right]{\(y^2=4-4x\)};
+  \draw[linegreen,thick,domain=0:2,samples=80,variable=\t] plot ({\t*\t/4-1},{\t}) node[pos=.55,left]{\(y^2=4+4x\)};
+  \draw[deepnavy,thick] (-1,0)--(1,0) node[midway,below]{\(y=0\)};
+  \node at (0,-0.55) {Region \(R\) in the \((x,y)\)-plane};
+\end{scope}
+\begin{scope}[xshift=6.4cm]
+  \draw[->] (-0.2,0)--(1.45,0) node[right]{\(u\)};
+  \draw[->] (0,-0.2)--(0,1.45) node[above]{\(v\)};
+  \fill[softgreen,opacity=0.9] (0,0) rectangle (1,1);
+  \draw[linegreen,thick] (0,0) rectangle (1,1);
+  \node[below left] at (0,0){\(0\)};
+  \node[below] at (1,0){\(1\)};
+  \node[left] at (0,1){\(1\)};
+  \node at (.5,-0.55) {Region \(D=[0,1]^2\)};
+\end{scope}
+\draw[-{Latex[length=3mm]},thick] (3.1,1.0)--(4.8,1.0) node[midway,above]{change of variables};
+\end{tikzpicture}
+\caption{The parabolic cap in \((x,y)\) becomes a unit square in \((u,v)\).}
+\end{figure}
+
+Now compute the Jacobian:
 \[
-0\le u\le 1,\qquad 0\le v\le 1.
+J(u,v)=\begin{vmatrix}
+2u&-2v\\
+2v&2u
+\end{vmatrix}=4u^2+4v^2=4(u^2+v^2).
 \]
-The Jacobian is
-\[
-J=\frac{\partial(x,y)}{\partial(u,v)}
-=\begin{vmatrix}2u & -2v\\ 2v & 2u\end{vmatrix}
-=4u^2+4v^2=4(u^2+v^2).
-\]
-Also $y=2uv$. Therefore
-\[
+Since \(u,v\ge 0\), this is nonnegative. Therefore
+\begin{align*}
 \iint_R y\,dA
-=\int_0^1\int_0^1 (2uv)\cdot 4(u^2+v^2)\,du\,dv.
-\]
-So
-\[
-=8\int_0^1\int_0^1 (u^3v+uv^3)\,du\,dv
-=8\left(\frac14\cdot\frac12+\frac12\cdot\frac14\right)=8\cdot\frac14=2.
-\]
-Hence
-\[
-\boxed{ \iint_R y\,dA =2 }.
-\]
+&=\int_0^1\int_0^1 (2uv)\,4(u^2+v^2)\,dv\,du\\
+&=8\int_0^1\int_0^1 (u^3v+uv^3)\,dv\,du\\
+&=8\left[\left(\int_0^1u^3\,du\right)\left(\int_0^1v\,dv\right)
++\left(\int_0^1u\,du\right)\left(\int_0^1v^3\,dv\right)\right]\\
+&=8\left[\frac14\cdot\frac12+\frac12\cdot\frac14\right]\\
+&=8\cdot\frac14=2.
+\end{align*}
+\ans{\iint_R y\,dA=2}
 
-\item Use $x=2u+v$, $y=u+2v$ to evaluate $\displaystyle \iint_R (x-3y)\,dA$, where $R$ has vertices $(0,0)$, $(2,1)$, $(1,2)$.
-
-\textbf{Solution.}
-The inverse linear system is not needed explicitly. We identify the corresponding $uv$-region from the vertices:
+\subsection*{1(ii)}
+We use
 \[
-(u,v)=(0,0)\mapsto (0,0),\qquad (1,0)\mapsto (2,1),\qquad (0,1)\mapsto (1,2).
-\]
-So $R$ is the image of the triangle
-\[
-T=\{(u,v):u\ge 0,\ v\ge 0,\ u+v\le 1\}.
+x=2u+v,
+\qquad y=u+2v.
 \]
 The Jacobian is
 \[
-J=\frac{\partial(x,y)}{\partial(u,v)}
-=\begin{vmatrix}2&1\\1&2\end{vmatrix}=3.
+J=\begin{vmatrix}2&1\\1&2\end{vmatrix}=4-1=3.
 \]
-Also
+The inverse map is found by solving
+\[
+\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}2&1\\1&2\end{pmatrix}
+\begin{pmatrix}u\\v\end{pmatrix}.
+\]
+Since the inverse matrix is \(\frac13\begin{pmatrix}2&-1\\-1&2\end{pmatrix}\),
+\[
+u=\frac{2x-y}{3},\qquad v=\frac{-x+2y}{3}.
+\]
+The vertices transform as follows:
+\[
+(0,0)\mapsto(0,0),\qquad (2,1)\mapsto(1,0),\qquad (1,2)\mapsto(0,1).
+\]
+Thus the transformed region is the triangle
+\[
+D=\{(u,v):u\ge0,
+ v\ge0,
+ u+v\le1\}.
+\]
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=.9]
+\begin{scope}
+ \draw[->] (-.2,0)--(2.5,0) node[right]{\(x\)};
+ \draw[->] (0,-.2)--(0,2.5) node[above]{\(y\)};
+ \fill[softblue,opacity=.9] (0,0)--(2,1)--(1,2)--cycle;
+ \draw[lineblue,thick] (0,0)--(2,1)--(1,2)--cycle;
+ \node[below left] at (0,0){\((0,0)\)};
+ \node[right] at (2,1){\((2,1)\)};
+ \node[above] at (1,2){\((1,2)\)};
+ \node at (1.1,-.55){Region \(R\)};
+\end{scope}
+\begin{scope}[xshift=5.7cm]
+ \draw[->] (-.2,0)--(1.6,0) node[right]{\(u\)};
+ \draw[->] (0,-.2)--(0,1.6) node[above]{\(v\)};
+ \fill[softgreen,opacity=.9] (0,0)--(1,0)--(0,1)--cycle;
+ \draw[linegreen,thick] (0,0)--(1,0)--(0,1)--cycle;
+ \node[below left] at (0,0){\((0,0)\)};
+ \node[below] at (1,0){\((1,0)\)};
+ \node[left] at (0,1){\((0,1)\)};
+ \node at (.55,-.55){Region \(D\)};
+\end{scope}
+\draw[-{Latex[length=3mm]},thick] (3.0,.95)--(4.7,.95);
+\end{tikzpicture}
+\caption{The given triangle becomes the standard right triangle \(u\ge0, v\ge0, u+v\le1\).}
+\end{figure}
+
+Now transform the integrand:
 \[
 x-3y=(2u+v)-3(u+2v)=-u-5v.
 \]
 Hence
-\[
+\begin{align*}
 \iint_R (x-3y)\,dA
-=\int_0^1\int_0^{1-u} 3(-u-5v)\,dv\,du.
-\]
-Compute the inner integral:
+&=\int_0^1\int_0^{1-u}(-u-5v)\,3\,dv\,du\\
+&=3\int_0^1\left[-uv-\frac52v^2\right]_{v=0}^{1-u}\,du\\
+&=3\int_0^1\left[-u(1-u)-\frac52(1-u)^2\right]\,du.
+\end{align*}
+A shorter moment calculation on the standard triangle gives
 \[
-\int_0^{1-u}(-u-5v)\,dv=-u(1-u)-\frac52(1-u)^2.
-\]
-Therefore
-\[
-\iint_R (x-3y)\,dA
-=3\int_0^1\left[-u(1-u)-\frac52(1-u)^2\right]du.
-\]
-Expanding,
-\[
--u+u^2-\frac52+5u-\frac52u^2
-=4u-\frac32u^2-\frac52.
-\]
-So
-\[
-3\int_0^1\left(4u-\frac32u^2-\frac52\right)du
-=3\left[2u^2-\frac12u^3-\frac52u\right]_0^1
-=3(2-\tfrac12-\tfrac52)=3(-1)=-3.
-\]
-Hence
-\[
-\boxed{\iint_R (x-3y)\,dA=-3 }.
-\]
-
-\item Use $x=2u$, $y=3v$ to evaluate $\displaystyle \iint_R x^2\,dA$, where $R$ is bounded by the ellipse $9x^2+4y^2=36$.
-
-\textbf{Solution.}
-Substituting $x=2u$, $y=3v$ into the ellipse,
-\[
-9(2u)^2+4(3v)^2=36
-\quad\Longrightarrow\quad
-36u^2+36v^2=36
-\quad\Longrightarrow\quad
-u^2+v^2\le 1.
-\]
-So the ellipse maps to the unit disk $u^2+v^2\le 1$.
-The Jacobian is
-\[
-J=\frac{\partial(x,y)}{\partial(u,v)}
-=\begin{vmatrix}2&0\\0&3\end{vmatrix}=6.
-\]
-Since $x^2=(2u)^2=4u^2$,
-\[
-\iint_R x^2\,dA=\iint_{u^2+v^2\le 1} 4u^2\cdot 6\,du\,dv
-=24\iint_{u^2+v^2\le 1} u^2\,du\,dv.
-\]
-Using polar coordinates in the $uv$-plane,
-\[
-u=r\cos\theta,\quad v=r\sin\theta,\quad 0\le r\le 1,\ 0\le \theta\le 2\pi,
-\]
-we get
-\[
-24\int_0^{2\pi}\int_0^1 r^2\cos^2\theta\cdot r\,dr\,d\theta
-=24\left(\int_0^1 r^3\,dr\right)\left(\int_0^{2\pi}\cos^2\theta\,d\theta\right).
-\]
-Thus
-\[
-=24\cdot \frac14\cdot \pi=6\pi.
-\]
-Hence
-\[
-\boxed{\iint_R x^2\,dA=6\pi }.
-\]
-\end{enumerate}
-
-\section*{Problem 2}
-Evaluating triple integrals with cylindrical coordinates.
-
-\begin{enumerate}
-\item A solid lies within the cylinder $x^2+y^2=1$, below the plane $z=4$, and above the paraboloid $z=1-x^2-y^2$. Find its volume.
-
-\textbf{Solution.}
-In cylindrical coordinates, $r\le 1$, $0\le \theta\le 2\pi$, and
-\[
-1-r^2\le z\le 4.
-\]
-Hence
-\[
-V=\int_0^{2\pi}\int_0^1\int_{1-r^2}^{4} r\,dz\,dr\,d\theta.
-\]
-Integrating in $z$,
-\[
-V=\int_0^{2\pi}\int_0^1 (4-(1-r^2))r\,dr\,d\theta
-=\int_0^{2\pi}\int_0^1 (3+r^2)r\,dr\,d\theta.
-\]
-So
-\[
-V=2\pi\int_0^1(3r+r^3)\,dr
-=2\pi\left[\frac{3r^2}{2}+\frac{r^4}{4}\right]_0^1
-=2\pi\left(\frac32+\frac14\right)=\frac{7\pi}{2}.
-\]
-Thus
-\[
-\boxed{V=\frac{7\pi}{2}}.
-\]
-
-\item Evaluate
-\[
-\int_{-2}^{2}\int_{-\sqrt{4-x^2}}^{\sqrt{4-x^2}}\int_{\sqrt{x^2+y^2}}^{2}(x^2+y^2)\,dz\,dy\,dx.
-\]
-
-\textbf{Solution.}
-The projection in the $xy$-plane is the disk $x^2+y^2\le 4$, i.e. $0\le r\le 2$, $0\le \theta\le 2\pi$. Also
-\[
-z \text{ runs from } r \text{ to } 2.
-\]
-Since $x^2+y^2=r^2$, the integral becomes
-\[
-\int_0^{2\pi}\int_0^2\int_r^2 r^2\cdot r\,dz\,dr\,d\theta
-=\int_0^{2\pi}\int_0^2\int_r^2 r^3\,dz\,dr\,d\theta.
+\iint_D u\,dA=\frac16,
+\qquad
+\iint_D v\,dA=\frac16.
 \]
 Therefore
 \[
-=2\pi\int_0^2 r^3(2-r)\,dr
-=2\pi\int_0^2 (2r^3-r^4)\,dr.
+\iint_R(x-3y)\,dA=3\left(-\frac16-5\cdot\frac16\right)=-3.
 \]
-Hence
-\[
-=2\pi\left[\frac{r^4}{2}-\frac{r^5}{5}\right]_0^2
-=2\pi\left(8-\frac{32}{5}\right)=\frac{16\pi}{5}.
-\]
-So
-\[
-\boxed{\frac{16\pi}{5}}.
-\]
-\end{enumerate}
+\ans{\iint_R(x-3y)\,dA=-3}
 
-\section*{Problem 3}
-Evaluate the integrals by changing to cylindrical coordinates.
-
-\begin{enumerate}
-\item
+\subsection*{1(iii)}
+Let
 \[
-\int_{-2}^{2}\int_{-\sqrt{4-y^2}}^{\sqrt{4-y^2}}\int_{\sqrt{x^2+y^2}}^{2} xz\,dz\,dx\,dy.
+x=2u,
+\qquad y=3v.
 \]
-
-\textbf{Solution.}
-The region is the same as in Problem 2(ii): $0\le r\le 2$, $0\le \theta\le 2\pi$, $r\le z\le 2$.
-Now
+The ellipse
 \[
-x=r\cos\theta,
+9x^2+4y^2=36
 \]
-so the integrand becomes
+becomes
 \[
-xz\,dV=(r\cos\theta)z\cdot r\,dz\,dr\,d\theta=r^2 z\cos\theta\,dz\,dr\,d\theta.
-\]
-Thus
-\[
-\int_0^{2\pi}\int_0^2\int_r^2 r^2z\cos\theta\,dz\,dr\,d\theta.
-\]
-Since
-\[
-\int_0^{2\pi}\cos\theta\,d\theta=0,
-\]
-the whole integral is zero:
-\[
-\boxed{0}.
-\]
-
-\item
-\[
-\int_{-3}^{3}\int_{0}^{\sqrt{9-x^2}}\int_0^{\sqrt{9-x^2-y^2}}\sqrt{x^2+y^2}\,dz\,dy\,dx.
-\]
-
-\textbf{Solution.}
-The $xy$-projection is the upper semicircle $x^2+y^2\le 9$, $y\ge 0$, so in cylindrical coordinates
-\[
-0\le r\le 3,\qquad 0\le \theta\le \pi,\qquad 0\le z\le \sqrt{9-r^2}.
-\]
-Also $\sqrt{x^2+y^2}=r$, so the integral becomes
-\[
-\int_0^\pi\int_0^3\int_0^{\sqrt{9-r^2}} r\cdot r\,dz\,dr\,d\theta
-=\int_0^\pi\int_0^3 r^2\sqrt{9-r^2}\,dr\,d\theta.
-\]
-Hence
-\[
-=\pi\int_0^3 r^2\sqrt{9-r^2}\,dr.
-\]
-Set $r=3\sin\phi$, so $dr=3\cos\phi\,d\phi$, and when $r$ goes from $0$ to $3$, $\phi$ goes from $0$ to $\pi/2$. Then
-\[
-r^2=9\sin^2\phi,\qquad \sqrt{9-r^2}=3\cos\phi.
-\]
-So
-\[
-\pi\int_0^{\pi/2} 9\sin^2\phi\cdot 3\cos\phi\cdot 3\cos\phi\,d\phi
-=81\pi\int_0^{\pi/2}\sin^2\phi\cos^2\phi\,d\phi.
-\]
-Using $\sin^2\phi\cos^2\phi=\frac14\sin^2(2\phi)$,
-\[
-\int_0^{\pi/2}\sin^2\phi\cos^2\phi\,d\phi=\frac{\pi}{16}.
-\]
-Therefore
-\[
-\boxed{\frac{81\pi^2}{16}}.
-\]
-\end{enumerate}
-
-\section*{Problem 4}
-Evaluate the integrals by changing to spherical coordinates.
-
-\begin{enumerate}
-\item
-\[
-\int_0^1\int_0^{\sqrt{1-x^2}}\int_{\sqrt{x^2+y^2}}^{\sqrt{2-x^2-y^2}} xy\,dz\,dy\,dx.
-\]
-
-\textbf{Solution.}
-The lower surface is the cone $z=\sqrt{x^2+y^2}$, i.e. $z=r$, which in spherical coordinates means
-\[
-\rho\cos\phi=\rho\sin\phi \quad\Longrightarrow\quad \phi=\frac{\pi}{4}.
-\]
-The upper surface is the sphere
-\[
-x^2+y^2+z^2=2 \quad\Longrightarrow\quad \rho=\sqrt2.
-\]
-Also $x,y\ge 0$, so
-\[
-0\le \theta\le \frac{\pi}{2},\qquad 0\le \phi\le \frac{\pi}{4},\qquad 0\le \rho\le \sqrt2.
-\]
-Now
-\[
-x=\rho\sin\phi\cos\theta,\qquad y=\rho\sin\phi\sin\theta,
+9(2u)^2+4(3v)^2=36u^2+36v^2=36,
 \]
 so
 \[
-xy=\rho^2\sin^2\phi\cos\theta\sin\theta.
+u^2+v^2=1.
 \]
-Multiplying by the Jacobian $\rho^2\sin\phi$ gives
+Thus \(D\) is the unit disk. The Jacobian is
 \[
-\rho^4\sin^3\phi\cos\theta\sin\theta.
+J=\begin{vmatrix}2&0\\0&3\end{vmatrix}=6.
+\]
+Also \(x^2=(2u)^2=4u^2\). Hence
+\begin{align*}
+\iint_R x^2\,dA
+&=\iint_D 4u^2\cdot 6\,du\,dv\\
+&=24\iint_Du^2\,du\,dv.
+\end{align*}
+Use polar coordinates in the \((u,v)\)-plane: \(u=s\cos\alpha\), \(v=s\sin\alpha\), \(0\le s\le1\), \(0\le\alpha\le2\pi\). Then
+\begin{align*}
+\iint_Du^2\,du\,dv
+&=\int_0^{2\pi}\int_0^1s^2\cos^2\alpha\cdot s\,ds\,d\alpha\\
+&=\left(\int_0^1s^3\,ds\right)
+\left(\int_0^{2\pi}\cos^2\alpha\,d\alpha\right)\\
+&=\frac14\cdot\pi=\frac\pi4.
+\end{align*}
+Therefore
+\[
+\iint_Rx^2\,dA=24\cdot\frac\pi4=6\pi.
+\]
+\ans{\iint_Rx^2\,dA=6\pi}
+
+\section{Problem 2: Cylindrical coordinates}
+
+\begin{methodbox}{Cylindrical-coordinate method}
+Use \(x=r\cos\theta\), \(y=r\sin\theta\), \(x^2+y^2=r^2\), and \(dV=r\,dz\,dr\,d\theta\). Cylinders become constant \(r\), cones often become \(z=r\), and circular disks become simple intervals in \(r\) and \(\theta\).
+\end{methodbox}
+
+\subsection*{2(i)}
+The solid lies inside
+\[
+x^2+y^2=1,
+\]
+so in cylindrical coordinates
+\[
+0\le r\le1,
+\qquad 0\le\theta\le2\pi.
+\]
+The lower surface is
+\[
+z=1-x^2-y^2=1-r^2,
+\]
+and the upper surface is \(z=4\). Therefore the volume is
+\begin{align*}
+V&=\int_0^{2\pi}\int_0^1\int_{1-r^2}^{4}r\,dz\,dr\,d\theta\\
+&=\int_0^{2\pi}\int_0^1\left[rz\right]_{z=1-r^2}^{4}\,dr\,d\theta\\
+&=\int_0^{2\pi}\int_0^1r(4-(1-r^2))\,dr\,d\theta\\
+&=\int_0^{2\pi}\int_0^1r(3+r^2)\,dr\,d\theta\\
+&=2\pi\left[\frac32r^2+\frac14r^4\right]_0^1\\
+&=2\pi\left(\frac32+\frac14\right)=\frac{7\pi}{2}.
+\end{align*}
+\ans{V=\frac{7\pi}{2}}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=.95]
+\draw[->] (-.2,0)--(3.0,0) node[right]{\(r\)};
+\draw[->] (0,-.2)--(0,4.5) node[above]{\(z\)};
+\fill[softblue,opacity=.85,domain=0:1,samples=40] (0,4) -- (1,4) -- plot ({\x},{1-\x*\x}) -- cycle;
+\draw[lineblue,thick] (0,4)--(1,4) node[right]{\(z=4\)};
+\draw[linegreen,thick,domain=0:1,samples=80] plot ({\x},{1-\x*\x}) node[right]{\(z=1-r^2\)};
+\draw[dashed] (1,0)--(1,4);
+\node[below] at (1,0){\(r=1\)};
+\node at (1.35,2.3){solid cross-section};
+\end{tikzpicture}
+\caption{The \(r\)-\(z\) cross-section for Problem 2(i). Rotating this region around the \(z\)-axis gives the solid.}
+\end{figure}
+
+\subsection*{2(ii)}
+The integral is
+\[
+\int_{-2}^2\int_{-\sqrt{4-x^2}}^{\sqrt{4-x^2}}
+\int_{\sqrt{x^2+y^2}}^2 (x^2+y^2)\,dz\,dy\,dx.
+\]
+The projection onto the \(xy\)-plane is the disk
+\[
+x^2+y^2\le4,
+\]
+so
+\[
+0\le r\le2,
+\qquad 0\le\theta\le2\pi.
+\]
+The lower surface is \(z=\sqrt{x^2+y^2}=r\), and the upper surface is \(z=2\). Also
+\[
+x^2+y^2=r^2,
+\qquad dV=r\,dz\,dr\,d\theta.
+\]
+Therefore
+\begin{align*}
+I&=\int_0^{2\pi}\int_0^2\int_r^2r^2\cdot r\,dz\,dr\,d\theta\\
+&=\int_0^{2\pi}\int_0^2r^3(2-r)\,dr\,d\theta\\
+&=2\pi\int_0^2(2r^3-r^4)\,dr\\
+&=2\pi\left[\frac12r^4-\frac15r^5\right]_0^2\\
+&=2\pi\left(8-\frac{32}{5}\right)\\
+&=2\pi\cdot\frac85=\frac{16\pi}{5}.
+\end{align*}
+\ans{I=\frac{16\pi}{5}}
+
+\section{Problem 3: Cylindrical-coordinate evaluation}
+
+\subsection*{3(1)}
+The integral is
+\[
+I=\int_{-2}^2\int_{-\sqrt{4-y^2}}^{\sqrt{4-y^2}}
+\int_{\sqrt{x^2+y^2}}^2xz\,dz\,dx\,dy.
+\]
+The projection is the disk \(x^2+y^2\le4\). In cylindrical coordinates,
+\[
+x=r\cos\theta,
+\qquad z=z,
+\qquad dV=r\,dz\,dr\,d\theta.
+\]
+The bounds are
+\[
+0\le r\le2,
+\qquad 0\le\theta\le2\pi,
+\qquad r\le z\le2.
+\]
+Thus
+\begin{align*}
+I&=\int_0^{2\pi}\int_0^2\int_r^2(r\cos\theta)z\cdot r\,dz\,dr\,d\theta\\
+&=\left(\int_0^{2\pi}\cos\theta\,d\theta\right)
+\left(\int_0^2\int_r^2r^2z\,dz\,dr\right).
+\end{align*}
+But
+\[
+\int_0^{2\pi}\cos\theta\,d\theta=0.
 \]
 Therefore
 \[
-\int_0^{\pi/2}\int_0^{\pi/4}\int_0^{\sqrt2}\rho^4\sin^3\phi\cos\theta\sin\theta\,d\rho\,d\phi\,d\theta.
+I=0.
 \]
-Separate the integrals:
+\ans{I=0}
+
+\subsection*{3(2)}
+The integral is
 \[
-\left(\int_0^{\sqrt2}\rho^4\,d\rho\right)
+I=\int_{-3}^{3}\int_0^{\sqrt{9-x^2}}
+\int_0^{\sqrt{9-x^2-y^2}}\sqrt{x^2+y^2}\,dz\,dy\,dx.
+\]
+The projection is the upper semicircle
+\[
+x^2+y^2\le9,
+\qquad y\ge0.
+\]
+Therefore
+\[
+0\le r\le3,
+\qquad 0\le\theta\le\pi.
+\]
+The upper surface is the upper hemisphere
+\[
+z=\sqrt{9-r^2},
+\]
+and the lower surface is \(z=0\). The integrand is \(\sqrt{x^2+y^2}=r\), and the volume element is \(r\,dz\,dr\,d\theta\). Hence
+\begin{align*}
+I&=\int_0^\pi\int_0^3\int_0^{\sqrt{9-r^2}}r\cdot r\,dz\,dr\,d\theta\\
+&=\pi\int_0^3r^2\sqrt{9-r^2}\,dr.
+\end{align*}
+To compute the remaining integral, set \(r=3\sin t\). Then \(dr=3\cos t\,dt\), and \(\sqrt{9-r^2}=3\cos t\). When \(r=0\), \(t=0\); when \(r=3\), \(t=\pi/2\). Thus
+\begin{align*}
+\int_0^3r^2\sqrt{9-r^2}\,dr
+&=\int_0^{\pi/2}9\sin^2t\cdot3\cos t\cdot3\cos t\,dt\\
+&=81\int_0^{\pi/2}\sin^2t\cos^2t\,dt\\
+&=81\int_0^{\pi/2}\frac14\sin^2(2t)\,dt\\
+&=\frac{81}{4}\cdot\frac\pi4=\frac{81\pi}{16}.
+\end{align*}
+Therefore
+\[
+I=\pi\cdot\frac{81\pi}{16}=\frac{81\pi^2}{16}.
+\]
+\ans{I=\frac{81\pi^2}{16}}
+
+\section{Problem 4: Spherical coordinates}
+
+\begin{methodbox}{Spherical-coordinate recognition rules}
+\begin{enumerate}[label=\arabic*.]
+\item A sphere centered at the origin is usually \(\rho=\text{constant}\).
+\item A cone \(z=\sqrt{x^2+y^2}\) is \(\rho\cos\phi=\rho\sin\phi\), hence \(\phi=\pi/4\).
+\item First-quadrant conditions in the \(xy\)-plane usually give \(0\le\theta\le\pi/2\).
+\item Odd functions of \(z\) integrate to zero over regions symmetric with respect to \(z=0\).
+\end{enumerate}
+\end{methodbox}
+
+\subsection*{4(i)}
+The integral is
+\[
+I=\int_0^1\int_0^{\sqrt{1-x^2}}
+\int_{\sqrt{x^2+y^2}}^{\sqrt{2-x^2-y^2}}xy\,dz\,dy\,dx.
+\]
+The projection onto the \(xy\)-plane is the quarter disk
+\[
+x\ge0,
+\qquad y\ge0,
+\qquad x^2+y^2\le1.
+\]
+The lower surface is the cone
+\[
+z=\sqrt{x^2+y^2},
+\]
+and the upper surface is the sphere
+\[
+x^2+y^2+z^2=2.
+\]
+In spherical coordinates, the cone is
+\[
+\rho\cos\phi=\rho\sin\phi
+\quad\Longrightarrow\quad
+\phi=\frac\pi4.
+\]
+The region lies above the cone and below the sphere, so
+\[
+0\le\phi\le\frac\pi4,
+\qquad 0\le\rho\le\sqrt2.
+\]
+Since \(x,y\ge0\),
+\[
+0\le\theta\le\frac\pi2.
+\]
+Now
+\[
+xy=(\rho\sin\phi\cos\theta)(\rho\sin\phi\sin\theta)
+=\rho^2\sin^2\phi\cos\theta\sin\theta,
+\]
+and
+\[
+dV=\rho^2\sin\phi\,d\rho\,d\phi\,d\theta.
+\]
+Therefore
+\begin{align*}
+I&=\int_0^{\pi/2}\int_0^{\pi/4}\int_0^{\sqrt2}
+\rho^4\sin^3\phi\cos\theta\sin\theta\,d\rho\,d\phi\,d\theta\\
+&=\left(\int_0^{\sqrt2}\rho^4\,d\rho\right)
 \left(\int_0^{\pi/4}\sin^3\phi\,d\phi\right)
 \left(\int_0^{\pi/2}\cos\theta\sin\theta\,d\theta\right).
-\]
-These are
+\end{align*}
+Compute each factor:
 \[
 \int_0^{\sqrt2}\rho^4\,d\rho=\frac{(\sqrt2)^5}{5}=\frac{4\sqrt2}{5},
 \]
 \[
 \int_0^{\pi/2}\cos\theta\sin\theta\,d\theta=\frac12,
 \]
-\[
+and
+\begin{align*}
 \int_0^{\pi/4}\sin^3\phi\,d\phi
-=\left[-\cos\phi+\frac{\cos^3\phi}{3}\right]_0^{\pi/4}
-=\frac23-\frac{5\sqrt2}{12}.
-\]
-Hence
-\[
-\boxed{\frac{4\sqrt2-5}{15}}.
-\]
+&=\int_0^{\pi/4}\sin\phi(1-\cos^2\phi)\,d\phi\\
+&=\left[-\cos\phi+\frac13\cos^3\phi\right]_0^{\pi/4}\\
+&=\left(-\frac{\sqrt2}{2}+\frac{\sqrt2}{12}\right)-\left(-1+\frac13\right)\\
+&=\frac23-\frac{5\sqrt2}{12}.
+\end{align*}
+Therefore
+\begin{align*}
+I&=\frac{4\sqrt2}{5}\cdot\left(\frac23-\frac{5\sqrt2}{12}\right)\cdot\frac12\\
+&=\frac{4\sqrt2}{15}-\frac13.
+\end{align*}
+\ans{I=\frac{4\sqrt2}{15}-\frac13}
 
-\item
-\[
-\int_{-a}^{a}\int_{-\sqrt{a^2-y^2}}^{\sqrt{a^2-y^2}}
-\int_{-\sqrt{a^2-x^2-y^2}}^{\sqrt{a^2-x^2-y^2}}
-(x^2z+y^2z+z^3)\,dz\,dx\,dy.
-\]
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.05]
+\draw[->] (0,0)--(3.0,0) node[right]{radial direction \(r\)};
+\draw[->] (0,0)--(0,3.0) node[above]{\(z\)};
+\draw[lineblue,thick,domain=0:1.414,samples=80] plot ({\x},{sqrt(2-\x*\x)}) node[right]{sphere \(\rho=\sqrt2\)};
+\draw[linegreen,thick] (0,0)--(1.55,1.55) node[right]{cone \(\phi=\pi/4\)};
+\fill[softblue,opacity=.75,domain=0:1.0,samples=60]
+  (0,0) -- plot ({\x},{\x}) -- plot[domain=1.0:0] ({\x},{sqrt(2-\x*\x)}) -- cycle;
+\draw (0.55,0) arc (0:45:.55);
+\node at (.78,.28){\(\pi/4\)};
+\node at (1.0,1.95){region};
+\end{tikzpicture}
+\caption{Meridian cross-section for Problem 4(i). The solid is above the cone and inside the sphere, restricted to the first quadrant in \(\theta\).}
+\end{figure}
 
-\textbf{Solution.}
-The region is the full ball $x^2+y^2+z^2\le a^2$, symmetric with respect to the plane $z=0$.
-The integrand can be factored as
+\subsection*{4(ii)}
+The printed bounds describe the ball
+\[
+x^2+y^2+z^2\le a^2.
+\]
+The integrand is
 \[
 x^2z+y^2z+z^3=z(x^2+y^2+z^2).
 \]
-This is an odd function of $z$. Since the region is symmetric in $z$, the integral is zero:
+This function is odd in \(z\), because replacing \(z\) by \(-z\) changes the sign:
 \[
-\boxed{0}.
+z(x^2+y^2+z^2)\mapsto -z(x^2+y^2+z^2).
 \]
+The ball is symmetric with respect to the plane \(z=0\). Therefore every point \((x,y,z)\) cancels with \((x,y,-z)\). Hence the integral is zero.
+\[
+I=0.
+\]
+\ans{I=0}
 
-\item
+\subsection*{4(iii)}
+The region is the full ball
 \[
-\int_{-2}^{2}\int_{-\sqrt{4-x^2}}^{\sqrt{4-x^2}}
-\int_{-\sqrt{4-x^2-y^2}}^{\sqrt{4-x^2-y^2}}
-(x^2+y^2+z^2)^{3/2}\,dz\,dy\,dx.
-\]
-
-\textbf{Solution.}
-The region is the full ball $\rho\le 2$.
-Since $x^2+y^2+z^2=\rho^2$, the integrand becomes $\rho^3$.
-Thus
-\[
-\int_0^{2\pi}\int_0^\pi\int_0^2 \rho^3\cdot \rho^2\sin\phi\,d\rho\,d\phi\,d\theta
-=\int_0^{2\pi}d\theta\int_0^\pi \sin\phi\,d\phi\int_0^2 \rho^5\,d\rho.
-\]
-Hence
-\[
-=2\pi\cdot 2\cdot \frac{2^6}{6}
-=4\pi\cdot \frac{64}{6}
-=\boxed{\frac{128\pi}{3}}.
-\]
-\end{enumerate}
-
-\section*{Problem 5}
-Sketch the solid and evaluate the integral.
-
-\begin{enumerate}
-\item $\displaystyle \int_0^{\pi/6}\int_0^{\pi/2}\int_0^3 \rho^2\sin\phi\,d\rho\,d\theta\,d\phi$.
-
-\textbf{Solution.}
-This is the volume of the sector
-\[
-0\le \rho\le 3,\quad 0\le \theta\le \frac{\pi}{2},\quad 0\le \phi\le \frac{\pi}{6}.
-\]
-So
-\[
-V=\left(\int_0^3 \rho^2\,d\rho\right)\left(\int_0^{\pi/2}d\theta\right)\left(\int_0^{\pi/6}\sin\phi\,d\phi\right).
-\]
-Thus
-\[
-V=9\cdot \frac{\pi}{2}\cdot \left(1-\frac{\sqrt3}{2}\right)
-=\boxed{\frac{9\pi}{4}(2-\sqrt3)}.
-\]
-
-\item $\displaystyle \int_0^{2\pi}\int_{\pi/2}^{\pi}\int_1^2 \rho^2\sin\phi\,d\rho\,d\phi\,d\theta$.
-
-\textbf{Solution.}
-This is the lower half of the spherical shell $1\le \rho\le 2$.
-Hence
-\[
-V=\left(\int_1^2 \rho^2\,d\rho\right)\left(\int_{\pi/2}^{\pi}\sin\phi\,d\phi\right)\left(\int_0^{2\pi}d\theta\right).
-\]
-Compute:
-\[
-\int_1^2 \rho^2\,d\rho=\frac{8-1}{3}=\frac73,\qquad \int_{\pi/2}^{\pi}\sin\phi\,d\phi=1.
-\]
-Therefore
-\[
-V=\frac73\cdot 1\cdot 2\pi=\boxed{\frac{14\pi}{3}}.
-\]
-
-\item $\displaystyle \int_0^{\pi/2}\int_0^{\pi/2}\int_1^2 \rho^2\sin\phi\,d\rho\,d\phi\,d\theta$.
-
-\textbf{Solution.}
-This is the first-octant part of the shell $1\le \rho\le 2$.
-So
-\[
-V=\left(\int_1^2 \rho^2\,d\rho\right)\left(\int_0^{\pi/2}\sin\phi\,d\phi\right)\left(\int_0^{\pi/2}d\theta\right)
-=\frac73\cdot 1\cdot \frac{\pi}{2}
-=\boxed{\frac{7\pi}{6}}.
-\]
-
-\item
-\[
-\int_{-2}^{2}\int_0^{\sqrt{4-y^2}}\int_{-\sqrt{4-x^2-y^2}}^{\sqrt{4-x^2-y^2}}
-y^2\sqrt{x^2+y^2+z^2}\,dz\,dx\,dy.
-\]
-
-\textbf{Solution.}
-The region is the half-ball $\rho\le 2$ with $x\ge 0$.
-Thus
-\[
-0\le \rho\le 2,\quad 0\le \phi\le \pi,\quad -\frac{\pi}{2}\le \theta\le \frac{\pi}{2}.
-\]
-Now
-\[
-y=\rho\sin\phi\sin\theta,\qquad \sqrt{x^2+y^2+z^2}=\rho.
-\]
-So the integrand becomes
-\[
-y^2\sqrt{x^2+y^2+z^2}=\rho^3\sin^2\phi\sin^2\theta.
-\]
-Multiplying by the Jacobian gives
-\[
-\rho^5\sin^3\phi\sin^2\theta.
-\]
-Hence
-\[
-\int_{-\pi/2}^{\pi/2}\int_0^\pi\int_0^2 \rho^5\sin^3\phi\sin^2\theta\,d\rho\,d\phi\,d\theta.
-\]
-Separate:
-\[
-\left(\int_0^2 \rho^5\,d\rho\right)
-\left(\int_0^\pi \sin^3\phi\,d\phi\right)
-\left(\int_{-\pi/2}^{\pi/2}\sin^2\theta\,d\theta\right).
-\]
-These are
-\[
-\frac{64}{6}=\frac{32}{3},\qquad \frac{4}{3},\qquad \frac{\pi}{2}.
-\]
-Therefore
-\[
-\boxed{\frac{64\pi}{9}}.
-\]
-\end{enumerate}
-
-\section*{Problem 6}
-Solve the following.
-
-\begin{enumerate}
-\item Use spherical coordinates to find the volume of the solid above the cone $z=\sqrt{x^2+y^2}$ and below the sphere $x^2+y^2+z^2=z$.
-
-\textbf{Solution.}
-The sphere is
-\[
-\rho^2=\rho\cos\phi \quad\Longrightarrow\quad \rho=\cos\phi.
-\]
-The cone is $\phi=\pi/4$, and ``above the cone'' means $0\le \phi\le \pi/4$.
-Therefore
-\[
-0\le \theta\le 2\pi,\qquad 0\le \phi\le \frac{\pi}{4},\qquad 0\le \rho\le \cos\phi.
-\]
-Thus
-\[
-V=\int_0^{2\pi}\int_0^{\pi/4}\int_0^{\cos\phi}\rho^2\sin\phi\,d\rho\,d\phi\,d\theta.
-\]
-Integrating in $\rho$,
-\[
-V=\frac{2\pi}{3}\int_0^{\pi/4}\cos^3\phi\sin\phi\,d\phi.
-\]
-Let $u=\cos\phi$, $du=-\sin\phi\,d\phi$:
-\[
-\int_0^{\pi/4}\cos^3\phi\sin\phi\,d\phi
-=-\int_1^{\sqrt2/2}u^3\,du
-=\frac{1}{4}\left(1-\frac14\right)=\frac{3}{16}.
-\]
-Hence
-\[
-\boxed{V=\frac{\pi}{8}}.
-\]
-
-\item Evaluate $\displaystyle \iiint_B e^{(x^2+y^2+z^2)^{3/2}}\,dV$, where $B$ is the unit ball.
-
-\textbf{Solution.}
-In spherical coordinates, $x^2+y^2+z^2=\rho^2$, so
-\[
-(x^2+y^2+z^2)^{3/2}=\rho^3.
-\]
-Since $B$ is the unit ball,
-\[
-0\le \rho\le 1,\qquad 0\le \phi\le \pi,\qquad 0\le \theta\le 2\pi.
-\]
-Therefore
-\[
-\iiint_B e^{(x^2+y^2+z^2)^{3/2}}\,dV
-=\int_0^{2\pi}\int_0^\pi\int_0^1 e^{\rho^3}\rho^2\sin\phi\,d\rho\,d\phi\,d\theta.
-\]
-So
-\[
-=4\pi\int_0^1 e^{\rho^3}\rho^2\,d\rho.
-\]
-Let $u=\rho^3$, $du=3\rho^2\,d\rho$:
-\[
-4\pi\cdot \frac13\int_0^1 e^u\,du
-=\frac{4\pi}{3}(e-1).
-\]
-Hence
-\[
-\boxed{\frac{4\pi}{3}(e-1)}.
-\]
-
-\item The plane $\frac{x}{a}+\frac{y}{b}+\frac{z}{c}=1$ cuts the ellipsoid $\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}\le 1$ into two pieces. Find the volume of the smaller piece.
-
-\textbf{Solution.}
-Use the linear change of variables
-\[
-x=au,\qquad y=bv,\qquad z=cw.
-\]
-Then the ellipsoid becomes the unit ball
-\[
-u^2+v^2+w^2\le 1,
-\]
-and the plane becomes
-\[
-u+v+w=1.
-\]
-The Jacobian is $abc$, so volumes in the ellipsoid are $abc$ times the corresponding volumes in the unit ball.
-
-The plane $u+v+w=1$ has distance
-\[
-d=\frac{1}{\sqrt{1^2+1^2+1^2}}=\frac{1}{\sqrt3}
-\]
-from the origin. Hence the smaller piece is a spherical cap of the unit sphere of height
-\[
-h=1-\frac{1}{\sqrt3}.
-\]
-The volume of a cap of height $h$ in a sphere of radius $1$ is
-\[
-V_{\text{cap}}=\frac{\pi h^2(3-h)}{3}.
-\]
-Therefore the required volume is
-\[
-\boxed{abc\cdot \frac{\pi}{3}\left(1-\frac{1}{\sqrt3}\right)^2\left(2+\frac{1}{\sqrt3}\right)}.
-\]
-
-\item Find the volume of the solid within both the cylinder $x^2+y^2=1$ and the sphere $x^2+y^2+z^2=4$.
-
-\textbf{Solution.}
-In cylindrical coordinates, the common region is
-\[
-0\le r\le 1,\qquad 0\le \theta\le 2\pi,\qquad -\sqrt{4-r^2}\le z\le \sqrt{4-r^2}.
-\]
-Thus
-\[
-V=\int_0^{2\pi}\int_0^1\int_{-\sqrt{4-r^2}}^{\sqrt{4-r^2}} r\,dz\,dr\,d\theta
-=2\pi\int_0^1 2r\sqrt{4-r^2}\,dr.
-\]
-So
-\[
-V=4\pi\int_0^1 r\sqrt{4-r^2}\,dr.
-\]
-Let $u=4-r^2$, $du=-2r\,dr$:
-\[
-V=4\pi\cdot \frac12\int_3^4 u^{1/2}\,du
-=2\pi\cdot \frac23\left(4^{3/2}-3^{3/2}\right).
-\]
-Hence
-\[
-\boxed{\frac{4\pi}{3}(8-3\sqrt3)}.
-\]
-\end{enumerate}
-
-\section*{Problem 7}
-Determine whether or not $F$ is conservative in $\R^2$. If yes, find $\phi$ such that $F=\nabla\phi$.
-
-\begin{enumerate}
-\item $F=(2x-3y,\,-3x+4y-8)$.
-
-\textbf{Solution.}
-Let $P=2x-3y$, $Q=-3x+4y-8$. Then
-\[
-P_y=-3,\qquad Q_x=-3.
-\]
-So $F$ is conservative.
-Find a potential by integrating $P$ with respect to $x$:
-\[
-\phi(x,y)=\int (2x-3y)\,dx=x^2-3xy+g(y).
-\]
-Now
-\[
-\phi_y=-3x+g'(y)=Q=-3x+4y-8,
+x^2+y^2+z^2\le4,
 \]
 so
 \[
-g'(y)=4y-8 \quad\Longrightarrow\quad g(y)=2y^2-8y.
+0\le\rho\le2,
+\qquad 0\le\phi\le\pi,
+\qquad 0\le\theta\le2\pi.
+\]
+The integrand is
+\[
+(x^2+y^2+z^2)^{3/2}=(\rho^2)^{3/2}=\rho^3.
+\]
+Thus
+\begin{align*}
+I&=\int_0^{2\pi}\int_0^\pi\int_0^2 \rho^3\cdot \rho^2\sin\phi\,d\rho\,d\phi\,d\theta\\
+&=\left(\int_0^2\rho^5\,d\rho\right)
+\left(\int_0^\pi\sin\phi\,d\phi\right)
+\left(\int_0^{2\pi}d\theta\right)\\
+&=\frac{64}{6}\cdot 2\cdot2\pi\\
+&=\frac{128\pi}{3}.
+\end{align*}
+\ans{I=\frac{128\pi}{3}}
+
+\section{Problem 5: Spherical volume integrals}
+
+\subsection*{5(i)}
+The integral is
+\[
+\int_0^{\pi/6}\int_0^{\pi/2}\int_0^3 \rho^2\sin\phi\,d\rho\,d\theta\,d\phi.
+\]
+It represents the volume of the spherical sector
+\[
+0\le\rho\le3,
+\qquad 0\le\theta\le\frac\pi2,
+\qquad 0\le\phi\le\frac\pi6.
+\]
+Therefore
+\begin{align*}
+V&=\left(\int_0^3\rho^2\,d\rho\right)
+\left(\int_0^{\pi/2}d\theta\right)
+\left(\int_0^{\pi/6}\sin\phi\,d\phi\right)\\
+&=9\cdot\frac\pi2\cdot\left[-\cos\phi\right]_0^{\pi/6}\\
+&=\frac{9\pi}{2}\left(1-\frac{\sqrt3}{2}\right)\\
+&=\frac{9\pi(2-\sqrt3)}{4}.
+\end{align*}
+\ans{V=\frac{9\pi(2-\sqrt3)}{4}}
+
+\subsection*{5(ii)}
+The integral is
+\[
+\int_0^{2\pi}\int_{\pi/2}^{\pi}\int_1^2\rho^2\sin\phi\,d\rho\,d\phi\,d\theta.
+\]
+This is the lower half of a spherical shell with inner radius \(1\) and outer radius \(2\). Thus
+\begin{align*}
+V&=\left(\int_1^2\rho^2\,d\rho\right)
+\left(\int_{\pi/2}^{\pi}\sin\phi\,d\phi\right)
+\left(\int_0^{2\pi}d\theta\right)\\
+&=\frac{8-1}{3}\cdot 1\cdot2\pi\\
+&=\frac{14\pi}{3}.
+\end{align*}
+\ans{V=\frac{14\pi}{3}}
+
+\subsection*{5(iii)}
+The integral is
+\[
+\int_0^{\pi/2}\int_0^{\pi/2}\int_1^2\rho^2\sin\phi\,d\rho\,d\phi\,d\theta.
+\]
+This is a first-octant spherical shell with \(1\le\rho\le2\). Hence
+\begin{align*}
+V&=\left(\int_1^2\rho^2\,d\rho\right)
+\left(\int_0^{\pi/2}\sin\phi\,d\phi\right)
+\left(\int_0^{\pi/2}d\theta\right)\\
+&=\frac73\cdot1\cdot\frac\pi2\\
+&=\frac{7\pi}{6}.
+\end{align*}
+\ans{V=\frac{7\pi}{6}}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=.88]
+\node[draw,lineblue,rounded corners,fill=softblue,minimum width=3.9cm,minimum height=1.4cm,align=center] (a) at (0,0) {\(0\le\rho\le3\)\\\(0\le\theta\le\pi/2\)\\\(0\le\phi\le\pi/6\)};
+\node[draw,linegreen,rounded corners,fill=softgreen,minimum width=3.9cm,minimum height=1.4cm,align=center] (b) at (5,0) {\(1\le\rho\le2\)\\\(0\le\theta\le2\pi\)\\\(\pi/2\le\phi\le\pi\)};
+\node[draw,lineorange,rounded corners,fill=softorange,minimum width=3.9cm,minimum height=1.4cm,align=center] (c) at (10,0) {\(1\le\rho\le2\)\\\(0\le\theta\le\pi/2\)\\\(0\le\phi\le\pi/2\)};
+\node at (0,-1.1){sector};
+\node at (5,-1.1){lower half-shell};
+\node at (10,-1.1){first-octant shell};
+\end{tikzpicture}
+\caption{The first three integrals are pure spherical volume elements; the bounds directly describe the solid.}
+\end{figure}
+
+\subsection*{5(iv)}
+The integral is
+\[
+\int_{-2}^{2}\int_0^{\sqrt{4-y^2}}
+\int_{-\sqrt{4-x^2-y^2}}^{\sqrt{4-x^2-y^2}}
+ y^2\sqrt{x^2+y^2+z^2}\,dz\,dx\,dy.
+\]
+The region is the half-ball
+\[
+x^2+y^2+z^2\le4,
+\qquad x\ge0.
+\]
+In spherical coordinates, this becomes
+\[
+0\le\rho\le2,
+\qquad 0\le\phi\le\pi,
+\qquad -\frac\pi2\le\theta\le\frac\pi2.
+\]
+The integrand transforms as
+\[
+y^2\sqrt{x^2+y^2+z^2}
+=(\rho\sin\phi\sin\theta)^2\rho
+=\rho^3\sin^2\phi\sin^2\theta.
+\]
+Multiplying by \(dV=\rho^2\sin\phi\,d\rho\,d\phi\,d\theta\), we get
+\[
+\rho^5\sin^3\phi\sin^2\theta.
+\]
+Thus
+\begin{align*}
+I&=\int_{-\pi/2}^{\pi/2}\int_0^\pi\int_0^2
+\rho^5\sin^3\phi\sin^2\theta\,d\rho\,d\phi\,d\theta\\
+&=\left(\int_0^2\rho^5\,d\rho\right)
+\left(\int_0^\pi\sin^3\phi\,d\phi\right)
+\left(\int_{-\pi/2}^{\pi/2}\sin^2\theta\,d\theta\right)\\
+&=\frac{64}{6}\cdot\frac43\cdot\frac\pi2\\
+&=\frac{64\pi}{9}.
+\end{align*}
+\ans{I=\frac{64\pi}{9}}
+
+\section{Problem 6: Volumes and spherical/cylindrical applications}
+
+\subsection*{6(i)}
+The solid lies above the cone
+\[
+z=\sqrt{x^2+y^2}
+\]
+and below the sphere
+\[
+x^2+y^2+z^2=z.
+\]
+In spherical coordinates, the cone is
+\[
+\phi=\frac\pi4.
+\]
+The sphere becomes
+\[
+\rho^2=\rho\cos\phi,
+\]
+so, away from the origin,
+\[
+\rho=\cos\phi.
+\]
+The solid is above the cone, hence
+\[
+0\le\phi\le\frac\pi4.
+\]
+It is rotationally symmetric, so
+\[
+0\le\theta\le2\pi.
+\]
+Thus
+\begin{align*}
+V&=\int_0^{2\pi}\int_0^{\pi/4}\int_0^{\cos\phi}
+ho^2\sin\phi\,d\rho\,d\phi\,d\theta\\
+&=2\pi\int_0^{\pi/4}\frac{\cos^3\phi}{3}\sin\phi\,d\phi\\
+&=\frac{2\pi}{3}\int_0^{\pi/4}\cos^3\phi\sin\phi\,d\phi.
+\end{align*}
+Let \(w=\cos\phi\), so \(dw=-\sin\phi\,d\phi\). Then
+\begin{align*}
+\int_0^{\pi/4}\cos^3\phi\sin\phi\,d\phi
+&=\left[-\frac{\cos^4\phi}{4}\right]_0^{\pi/4}\\
+&=\frac{1}{4}\left(1-\left(\frac{\sqrt2}{2}\right)^4\right)\\
+&=\frac14\left(1-\frac14\right)=\frac{3}{16}.
+\end{align*}
+Therefore
+\[
+V=\frac{2\pi}{3}\cdot\frac{3}{16}=\frac\pi8.
+\]
+\ans{V=\frac\pi8}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.05]
+\draw[->] (0,0)--(2.5,0) node[right]{\(r\)};
+\draw[->] (0,-.2)--(0,1.45) node[above]{\(z\)};
+\draw[lineblue,thick] (0,.5) circle (.5);
+\draw[linegreen,thick] (0,0)--(1.15,1.15) node[right]{cone \(z=r\)};
+\fill[softblue,opacity=.5] (0,0) -- (0.5,0.5) arc (0:-45:.707) -- cycle;
+\node at (.32,.8){sphere};
+\node at (1.15,.35){\(\phi\le\pi/4\)};
+\end{tikzpicture}
+\caption{Meridian cross-section: the sphere \(x^2+y^2+z^2=z\) has center \((0,0,1/2)\) and radius \(1/2\).}
+\end{figure}
+
+\subsection*{6(ii)}
+We need to evaluate
+\[
+\iiint_B e^{(x^2+y^2+z^2)^{3/2}}\,dV,
+\qquad
+B=\{(x,y,z):x^2+y^2+z^2\le1\}.
+\]
+In spherical coordinates,
+\[
+x^2+y^2+z^2=\rho^2,
+\]
+so
+\[
+(x^2+y^2+z^2)^{3/2}=(\rho^2)^{3/2}=\rho^3.
+\]
+The unit ball is
+\[
+0\le\rho\le1,
+\qquad 0\le\phi\le\pi,
+\qquad 0\le\theta\le2\pi.
+\]
+Therefore
+\begin{align*}
+I&=\int_0^{2\pi}\int_0^\pi\int_0^1e^{\rho^3}\rho^2\sin\phi\,d\rho\,d\phi\,d\theta\\
+&=4\pi\int_0^1e^{\rho^3}\rho^2\,d\rho.
+\end{align*}
+Let \(w=\rho^3\). Then \(dw=3\rho^2\,d\rho\), so
+\[
+\int_0^1e^{\rho^3}\rho^2\,d\rho
+=\frac13\int_0^1e^w\,dw
+=\frac13(e-1).
 \]
 Hence
 \[
-\boxed{\phi(x,y)=x^2-3xy+2y^2-8y +C }.
+I=\frac{4\pi}{3}(e-1).
 \]
+\ans{I=\frac{4\pi}{3}(e-1)}
 
-\item $F=(e^x\sin y,\ e^x\cos y)$.
-
-\textbf{Solution.}
+\subsection*{6(iii)}
+The ellipsoid is
 \[
-P_y=e^x\cos y,\qquad Q_x=e^x\cos y.
+\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}\le1.
 \]
-So $F$ is conservative. Integrate $P$ in $x$:
+Use the scaling
 \[
-\phi(x,y)=\int e^x\sin y\,dx=e^x\sin y + g(y).
+x=aX,
+\qquad y=bY,
+\qquad z=cZ.
+\]
+Then the ellipsoid becomes the unit ball
+\[
+X^2+Y^2+Z^2\le1,
+\]
+and the plane becomes
+\[
+X+Y+Z=1.
+\]
+The volume scale factor is
+\[
+\abs{\frac{\partial(x,y,z)}{\partial(X,Y,Z)}}=abc.
+\]
+Now find the smaller piece cut from the unit ball by
+\[
+X+Y+Z=1.
+\]
+The distance from the origin to this plane is
+\[
+d=\frac{|0+0+0-1|}{\sqrt{1^2+1^2+1^2}}=\frac1{\sqrt3}.
+\]
+The unit sphere has radius \(R=1\), so the smaller cap has height
+\[
+h=R-d=1-\frac1{\sqrt3}.
+\]
+The volume of a spherical cap of radius \(R=1\) and height \(h\) is
+\[
+V_{\mathrm{cap}}=\frac{\pi h^2(3-h)}{3}.
+\]
+Therefore the smaller volume in the original ellipsoid is
+\[
+V=abc\cdot\frac{\pi}{3}\left(1-\frac1{\sqrt3}\right)^2\left(2+\frac1{\sqrt3}\right).
+\]
+\ans{V=\frac{\pi abc}{3}\left(1-\frac1{\sqrt3}\right)^2\left(2+\frac1{\sqrt3}\right)}
+
+\subsection*{6(iv)}
+The solid lies within the cylinder
+\[
+x^2+y^2\le1
+\]
+and within the sphere
+\[
+x^2+y^2+z^2\le4.
+\]
+Use cylindrical coordinates. The cylinder gives
+\[
+0\le r\le1,
+\qquad 0\le\theta\le2\pi.
+\]
+For fixed \(r\), the sphere gives
+\[
+-\sqrt{4-r^2}\le z\le\sqrt{4-r^2}.
+\]
+Thus
+\begin{align*}
+V&=\int_0^{2\pi}\int_0^1\int_{-\sqrt{4-r^2}}^{\sqrt{4-r^2}}r\,dz\,dr\,d\theta\\
+&=2\pi\int_0^1 2r\sqrt{4-r^2}\,dr\\
+&=4\pi\int_0^1r\sqrt{4-r^2}\,dr.
+\end{align*}
+Let \(w=4-r^2\), so \(dw=-2r\,dr\). Then
+\begin{align*}
+\int_0^1r\sqrt{4-r^2}\,dr
+&=-\frac12\int_4^3w^{1/2}\,dw\\
+&=\frac12\int_3^4w^{1/2}\,dw\\
+&=\frac13\left[w^{3/2}\right]_3^4\\
+&=\frac13(8-3\sqrt3).
+\end{align*}
+Therefore
+\[
+V=\frac{4\pi}{3}(8-3\sqrt3).
+\]
+\ans{V=\frac{4\pi}{3}(8-3\sqrt3)}
+
+\section{Problem 7: Conservative vector fields in the plane}
+
+\begin{methodbox}{Plane test for conservative fields}
+For \(F=(P,Q)\) on a simply connected domain, check whether
+\[
+\frac{\partial P}{\partial y}=\frac{\partial Q}{\partial x}.
+\]
+If yes, find a potential \(\Phi\) by integrating \(P\) with respect to \(x\), adding an unknown function of \(y\), and then matching \(\Phi_y=Q\).
+\end{methodbox}
+
+\subsection*{7(i)}
+\[
+F(x,y)=(2x-3y,
+-3x+4y-8).
+\]
+So
+\[
+P=2x-3y,
+\qquad Q=-3x+4y-8.
+\]
+Compute the cross partials:
+\[
+P_y=-3,
+\qquad Q_x=-3.
+\]
+They are equal, so the field is conservative. Now find \(\Phi\):
+\[
+\Phi_x=P=2x-3y.
+\]
+Integrating with respect to \(x\),
+\[
+\Phi=x^2-3xy+g(y).
+\]
+Differentiate with respect to \(y\):
+\[
+\Phi_y=-3x+g'(y).
+\]
+Set this equal to \(Q=-3x+4y-8\):
+\[
+-3x+g'(y)=-3x+4y-8.
+\]
+Thus
+\[
+g'(y)=4y-8,
+\qquad g(y)=2y^2-8y+C.
+\]
+Therefore
+\[
+\Phi(x,y)=x^2-3xy+2y^2-8y+C.
+\]
+\ans{F\text{ is conservative, with }\Phi=x^2-3xy+2y^2-8y+C}
+
+\subsection*{7(ii)}
+\[
+F(x,y)=(e^x\sin y,
+ e^x\cos y).
+\]
+Here
+\[
+P=e^x\sin y,
+\qquad Q=e^x\cos y.
 \]
 Then
 \[
-\phi_y=e^x\cos y+g'(y)=Q=e^x\cos y,
+P_y=e^x\cos y,
+\qquad Q_x=e^x\cos y.
 \]
-so $g'(y)=0$. Therefore
+Hence the field is conservative. Since
 \[
-\boxed{\phi(x,y)=e^x\sin y + C }.
+\Phi_x=e^x\sin y,
 \]
-
-\item $F=(3x^2-2y^2,\ 4xy+3)$.
-
-\textbf{Solution.}
+integrating with respect to \(x\) gives
 \[
-P_y=-4y,\qquad Q_x=4y.
-\]
-Since $P_y\ne Q_x$, $F$ is \emph{not} conservative.
-
-\item $F=(ye^x+\sin y,\ e^x+x\cos y)$.
-
-\textbf{Solution.}
-\[
-P_y=e^x+\cos y,\qquad Q_x=e^x+\cos y.
-\]
-So $F$ is conservative. Integrate $P$ in $x$:
-\[
-\phi(x,y)=\int (ye^x+\sin y)\,dx=ye^x+x\sin y+g(y).
+\Phi=e^x\sin y+g(y).
 \]
 Then
 \[
-\phi_y=e^x+x\cos y+g'(y)=Q=e^x+x\cos y,
+\Phi_y=e^x\cos y+g'(y).
 \]
-so $g'(y)=0$. Hence
+Set equal to \(Q=e^x\cos y\), giving \(g'(y)=0\). Hence
 \[
-\boxed{\phi(x,y)=ye^x+x\sin y + C }.
+\Phi=e^x\sin y+C.
 \]
+\ans{F\text{ is conservative, with }\Phi=e^x\sin y+C}
 
-\item $F=(2xy+y^{-2},\ x^2-2xy^{-3})$.
-
-\textbf{Solution.}
-Here the field is defined on $y\ne 0$. Compute
+\subsection*{7(iii)}
 \[
-P_y=2x-2y^{-3},\qquad Q_x=2x-2y^{-3}.
-\]
-So the field is conservative on each connected component of its domain.
-Integrate $P$ in $x$:
-\[
-\phi(x,y)=\int (2xy+y^{-2})\,dx=x^2y+xy^{-2}+g(y).
+F(x,y)=(3x^2-2y^2,
+4xy+3).
 \]
 Then
 \[
-\phi_y=x^2-2xy^{-3}+g'(y)=Q=x^2-2xy^{-3},
+P=3x^2-2y^2,
+\qquad Q=4xy+3.
 \]
-so $g'(y)=0$. Therefore
+Compute
 \[
-\boxed{\phi(x,y)=x^2y+xy^{-2}+C }.
+P_y=-4y,
+\qquad Q_x=4y.
 \]
-\end{enumerate}
+These are not equal for general \(y\). Therefore the field is not conservative.
+\ans{F\text{ is not conservative}}
 
-\section*{Problem 8}
-Determine whether the vector field is conservative in $\R^3$. If yes, find $\phi$ such that $F=\nabla\phi$.
-
-\begin{enumerate}
-\item $F=(y^2z^3,\ 2xyz^3,\ 3xy^2z^2)$.
-
-\textbf{Solution.}
-Observe that
+\subsection*{7(iv)}
 \[
-\phi(x,y,z)=xy^2z^3
-\]
-has gradient
-\[
-\nabla\phi=(y^2z^3,\ 2xyz^3,\ 3xy^2z^2).
-\]
-Hence $F$ is conservative, with
-\[
-\boxed{\phi(x,y,z)=xy^2z^3 + C }.
-\]
-
-\item $F=(xyz^2,\ x^2yz^2,\ x^2y^2z)$.
-
-\textbf{Solution.}
-Take
-\[
-P=xyz^2,\qquad Q=x^2yz^2.
+F(x,y)=(ye^x+\sin y,
+ e^x+x\cos y).
 \]
 Then
 \[
-P_y=xz^2,\qquad Q_x=2xyz^2.
+P_y=e^x+\cos y,
+\qquad Q_x=e^x+\cos y.
 \]
-These are not equal in general, so $F$ is \emph{not} conservative.
-
-\item $F=(3xy^2z^2,\ 2x^2yz^3,\ 3x^2y^2z^2)$.
-
-\textbf{Solution.}
-Again test cross-partials:
+The field is conservative. Integrate \(P\) with respect to \(x\):
 \[
-P_y=6xyz^2,\qquad Q_x=4xyz^3.
+\Phi_x=ye^x+\sin y.
 \]
-These are not equal in general, so $F$ is \emph{not} conservative.
-
-\item $F=(e^{yz},\ xze^{yz},\ xye^{yz})$.
-
-\textbf{Solution.}
-Take
+Hence
 \[
-\phi(x,y,z)=xe^{yz}.
+\Phi=ye^x+x\sin y+g(y).
+\]
+Differentiate with respect to \(y\):
+\[
+\Phi_y=e^x+x\cos y+g'(y).
+\]
+Set this equal to \(Q=e^x+x\cos y\), so \(g'(y)=0\). Therefore
+\[
+\Phi=ye^x+x\sin y+C.
+\]
+\ans{F\text{ is conservative, with }\Phi=ye^x+x\sin y+C}
+
+\subsection*{7(v)}
+\[
+F(x,y)=(2xy+y^{-2},
+ x^2-2xy^{-3}).
+\]
+This field is defined where \(y\ne0\). Let
+\[
+P=2xy+y^{-2},
+\qquad Q=x^2-2xy^{-3}.
 \]
 Then
 \[
-\phi_x=e^{yz},\qquad \phi_y=xze^{yz},\qquad \phi_z=xye^{yz}.
+P_y=2x-2y^{-3},
+\qquad Q_x=2x-2y^{-3}.
 \]
-Thus $F=\nabla\phi$, so
+They agree. Now integrate \(P\) with respect to \(x\):
 \[
-\boxed{\phi(x,y,z)=xe^{yz}+C }.
+\Phi_x=2xy+y^{-2}.
 \]
-
-\item $F=(e^x\sin(yz),\ ze^x\cos(yz),\ ye^x\cos(yz))$.
-
-\textbf{Solution.}
-Take
+So
 \[
-\phi(x,y,z)=e^x\sin(yz).
+\Phi=x^2y+xy^{-2}+g(y).
+\]
+Differentiate with respect to \(y\):
+\[
+\Phi_y=x^2-2xy^{-3}+g'(y).
+\]
+Set equal to \(Q=x^2-2xy^{-3}\), giving \(g'(y)=0\). Thus
+\[
+\Phi=x^2y+\frac{x}{y^2}+C.
+\]
+\ans{F\text{ is conservative on }\{y\ne0\},\text{ with }\Phi=x^2y+\frac{x}{y^2}+C}
+
+\section{Problem 8: Conservative vector fields in three dimensions}
+
+\begin{methodbox}{Three-dimensional conservative-field test}
+For \(F=(P,Q,R)\), a necessary condition for being conservative is
+\[
+P_y=Q_x,
+\qquad P_z=R_x,
+\qquad Q_z=R_y.
+\]
+Equivalently, \(\nabla\times F=0\). On simply connected domains this condition is also sufficient. Once the condition holds, construct \(\Phi\) from \(\Phi_x=P\), \(\Phi_y=Q\), and \(\Phi_z=R\).
+\end{methodbox}
+
+\subsection*{8(i)}
+\[
+F=(y^2z^3,
+2xyz^3,
+3xy^2z^2).
+\]
+Notice that the components look like derivatives of a single product. Try
+\[
+\Phi=xy^2z^3.
 \]
 Then
 \[
-\phi_x=e^x\sin(yz),\qquad \phi_y=ze^x\cos(yz),\qquad \phi_z=ye^x\cos(yz).
+\Phi_x=y^2z^3,
+\qquad
+\Phi_y=2xyz^3,
+\qquad
+\Phi_z=3xy^2z^2.
 \]
-Hence $F$ is conservative, with
+These match the components of \(F\). Therefore
 \[
-\boxed{\phi(x,y,z)=e^x\sin(yz)+C }.
+F=\nabla\Phi.
 \]
-\end{enumerate}
+\ans{F\text{ is conservative, with }\Phi=xy^2z^3+C}
+
+\subsection*{8(ii)}
+\[
+F=(xyz^2,
+ x^2yz^2,
+ x^2y^2z).
+\]
+Let
+\[
+P=xyz^2,
+\qquad Q=x^2yz^2,
+\qquad R=x^2y^2z.
+\]
+Compare \(P_y\) and \(Q_x\):
+\[
+P_y=xz^2,
+\qquad Q_x=2xyz^2.
+\]
+These are not equal in general. Therefore the vector field is not conservative.
+\ans{F\text{ is not conservative}}
+
+\subsection*{8(iii)}
+\[
+F=(3xy^2z^2,
+2x^2yz^3,
+3x^2y^2z^2).
+\]
+Let
+\[
+P=3xy^2z^2,
+\qquad Q=2x^2yz^3,
+\qquad R=3x^2y^2z^2.
+\]
+Compare \(P_y\) and \(Q_x\):
+\[
+P_y=6xyz^2,
+\qquad Q_x=4xyz^3.
+\]
+These are not equal in general. Hence the field is not conservative.
+\ans{F\text{ is not conservative}}
+
+\subsection*{8(iv)}
+\[
+F=(e^{yz},
+ xze^{yz},
+ xye^{yz}).
+\]
+Try
+\[
+\Phi=xe^{yz}.
+\]
+Then
+\[
+\Phi_x=e^{yz},
+\qquad
+\Phi_y=xze^{yz},
+\qquad
+\Phi_z=xye^{yz}.
+\]
+These match all three components. Therefore
+\[
+F=\nabla\Phi.
+\]
+\ans{F\text{ is conservative, with }\Phi=xe^{yz}+C}
+
+\subsection*{8(v)}
+\[
+F=(e^x\sin(yz),
+ ze^x\cos(yz),
+ ye^x\cos(yz)).
+\]
+Try
+\[
+\Phi=e^x\sin(yz).
+\]
+Then
+\[
+\Phi_x=e^x\sin(yz),
+\]
+\[
+\Phi_y=e^x\cos(yz)\cdot z=ze^x\cos(yz),
+\]
+and
+\[
+\Phi_z=e^x\cos(yz)\cdot y=ye^x\cos(yz).
+\]
+These are exactly the components of \(F\). Therefore
+\[
+F=\nabla\Phi.
+\]
+\ans{F\text{ is conservative, with }\Phi=e^x\sin(yz)+C}
+
+\section{Problem 9: Changing the order of integration}
+
+\begin{methodbox}{General method for changing order in three variables}
+The safest method is to rewrite the repeated integral as a set of inequalities. After that, choose a new outer variable and solve the same inequalities for the remaining variables in the new order.
+\end{methodbox}
+
+\subsection*{9(1)}
+The given integral is
+\[
+\int_0^1\int_y^1\int_0^y f(x,y,z)\,dx\,dz\,dy.
+\]
+The inequalities are
+\[
+0\le y\le1,
+\qquad y\le z\le1,
+\qquad 0\le x\le y.
+\]
+Combining them gives the ordered region
+\[
+0\le x\le y\le z\le1.
+\]
+Three other valid iterated forms are:
+\[
+\int_0^1\int_0^z\int_0^y f(x,y,z)\,dx\,dy\,dz,
+\]
+\[
+\int_0^1\int_0^z\int_x^z f(x,y,z)\,dy\,dx\,dz,
+\]
+\[
+\int_0^1\int_x^1\int_y^1 f(x,y,z)\,dz\,dy\,dx.
+\]
+For completeness, the same region also permits
+\[
+\int_0^1\int_x^1\int_x^z f(x,y,z)\,dy\,dz\,dx.
+\]
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=.9]
+\draw[->] (0,0)--(4.2,0) node[right]{chain};
+\foreach \x/\lab in {0/0,1.2/x,2.4/y,3.6/z,4.05/1}{\draw (\x,0.08)--(\x,-0.08) node[below]{\(\lab\)};}
+\draw[decorate,decoration={brace,amplitude=5pt}] (1.2,.25)--(2.4,.25) node[midway,above=7pt]{\(x\le y\)};
+\draw[decorate,decoration={brace,amplitude=5pt}] (2.4,.75)--(3.6,.75) node[midway,above=7pt]{\(y\le z\)};
+\node at (2.1,-.8){Region encoded as \(0\le x\le y\le z\le1\)};
+\end{tikzpicture}
+\caption{Problem 9(1) is a three-variable simplex ordered by \(x\le y\le z\).}
+\end{figure}
+
+\subsection*{9(2)}
+The given integral is
+\[
+\int_0^1\int_0^{1-x^2}\int_0^{1-x} f(x,y,z)\,dy\,dz\,dx.
+\]
+The inequalities are
+\[
+0\le x\le1,
+\qquad 0\le z\le1-x^2,
+\qquad 0\le y\le1-x.
+\]
+Notice that, once \(x\) is fixed, the \(y\)- and \(z\)-bounds are independent of each other. Three other valid orders are:
+\[
+\int_0^1\int_0^{1-x}\int_0^{1-x^2} f(x,y,z)\,dz\,dy\,dx,
+\]
+\[
+\int_0^1\int_0^{\sqrt{1-z}}\int_0^{1-x} f(x,y,z)\,dy\,dx\,dz,
+\]
+\[
+\int_0^1\int_0^{1-y}\int_0^{1-x^2} f(x,y,z)\,dz\,dx\,dy.
+\]
+Here is why the second and third forms are correct. From \(0\le z\le1-x^2\), we get \(x\le\sqrt{1-z}\). From \(0\le y\le1-x\), we get \(x\le1-y\). These are exactly the changed outer-variable bounds above.
+
+\subsection*{9(3)}
+The given integral is
+\[
+\int_0^1\int_{\sqrt{x}}^1\int_0^{1-y} f(x,y,z)\,dz\,dy\,dx.
+\]
+The inequalities are
+\[
+0\le x\le1,
+\qquad \sqrt{x}\le y\le1,
+\qquad 0\le z\le1-y.
+\]
+The condition \(\sqrt{x}\le y\) is equivalent to
+\[
+x\le y^2,
+\]
+because \(x\ge0\) and \(y\ge0\). Also, \(0\le z\le1-y\) is equivalent to
+\[
+y\le1-z.
+\]
+Thus the region can be written as
+\[
+0\le y\le1,
+\qquad 0\le x\le y^2,
+\qquad 0\le z\le1-y.
+\]
+Three other valid iterated integrals are:
+\[
+\int_0^1\int_0^{y^2}\int_0^{1-y}f(x,y,z)\,dz\,dx\,dy,
+\]
+\[
+\int_0^1\int_0^{1-y}\int_0^{y^2}f(x,y,z)\,dx\,dz\,dy,
+\]
+\[
+\int_0^1\int_0^{1-z}\int_0^{y^2}f(x,y,z)\,dx\,dy\,dz.
+\]
+A fourth useful form, with \(y\) innermost, is
+\[
+\int_0^1\int_0^{(1-z)^2}\int_{\sqrt{x}}^{1-z}f(x,y,z)\,dy\,dx\,dz.
+\]
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=.9]
+\begin{scope}
+\draw[->] (-.15,0)--(1.25,0) node[right]{\(x\)};
+\draw[->] (0,-.15)--(0,1.25) node[above]{\(y\)};
+\fill[softblue,opacity=.8,domain=0:1,samples=80] (0,0) -- plot ({\x*\x},{\x}) -- (0,1) -- cycle;
+\draw[lineblue,thick,domain=0:1,samples=80] plot ({\x*\x},{\x}) node[pos=.6,right]{\(x=y^2\)};
+\draw[deepnavy] (0,0)--(0,1)--(1,1);
+\node at (.5,-.35){Projection: \(0\le x\le y^2\)};
+\end{scope}
+\begin{scope}[xshift=5cm]
+\draw[->] (-.15,0)--(1.25,0) node[right]{\(z\)};
+\draw[->] (0,-.15)--(0,1.25) node[above]{\(y\)};
+\fill[softgreen,opacity=.8] (0,0)--(1,0)--(0,1)--cycle;
+\draw[linegreen,thick] (1,0)--(0,1) node[pos=.5,above right]{\(z=1-y\)};
+\draw[deepnavy] (0,0)--(1,0);
+\draw[deepnavy] (0,0)--(0,1);
+\node at (.5,-.35){Projection: \(0\le z\le1-y\)};
+\end{scope}
+\end{tikzpicture}
+\caption{Problem 9(3): the condition \(y\ge\sqrt{x}\) becomes \(x\le y^2\), and the condition \(z\le1-y\) gives a triangular \((y,z)\)-projection.}
+\end{figure}
+
+\section*{Final answer checklist}
+\addcontentsline{toc}{section}{Final answer checklist}
+\begin{itemize}[leftmargin=*]
+\item Every change of variables includes its Jacobian.
+\item Every cylindrical and spherical conversion explicitly states the bounds and the volume element.
+\item Symmetry cancellations are justified by identifying the odd variable and the symmetric domain.
+\item Conservative vector fields are checked through cross partials or matched directly to a potential function.
+\item Each changed order of integration is derived from inequalities rather than guessed from the original repeated integral.
+\end{itemize}
 
 \end{document}

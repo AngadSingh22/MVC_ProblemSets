@@ -1,0 +1,53 @@
+\contentsline {section}{Conventions used throughout}{3}{section*.2}%
+\contentsline {section}{\numberline {1}Problem 1: Extreme values with two constraints}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Problem 1(i)}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Problem 1(ii)}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Problem 1(iii)}{6}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Problem 1(iv)}{7}{subsection.1.4}%
+\contentsline {section}{\numberline {2}Problem 2: Global maxima and minima on closed regions}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Problem 2(i)}{7}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Problem 2(ii)}{9}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Problem 3: Double integrals as volumes}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Problem 3(i)}{10}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Problem 3(ii)}{11}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Problem 4: Iterated integrals}{11}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Problem 4(i)}{11}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Problem 4(ii)}{12}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Problem 4(iii)}{12}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Problem 4(iv)}{13}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Problem 4(v)}{13}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Problem 4(vi)}{14}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Problem 4(vii)}{14}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Problem 4(viii)}{14}{subsection.4.8}%
+\contentsline {subsection}{\numberline {4.9}Problem 4(ix)}{15}{subsection.4.9}%
+\contentsline {subsection}{\numberline {4.10}Problem 4(x)}{16}{subsection.4.10}%
+\contentsline {section}{\numberline {5}Problem 5: Double integrals over specified regions}{16}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Problem 5(i)}{16}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Problem 5(ii)}{17}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Problem 5(iii)}{17}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Problem 5(iv)}{18}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Problem 5(v)}{19}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Problem 5(vi)}{19}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.7}Problem 5(vii)}{20}{subsection.5.7}%
+\contentsline {subsection}{\numberline {5.8}Problem 5(viii)}{20}{subsection.5.8}%
+\contentsline {section}{\numberline {6}Problem 6: Volumes of solids}{21}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Problem 6(i)}{21}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Problem 6(ii)}{21}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Problem 6(iii)}{22}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Problem 6(iv)}{22}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Problem 6(v)}{23}{subsection.6.5}%
+\contentsline {section}{\numberline {7}Problem 7: Triple integrals over specified solids}{24}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Problem 7(i)}{24}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Problem 7(ii)}{24}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Problem 7(iii)}{25}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Problem 7(iv)}{26}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Problem 7(v)}{27}{subsection.7.5}%
+\contentsline {section}{\numberline {8}Problem 8: Change the order of integration}{28}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Problem 8(i)}{28}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Problem 8(ii)}{28}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Problem 8(iii)}{29}{subsection.8.3}%
+\contentsline {section}{\numberline {9}Problem 9: Equivalent iterated integrals}{29}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Problem 9(i)}{30}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Problem 9(ii)}{30}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Problem 9(iii)}{31}{subsection.9.3}%
+\contentsline {section}{Visual verification notes}{31}{section*.13}%
